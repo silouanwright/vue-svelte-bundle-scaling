@@ -38,20 +38,23 @@ In paraphrase, Svelte advocates argue:
   *Svelte vs.
   Vue*](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size))
 
-## The creator of Vue responds
+## Vue amortization
 
 In 2021, Vue creator Evan You responded to these claims with a
 [comparison](https://github.com/yyx990803/vue-svelte-size-analysis/blob/7bb60ff681a3f5016e8af26084e72100cd37a876/README.md#analysis)
 showing that while Svelte had a dramatically smaller framework baseline, Vue
 generated substantially less component code. He concluded that Svelte provided
 a compelling advantage for isolated components, but that its generated-code
-cost could become a disadvantage for medium-to-large applications. This is
-also clearly documented in the Vue FAQ:
+cost could become a disadvantage for medium-to-large applications.
+
+This is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
 
 ## Is this still true in 2026?
 
-Yes.
+Yes. Vue is designed around amortization, which means it is likely to become
+smaller than Svelte in medium-to-large applications, especially when users
+load many routes.
 
 ## What this new 2026 benchmark adds
 
