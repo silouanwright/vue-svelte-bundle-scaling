@@ -66,6 +66,48 @@ measured complete application containing 19 components.
 The architectural tradeoff is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
 
+## A small real application is already near parity
+
+Alicia Sykes built the same weather application in Vue, Svelte, and eleven
+other frontend stacks specifically to compare them. The implementations share
+the same interface, assets, requirements, and Playwright behavior tests.
+
+Weather Front is a small but credible application: one principal screen, eight
+Vue component definitions, roughly 750–900 lines of application source
+depending on the implementation, asynchronous data, search, persistence, and
+loading and error states. It is substantially more representative than Hello
+World, but it is not a medium-sized product application.
+
+[![Weather Front, the application independently implemented across frontend frameworks](https://raw.githubusercontent.com/lissy93/framework-benchmarks/53862d6eac22af7aca571ca11af25559059e2f14/assets/screenshot.png)](https://github.com/lissy93/framework-benchmarks)
+
+*Weather Front by [Alicia Sykes](https://aliciasykes.com), from the
+MIT-licensed
+[`lissy93/framework-benchmarks`](https://github.com/lissy93/framework-benchmarks)
+project. Explore the [Vue
+source](https://github.com/lissy93/framework-benchmarks/tree/53862d6eac22af7aca571ca11af25559059e2f14/apps/vue),
+the [Svelte
+source](https://github.com/lissy93/framework-benchmarks/tree/53862d6eac22af7aca571ca11af25559059e2f14/apps/svelte),
+and the [published comparison](https://framework-benchmarks.as93.net/).*
+
+The upstream report inventories emitted files and reports Vue as smaller. That
+inventory includes an unrequested duplicate Svelte CSS artifact while omitting
+Vue’s separately served shared CSS. I therefore repeated the comparison by
+measuring only JavaScript and CSS responses requested during a cold production
+load:
+
+| Weather Front requested transfer | Vue | Svelte | Smaller result |
+| --- | ---: | ---: | --- |
+| gzip | 35.281 kB | 34.693 kB | Svelte by 0.588 kB |
+| Brotli | 31.423 kB | 30.555 kB | Svelte by 0.868 kB |
+
+This is not a crossover. It is the honest small-application starting point:
+Svelte remains smaller, but its transfer advantage is already below one
+kilobyte in this independently authored app. The upstream project compares
+Vue/Vite with Svelte 4/SvelteKit, so the result is preserved separately from
+this repository’s normalized Vue 3/Svelte 5 lanes. The complete per-response
+measurement and reproduction command are in
+[`weather-upstream.md`](weather-upstream.md).
+
 ## Is this still true in 2026?
 
 Yes. The route-split application simulation measures the missing

@@ -15,6 +15,7 @@
     "report": "node scripts/run-benchmark.mjs --report-only",
     "benchmark:original": "node scripts/run-original-specimen.mjs",
     "benchmark:matched-app": "node scripts/run-matched-app.mjs",
+    "benchmark:weather-upstream": "node scripts/run-upstream-weather.mjs",
     "benchmark:route-split": "node --expose-gc scripts/run-route-split.mjs",
     "benchmark:route-split:trimmed": "node --expose-gc scripts/run-route-split.mjs --trimmed",
     "benchmark:optimization-sensitivity": "npm run benchmark:route-split:trimmed && npm run benchmark:hand-authored:trimmed",

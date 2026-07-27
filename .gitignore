@@ -4,5 +4,6 @@ node_modules/
 .work-matched/
 .work-route-split/
 .work-hand-authored/
+.work-weather-upstream/
 playwright-report/
 test-results/

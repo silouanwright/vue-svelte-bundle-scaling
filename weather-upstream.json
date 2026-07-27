@@ -1,0 +1,125 @@
+{
+  "metadata": {
+    "generatedAt": "2026-07-27T17:45:07.109Z",
+    "node": "v22.19.0",
+    "sourceCommit": "53862d6eac22af7aca571ca11af25559059e2f14",
+    "sourceRepository": "https://github.com/lissy93/framework-benchmarks",
+    "sourceLicense": "MIT",
+    "measurement": "JavaScript and CSS responses requested during a cold production-app load",
+    "compression": "Each requested response compressed independently with gzip level 9 and Brotli quality 11"
+  },
+  "results": [
+    {
+      "framework": "vue",
+      "files": [
+        {
+          "file": "/assets/index-mQPMibHt.js",
+          "raw": 76585,
+          "gzip": 29459,
+          "brotli": 26512
+        },
+        {
+          "file": "/styles/base.css",
+          "raw": 2485,
+          "gzip": 841,
+          "brotli": 690
+        },
+        {
+          "file": "/styles/components.css",
+          "raw": 11564,
+          "gzip": 2193,
+          "brotli": 1916
+        },
+        {
+          "file": "/styles/design-system.css",
+          "raw": 7447,
+          "gzip": 2093,
+          "brotli": 1732
+        },
+        {
+          "file": "/styles/variables.css",
+          "raw": 2020,
+          "gzip": 695,
+          "brotli": 573
+        }
+      ],
+      "raw": 100101,
+      "gzip": 35281,
+      "brotli": 31423
+    },
+    {
+      "framework": "svelte",
+      "files": [
+        {
+          "file": "/_app/immutable/assets/0.B5TfvVEa.css",
+          "raw": 18490,
+          "gzip": 3945,
+          "brotli": 3487
+        },
+        {
+          "file": "/_app/immutable/chunks/BoBpZ2Lh.js",
+          "raw": 441,
+          "gzip": 311,
+          "brotli": 284
+        },
+        {
+          "file": "/_app/immutable/chunks/C9cw3DO1.js",
+          "raw": 32360,
+          "gzip": 12657,
+          "brotli": 11525
+        },
+        {
+          "file": "/_app/immutable/chunks/D-X4wTf0.js",
+          "raw": 8319,
+          "gzip": 3356,
+          "brotli": 3024
+        },
+        {
+          "file": "/_app/immutable/chunks/IHki7fMi.js",
+          "raw": 90,
+          "gzip": 91,
+          "brotli": 80
+        },
+        {
+          "file": "/_app/immutable/chunks/qkYGxxxr.js",
+          "raw": 4943,
+          "gzip": 1872,
+          "brotli": 1581
+        },
+        {
+          "file": "/_app/immutable/entry/app.BTgjHuWT.js",
+          "raw": 6438,
+          "gzip": 2627,
+          "brotli": 2339
+        },
+        {
+          "file": "/_app/immutable/entry/start.C951atpM.js",
+          "raw": 83,
+          "gzip": 93,
+          "brotli": 87
+        },
+        {
+          "file": "/_app/immutable/nodes/0.DXaEPljW.js",
+          "raw": 768,
+          "gzip": 502,
+          "brotli": 453
+        },
+        {
+          "file": "/_app/immutable/nodes/1.B5K5Lqzn.js",
+          "raw": 985,
+          "gzip": 580,
+          "brotli": 516
+        },
+        {
+          "file": "/_app/immutable/nodes/2.BgBxTy4k.js",
+          "raw": 26277,
+          "gzip": 8659,
+          "brotli": 7179
+        }
+      ],
+      "raw": 99194,
+      "gzip": 34693,
+      "brotli": 30555
+    }
+  ]
+}
