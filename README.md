@@ -15,25 +15,30 @@ In paraphrase, Svelte advocates argue the following:
 
 - “Svelte avoids the upfront cost of a large framework runtime by compiling
   components into tiny standalone modules.” — Rich Harris, Svelte,
-  [*Frameworks without the
+  ([*Frameworks without the
   framework*](https://web.archive.org/web/20260727134238/https://svelte.dev/blog/frameworks-without-the-framework))
+- “Svelte began as an experiment in making JavaScript bundles as small and fast
+  as possible, based on the belief that compiler magic could remove the need to
+  worry about shipping too much JavaScript.” — Rich Harris, Svelte,
+  ([*The Undefined: Vue vs. Svelte with Evan You and Rich Harris*,
+  19:10](https://web.archive.org/web/20260727160325/https://undefined.fm/radio/vue-vs-svelte-with-evan-you-and-rich-harris))
 - “Moving more framework work into the compiler is what makes Svelte
-  applications small and fast.” — The Svelte team, Svelte, [*Svelte 5 is
+  applications small and fast.” — The Svelte team, Svelte, ([*Svelte 5 is
   alive*](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive))
 - “The framework largely disappears before the browser loads the page, so
   users receive mostly application code.” — Anshuman Bhardwaj, Vercel,
-  [*What is
+  ([*What is
   Svelte?*](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte))
 - “Svelte produces a smaller JavaScript payload than Vue because Vue sends more
   framework logic to the browser.” — Anshuman Bhardwaj, Vercel,
-  [*How Svelte compares with other
+  ([*How Svelte compares with other
   frameworks*](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte#how-svelte-compares-with-other-frameworks))
 - “Equivalent Svelte bundles are roughly half the size of Vue bundles, and the
   absolute gap remains as applications grow.” — PkgPulse Team, PkgPulse,
-  [*Vue 3 vs. Svelte
+  ([*Vue 3 vs. Svelte
   5*](https://web.archive.org/web/20260727134421/https://www.pkgpulse.com/guides/vue-3-vs-svelte-5-2026#bundle-size))
 - “A small Vue build can be about ten times larger than its Svelte equivalent.”
-  — Arek Nawo, ButterCMS, [*Svelte vs.
+  — Arek Nawo, ButterCMS, ([*Svelte vs.
   Vue*](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size))
 
 ## Vue amortization
