@@ -22,12 +22,17 @@ crosses below Svelte.
 
 ![Svelte uses fewer source lines in the matched fixture, while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
 
-*Figure 1. The chart begins with the first substantial sample: Svelte’s first
-dot is at 940 lines, while Vue’s is at 1,159 lines for the same generated
-behavior. Piecewise interpolation gives an imperfect crossover estimate of
-approximately 2,120 nonblank lines and 45.1 kB of transferred JavaScript in
-this fixture. At the largest matched workload, Vue uses 9,111 lines and
-transfers 117,145 B; Svelte uses 7,380 lines and transfers 121,690 B.*
+*Figure 1. Every dot is a separately measured production build at 64, 128,
+256, or 512 matched feature definitions; the lines only connect those
+measurements. From one measured workload to the next, Vue adds less transferred
+JavaScript per added behavior, so the gap closes and then reverses at the
+largest build. Svelte’s first dot is at 940 lines, while Vue’s is at 1,159 lines
+for the same generated behavior. Piecewise interpolation gives an imperfect
+crossover estimate of approximately 2,120 nonblank lines and 45.1 kB of
+transferred JavaScript in this fixture. At the largest matched workload, Vue
+uses 9,111 lines and transfers 117,145 B; Svelte uses 7,380 lines and transfers
+121,690 B. The measured growth pattern establishes the amortization result;
+only the exact crossing point between samples is estimated.*
 
 ### What that scale means
 
