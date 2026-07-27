@@ -1,4 +1,5 @@
 node_modules/
+dist/
 .work/
 .work-original/
 .work-matched/

@@ -329,6 +329,63 @@ function smallLargeComparisonChart(results) {
 `.replace(/^[ \t]+$/gm, "");
 }
 
+function openslidesEntryChart(results) {
+  const result = (framework) =>
+    results.find((item) => item.framework === framework).initial;
+  const vue = result("vue");
+  const svelte = result("svelte");
+  const panel = groupedBarPanel({
+    x: 105,
+    y: 98,
+    width: 690,
+    height: 340,
+    title: "Production entry JavaScript + CSS",
+    note: "Same application behavior · each emitted response compressed independently",
+    maximum: 320_000,
+    ticks: [0, 80_000, 160_000, 240_000, 320_000],
+    barWidth: 64,
+    categories: [
+      {
+        label: "gzip",
+        vue: vue.gzip,
+        svelte: svelte.gzip,
+      },
+      {
+        label: "Brotli",
+        vue: vue.brotli,
+        svelte: svelte.brotli,
+      },
+    ],
+  });
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
+  <title id="title">OpenSlides Vue and Svelte production entry transfer</title>
+  <desc id="description">The behavior-matched Vue port transfers less entry JavaScript and CSS than the pinned Svelte 5 application under both gzip and Brotli compression.</desc>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .title { font-size: 23px; font-weight: 700; }
+    .subtitle { font-size: 14px; fill: #4a5560; }
+    .panel-title { font-size: 16px; font-weight: 700; }
+    .panel-note { font-size: 12px; fill: #4a5560; }
+    .axis { stroke: #44515e; stroke-width: 1.5; }
+    .grid { stroke: #dce2e7; stroke-width: 1; }
+    .tick { font-size: 12px; }
+    .category { font-size: 13px; font-weight: 650; }
+    .value { font-size: 12px; font-weight: 700; }
+    .legend { font-size: 14px; font-weight: 650; }
+  </style>
+  <rect width="${width}" height="${height}" fill="#ffffff" />
+  <text x="42" y="42" class="title">OpenSlides application entry transfer</text>
+  <text x="42" y="66" class="subtitle">Medium-sized real application · Vue 3.5 and Svelte 5</text>
+  <rect x="650" y="27" width="15" height="15" rx="2" fill="${colors.vue}" />
+  <text x="674" y="40" class="legend">Vue 3.5</text>
+  <rect x="760" y="27" width="15" height="15" rx="2" fill="${colors.svelte}" />
+  <text x="784" y="40" class="legend">Svelte 5</text>
+  ${panel}
+</svg>
+`.replace(/^[ \t]+$/gm, "");
+}
+
 const routeSplit = JSON.parse(
   fs.readFileSync(path.join(root, "route-split-trimmed.json"), "utf8"),
 );
@@ -442,4 +499,12 @@ fs.writeFileSync(
   smallLargeComparisonChart(routeSplit.results),
 );
 
-console.log("Generated 3 deterministic SVG charts");
+const openslides = JSON.parse(
+  fs.readFileSync(path.join(root, "openslides.json"), "utf8"),
+);
+fs.writeFileSync(
+  path.join(outputDir, "openslides-entry.svg"),
+  openslidesEntryChart(openslides.results),
+);
+
+console.log("Generated 4 deterministic SVG charts");

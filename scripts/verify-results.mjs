@@ -16,6 +16,7 @@ const resultFiles = [
   "hand-authored-trimmed.json",
   "weather-upstream.json",
   "weather-staged.json",
+  "openslides.json",
 ];
 const sizeKeys = ["raw", "gzip", "brotli"];
 
@@ -89,6 +90,48 @@ function validateVersions(metadata, packageJson, context) {
 
 function validateResults(file, data, packageJson) {
   validateVersions(data.metadata, packageJson, file);
+
+  if (file === "openslides.json") {
+    assert(data.results?.length === 2, `${file}: expected Vue and Svelte results`);
+    assert(
+      data.results.map((result) => result.framework).sort().join(",") ===
+        "svelte,vue",
+      `${file}: expected one Vue and one Svelte result`,
+    );
+    for (const result of data.results) {
+      const context = `${file}:${result.framework}`;
+      for (const key of ["files", "lines", "components", "componentLines"]) {
+        assert(
+          Number.isSafeInteger(result.source?.[key]) && result.source[key] > 0,
+          `${context}:source.${key} must be a positive safe integer`,
+        );
+      }
+      validateFileList(result.initial?.files, `${context}:initial.files`);
+      assertSizesEqual(
+        sumFiles(result.initial.files),
+        result.initial,
+        `${context}:initial`,
+      );
+      for (const stage of ["dashboard", "editor"]) {
+        validateFileList(
+          result.journey?.[stage]?.files,
+          `${context}:journey.${stage}.files`,
+        );
+        assertSizesEqual(
+          sumFiles(result.journey[stage].files),
+          result.journey[stage],
+          `${context}:journey.${stage}`,
+        );
+      }
+      assert(
+        Number.isSafeInteger(result.complete?.fileCount) &&
+          result.complete.fileCount > 0,
+        `${context}:complete.fileCount must be a positive safe integer`,
+      );
+      validateSizeObject(result.complete, `${context}:complete`);
+    }
+    return;
+  }
 
   if (file === "original-specimen.json") {
     assert(data.componentResults?.length === 2, `${file}: expected two component results`);

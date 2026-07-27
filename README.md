@@ -4,17 +4,15 @@
 
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
   widgets, and small initial routes.
-- In this repository’s route-split application simulation, Vue becomes the
-  smaller complete transfer as the application grows; at 64 routes, Vue is
-  7.279 kB smaller.
+- Vue can become smaller as an application grows. In the medium-sized
+  OpenSlides case study, Vue’s entry JavaScript and CSS are 85.4 kB smaller
+  with Brotli.
 
-![In the route-split application simulation, Svelte starts smaller while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
+![The behavior-matched Vue OpenSlides port transfers less entry JavaScript and CSS than the Svelte 5 application with both gzip and Brotli](docs/images/openslides-entry.svg)
 
-*This is the route-split application simulation: a generated, browser-runnable
-benchmark with eight interactive component families per lazy route. The chart
-plots each framework against its own source-line count; its estimated 1.6k-line
-intersection is illustrative, while the matched-functionality Brotli result
-crosses near 243 component definitions.*
+*This is a measured production build of a real application, not a projection.
+The shared Playwright contract runs the same behaviors against both
+implementations before either bundle is measured.*
 
 ## Why this benchmark exists
 
@@ -126,11 +124,70 @@ reproduction command are in [`weather-staged.md`](weather-staged.md); the
 shared contract is in
 [`tests/weather-staged-parity.spec.mjs`](tests/weather-staged-parity.spec.mjs).
 
+## A medium-sized real application makes the crossover concrete
+
+The generated scaling fixtures answer a narrow architectural question, but a
+real application is harder to dismiss. I therefore ported the frontend of
+[`codewiththiha/OpenSlides`](https://github.com/codewiththiha/OpenSlides), an
+MIT-licensed desktop application for building animated code presentations,
+from Svelte 5 to Vue 3. The source is pinned at commit
+[`a8138eb`](https://github.com/codewiththiha/OpenSlides/tree/a8138eb26c93df378119147c036c34fe7d83b6a7).
+
+OpenSlides is a credible medium-sized application. Its Svelte frontend has 99
+components and approximately 18,700 lines of TypeScript, JavaScript, CSS, and
+Svelte source. It includes project and slide management, drag-and-drop stacks,
+search, syntax highlighting, Magic Move transitions, highlight steps,
+presentation mode, autoplay, settings, and a Tauri persistence boundary.
+
+The Vue port uses the same Tauri command contract, Shiki release, byte-identical
+Shiki worker, business types, themes, styles, and production settings. A shared
+Playwright suite runs the same dashboard, editor, persistence, grouping,
+search, settings, presentation, and autoplay behaviors against both versions.
+The complete scope is recorded in the
+[`parity ledger`](fixtures/openslides/PARITY.md), and the contract itself is
+[`tests/openslides-parity.spec.mjs`](tests/openslides-parity.spec.mjs).
+
+| OpenSlides entry JavaScript + CSS | Vue 3.5 | Svelte 5 | Smaller result |
+| --- | ---: | ---: | --- |
+| gzip | 191.825 kB | 303.784 kB | Vue by 111.959 kB |
+| Brotli | 162.626 kB | 248.026 kB | Vue by 85.400 kB |
+
+This is the direct rebuttal to the universal bundle-size claim. Svelte’s
+smaller framework baseline does not guarantee a smaller substantial
+application. In this real application, the Vue entry is decisively smaller
+under both compression formats.
+
+I also measured the static assets requested by a cold production browser,
+rather than stopping at the Vite manifest:
+
+| OpenSlides cold production journey | Vue 3.5 | Svelte 5 | Smaller result |
+| --- | ---: | ---: | --- |
+| Dashboard, Brotli | 337.268 kB | 465.349 kB | Vue by 128.081 kB |
+| Dashboard through editor, Brotli | 379.583 kB | 639.979 kB | Vue by 260.396 kB |
+
+That larger editor gap needs context. The current Svelte implementation loads
+one Shiki asset set through its worker and another through its main-thread
+preview path. The Vue port reuses the same emitted language, theme, and Wasm
+assets across both paths. The extra transfer is real for this application, but
+it would be wrong to attribute all of it to the Svelte compiler. The entry
+JavaScript-and-CSS table is the cleaner framework-and-application comparison.
+
+The two implementations are behavior-matched, not line-for-line translations.
+Vue uses 27 larger component files and roughly 8,600 total source lines; Svelte
+uses 99 components plus smaller rune and controller modules. That difference
+is part of how the two applications were credibly authored, but it also means
+this case study does not isolate runtime bytes in a laboratory. It proves
+something narrower and still important: a serious Vue implementation can be
+substantially smaller than the Svelte application it replaces.
+
+The complete requested-file inventory and reproduction command are in
+[`openslides.md`](openslides.md).
+
 ## Is this still true in 2026?
 
-Yes. The route-split application simulation measures the missing
-complete-application crossover with Vue 3.5, Svelte 5, production minification,
-lazy routes, and independently compressed responses.
+Yes. The OpenSlides case study provides a measured medium-sized application,
+and the route-split simulation independently demonstrates the underlying
+scaling curve with controlled generated workloads.
 
 ## Route-split application simulation
 
@@ -153,7 +210,8 @@ response loaded during a complete traversal.
 ![Svelte produces the smaller route-split application simulation at eight component definitions, while Vue produces the smaller simulation at 512 component definitions](docs/images/small-large-complete-bundles.svg)
 
 *Each panel uses its own y-axis. These are two measured builds, not a claim that
-every application crosses at the same point. The opening chart shows the
+every application crosses at the same point. The
+[complete scaling chart](docs/images/route-split-brotli.svg) shows the
 intermediate builds and estimated crossover.*
 
 Both charts use the Composition-only production profile: Vue’s unused Options
@@ -197,7 +255,8 @@ Requirements:
 - Node.js 22.19.0 (also recorded in `.nvmrc`)
 - npm
 - network access for the two commit-pinned upstream specimen lanes
-- Chromium only if running the optional behavior-parity test
+- Chromium for the OpenSlides browser-transfer benchmark and behavior-parity
+  tests
 
 Install exactly the locked dependency graph:
 
@@ -223,6 +282,7 @@ npm run benchmark:hand-authored
 npm run benchmark:optimization-sensitivity
 npm run benchmark:weather-upstream
 npm run benchmark:weather-staged
+npm run benchmark:openslides
 ```
 
 Generate the committed charts:
@@ -231,20 +291,24 @@ Generate the committed charts:
 npm run charts
 ```
 
-Run the small product-shaped application’s behavior contract:
+Run the shared behavior contracts:
 
 ```bash
 npx playwright install chromium
 npm test
 npm run test:weather-parity
+npm run test:openslides-parity
 ```
 
-Playwright opens both complete fixtures and performs the same interactions so
-that unlike behavior cannot be rewarded with a smaller result. The browser and
-test code are development-only dependencies and never enter a measured bundle.
+Playwright runs headlessly against both complete fixtures and performs the same
+interactions so that unlike behavior cannot be rewarded with a smaller result.
+The browser and test code are development-only dependencies and never enter a
+measured bundle.
 
 ## License
 
 The benchmark harness and original fixtures in this repository are available
-under the [MIT License](LICENSE). Fetched upstream specimens retain their
-respective upstream licenses and are not committed here.
+under the [MIT License](LICENSE). The committed OpenSlides specimen and Vue
+port retain the upstream project’s
+[MIT license](fixtures/openslides/svelte/LICENSE). Other fetched upstream
+specimens retain their respective licenses and are not committed here.
