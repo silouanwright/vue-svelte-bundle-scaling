@@ -174,48 +174,19 @@ Install exactly the locked dependency graph:
 
 ```bash
 npm ci
+npx playwright install chromium
 ```
 
-Run every benchmark lane:
+Run the complete benchmark and validation suite:
 
 ```bash
 npm run benchmark:all
+npm test
 npm run verify
 ```
 
-Run one lane:
-
-```bash
-npm run benchmark:original
-npm run benchmark
-npm run benchmark:route-split
-npm run benchmark:matched-app
-npm run benchmark:hand-authored
-npm run benchmark:optimization-sensitivity
-npm run benchmark:weather-upstream
-npm run benchmark:weather-staged
-npm run benchmark:openslides
-```
-
-Generate the committed charts:
-
-```bash
-npm run charts
-```
-
-Run the shared behavior contracts:
-
-```bash
-npx playwright install chromium
-npm test
-npm run test:weather-parity
-npm run test:openslides-parity
-```
-
-Playwright runs headlessly against both complete fixtures and performs the same
-interactions so that unlike behavior cannot be rewarded with a smaller result.
-The browser and test code are development-only dependencies and never enter a
-measured bundle.
+Narrower benchmark, test, reporting, and chart commands are listed in
+[`package.json`](package.json).
 
 ## License
 
