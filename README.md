@@ -103,83 +103,42 @@ Reproduction commands begin at
 
 ## Vue wins in a medium-sized application
 
-Evan You projected the crossover from one TodoMVC component. To measure the
-same principle in a substantial application, I ported the frontend of
-[`codewiththiha/OpenSlides`](https://github.com/codewiththiha/OpenSlides), an
-MIT-licensed desktop application for building animated code presentations,
-from Svelte 5 to Vue 3. The source is pinned at commit
+OpenSlides is a working, MIT-licensed desktop application for building
+animated code presentations. I ported its frontend from Svelte 5 to Vue 3 to
+measure Evan You’s projected crossover in a substantial application. The
+upstream source is pinned at commit
 [`a8138eb`](https://github.com/codewiththiha/OpenSlides/tree/a8138eb26c93df378119147c036c34fe7d83b6a7).
 
-OpenSlides is a credible medium-sized application. Its Svelte frontend has 99
-components and approximately 18,700 lines of TypeScript, JavaScript, CSS, and
-Svelte source. It includes project and slide management, drag-and-drop stacks,
-search, syntax highlighting, Magic Move transitions, highlight steps,
-presentation mode, autoplay, settings, and a Tauri persistence boundary.
+Both versions lazy-load the same dashboard and editor routes and pass the same
+nine Playwright workflows.
 
-The Vue port uses the same Tauri command contract, Shiki release,
-byte-identical Shiki worker, business types, themes, styles, and production
-settings. Both implementations lazy-load the dashboard and editor as separate
-route chunks. A shared Playwright suite runs the same dashboard, editor,
-persistence, grouping, search, settings, presentation, and autoplay behaviors
-against both versions. The complete scope is recorded in the
-[`parity ledger`](fixtures/openslides/PARITY.md), and the contract itself is
-[`tests/openslides-parity.spec.mjs`](tests/openslides-parity.spec.mjs).
-
-### Vue leads after the first user-visible route
-
-A cold production browser first opens the dashboard, then opens the editor.
-Vue is smaller at both user-visible stages:
-
-| OpenSlides cold production journey | Vue 3.5 | Svelte 5 | Smaller result |
+| OpenSlides production transfer | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
 | Dashboard, gzip | 418.966 kB | 541.648 kB | Vue by 122.682 kB |
 | Dashboard, Brotli | 309.676 kB | 413.089 kB | Vue by 103.413 kB |
 | Dashboard through editor, gzip | 510.251 kB | 889.338 kB | Vue by 379.087 kB |
 | Dashboard through editor, Brotli | 389.076 kB | 656.812 kB | Vue by 267.736 kB |
 
-Route splitting therefore does not rescue the universal bundle-size claim.
-Neither implementation charges the dashboard user for the editor route, yet
-Vue is already smaller when that first route becomes usable.
+Vue is already 103.413 kB smaller when the dashboard becomes usable and
+267.736 kB smaller after the editor loads.
 
 ### Compression does not create Vue’s lead
 
-The Brotli chart answers the practical network question: how many bytes does
-the user download? The same four measurements before transfer compression
-answer a complementary question: how much production output did each build
-emit?
+The difference also exists before transfer compression:
 
 ![Svelte emits less uncompressed production output for Weather Front and Terminal, while Vue emits substantially less for OpenSlides](docs/images/real-applications-raw.svg)
 
-*At the final OpenSlides state, Vue emits 1.810 MB and Svelte emits 3.216 MB
-before compression—a 1.406 MB difference. Svelte actually compresses that
-output slightly more efficiently: its Brotli result is 20.4% of raw output,
-versus 21.5% for Vue. Vue still transfers 267.736 kB less. The reversal is
-therefore present in the emitted production output, not created by Brotli.*
+*At the final state, Vue emits 1.810 MB and Svelte emits 3.216 MB before
+compression. The result comes from the production output, not from Brotli
+compressing Vue more efficiently.*
 
-The cold journey includes every production JavaScript, CSS, worker, language,
-theme, and Shiki Wasm asset actually requested at each stage. Both
-implementations request two Shiki asset sets after the editor opens. These are
-real application costs, but they are not pure measurements of framework
-runtime bytes.
+These measurements include every production asset requested by each working
+application. They compare complete application transfer rather than isolated
+framework-runtime bytes and do not claim a universal crossover threshold.
 
-OpenSlides proves that a medium-sized Vue application can be smaller than its
-behavior-matched Svelte counterpart and that the result survives matched route
-splitting. It does not establish a universal route number, component count, or
-source-line threshold at which every application will cross.
-
-The two implementations are behavior-matched, not line-for-line translations.
-Nine shared Playwright workflows—18 passing cases across the two
-implementations—cover every material product claim in the parity ledger. Vue
-uses 27 larger component files and roughly 8,800 total source lines; Svelte
-uses 99 components plus smaller rune and controller modules across roughly
-18,800 lines. That difference is part of how the two applications were
-credibly authored, but it also means this case study does not isolate runtime
-bytes in a laboratory. It proves something narrower and still important: a
-serious Vue implementation can be substantially smaller than the Svelte
-application it replaces.
-
-The complete requested-file inventory and reproduction command are in
-[`results/openslides.md`](results/openslides.md).
+See the [`parity ledger`](fixtures/openslides/PARITY.md), [shared Playwright
+contract](tests/openslides-parity.spec.mjs), and
+[`complete results`](results/openslides.md).
 
 ## Svelte wins in small applications
 
