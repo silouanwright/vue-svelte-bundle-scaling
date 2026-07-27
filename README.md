@@ -34,7 +34,31 @@ Vercel, Svelte’s corporate backer, states the idea even more literally:
 >
 > — [Vercel, “What is Svelte?”](https://vercel.com/i/what-is-svelte)
 
-And a widely read Svelte comparison made the scaling claim explicit:
+One possible objection is that these statements do not name Vue. The comparison
+is nevertheless explicit in the surrounding conversation. Vercel’s current
+framework guide says:
+
+> “Svelte's compiler produces smaller JavaScript bundles than React or Vue,
+> which translates to faster page loads on slower devices and networks.”
+>
+> — [Vercel, “Top full-stack frameworks”](https://vercel.com/i/full-stack-framework)
+
+Third-party comparisons turn the same premise into numerical headlines:
+
+> “Svelte bundles are roughly 2x smaller than Vue's equivalent output”
+>
+> — [PkgPulse, “Vue 3 vs Svelte 5”](https://www.pkgpulse.com/guides/vue-3-vs-svelte-5-2026)
+
+> “Svelte simply crushes Vue with a 10x smaller output!”
+>
+> — [ButterCMS, “Svelte vs Vue”](https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/)
+
+These sources are not equally rigorous. That is precisely why a reproducible
+comparison is needed. A memorable architectural advantage has become a general
+claim that Svelte applications are smaller and therefore faster than their Vue
+equivalents.
+
+The claim also extends to scaling. A widely read Svelte comparison argued:
 
 > “The scale at which Svelte's advantages disappear is actually unrealistically
 > high for just about any application.”
