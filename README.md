@@ -38,21 +38,6 @@ In paraphrase, Svelte advocates argue:
   *Svelte vs.
   Vue*](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size))
 
-Those are substantive, testable claims. Framework choice involves much more
-than bundle size or benchmark milliseconds, and this repository does not claim
-otherwise. But smaller bundles and better performance are repeatedly offered
-as reasons to choose Svelte over Vue. It is therefore reasonable to isolate the
-bundle-size claim and test whether the familiar Hello World advantage persists
-as an application becomes substantial.
-
-These sources do not have equal evidentiary weight. The official sources
-establish how the architecture is presented; the third-party ratios establish
-how that presentation is repeated in public comparisons. This benchmark does
-not assume that any of their numbers are correct. It supplies current,
-reproducible, matched workloads with which to test the generalization.
-
-That is the purpose of this repository.
-
 ## Evan You identified the mechanism in 2021
 
 This is not a new argument. In 2021, Vue creator Evan You published
