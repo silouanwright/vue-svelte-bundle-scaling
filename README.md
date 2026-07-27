@@ -64,9 +64,7 @@ Yes. We put together this updated example to build on and expand Evan You’s
 original comparison five years later, using a current toolchain and broader
 benchmarks.
 
-## What this new 2026 benchmark adds
-
-**New packages:**
+## Updated packages for the 2026 benchmark
 
 - Vue 3.5.40
 - Svelte 5.56.8
@@ -75,7 +73,7 @@ benchmarks.
 - `@sveltejs/vite-plugin-svelte` 7.2.0
 - Node.js 22.19.0
 
-**New statistics:**
+## New statistics for the 2026 benchmark
 
 - Component-only output and complete production bundles
 - Raw, gzip, and Brotli sizes
