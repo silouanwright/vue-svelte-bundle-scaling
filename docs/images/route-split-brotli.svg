@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-labelledby="title description">
+  <title id="title">Heterogeneous lazy-route transfer</title>
+  <desc id="description">Brotli bytes summed after independently compressing each JavaScript response. Vue becomes smaller between 256 and 512 generated components in this workload.</desc>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .title { font-size: 23px; font-weight: 700; }
+    .axis { stroke: #44515e; stroke-width: 1.5; }
+    .grid { stroke: #dce2e7; stroke-width: 1; }
+    .tick { font-size: 13px; }
+    .label { font-size: 15px; font-weight: 600; }
+    .legend { font-size: 14px; font-weight: 650; }
+  </style>
+  <rect width="880" height="500" fill="#ffffff" />
+  <text x="86" y="38" class="title">Heterogeneous lazy-route transfer</text>
+
+    <line x1="660" y1="30" x2="696" y2="30" stroke="#238a62" stroke-width="4" />
+    <text x="706" y="35" class="legend">Vue 3.5</text>
+    <line x1="660" y1="55" x2="696" y2="55" stroke="#d93600" stroke-width="4" />
+    <text x="706" y="60" class="legend">Svelte 5</text>
+
+    <line x1="86" y1="430" x2="838" y2="430" class="grid" />
+    <text x="72" y="435" text-anchor="end" class="tick">0 kB</text>
+    <line x1="86" y1="358.4" x2="838" y2="358.4" class="grid" />
+    <text x="72" y="363.4" text-anchor="end" class="tick">28 kB</text>
+    <line x1="86" y1="286.8" x2="838" y2="286.8" class="grid" />
+    <text x="72" y="291.8" text-anchor="end" class="tick">56 kB</text>
+    <line x1="86" y1="215.2" x2="838" y2="215.2" class="grid" />
+    <text x="72" y="220.2" text-anchor="end" class="tick">84 kB</text>
+    <line x1="86" y1="143.6" x2="838" y2="143.6" class="grid" />
+    <text x="72" y="148.6" text-anchor="end" class="tick">112 kB</text>
+    <line x1="86" y1="72" x2="838" y2="72" class="grid" />
+    <text x="72" y="77" text-anchor="end" class="tick">140 kB</text>
+  <line x1="86" y1="72" x2="86" y2="430" class="axis" />
+  <line x1="86" y1="430" x2="838" y2="430" class="axis" />
+
+    <line x1="86" y1="430" x2="86" y2="437" class="axis" />
+    <text x="86" y="457" text-anchor="middle" class="tick">0</text>
+    <line x1="180" y1="430" x2="180" y2="437" class="axis" />
+    <text x="180" y="457" text-anchor="middle" class="tick">64</text>
+    <line x1="274" y1="430" x2="274" y2="437" class="axis" />
+    <text x="274" y="457" text-anchor="middle" class="tick">128</text>
+    <line x1="462" y1="430" x2="462" y2="437" class="axis" />
+    <text x="462" y="457" text-anchor="middle" class="tick">256</text>
+    <line x1="838" y1="430" x2="838" y2="437" class="axis" />
+    <text x="838" y="457" text-anchor="middle" class="tick">512</text>
+  <polyline points="86,374.16 97.75,366.21 109.5,362.36 133,354.9 180,339.92 274,309.95 462,250.11 838,130.44" fill="none" stroke="#238a62" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="86" cy="374.16" r="5" fill="#238a62" /><circle cx="97.75" cy="366.21" r="5" fill="#238a62" /><circle cx="109.5" cy="362.36" r="5" fill="#238a62" /><circle cx="133" cy="354.9" r="5" fill="#238a62" /><circle cx="180" cy="339.92" r="5" fill="#238a62" /><circle cx="274" cy="309.95" r="5" fill="#238a62" /><circle cx="462" cy="250.11" r="5" fill="#238a62" /><circle cx="838" cy="130.44" r="5" fill="#238a62" /><polyline points="86,400.98 97.75,389.17 109.5,384.51 133,375.91 180,358.76 274,324.25 462,255.71 838,118.82" fill="none" stroke="#d93600" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="86" cy="400.98" r="5" fill="#d93600" /><circle cx="97.75" cy="389.17" r="5" fill="#d93600" /><circle cx="109.5" cy="384.51" r="5" fill="#d93600" /><circle cx="133" cy="375.91" r="5" fill="#d93600" /><circle cx="180" cy="358.76" r="5" fill="#d93600" /><circle cx="274" cy="324.25" r="5" fill="#d93600" /><circle cx="462" cy="255.71" r="5" fill="#d93600" /><circle cx="838" cy="118.82" r="5" fill="#d93600" />
+  <text x="462" y="480" text-anchor="middle" class="label">Distinct generated component definitions</text>
+  <text x="22" y="251" text-anchor="middle" transform="rotate(-90 22 251)" class="label">Complete Brotli transfer</text>
+</svg>

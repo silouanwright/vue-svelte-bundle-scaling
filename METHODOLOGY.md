@@ -1,0 +1,229 @@
+# Methodology
+
+## Research question
+
+The benchmark tests two related claims:
+
+1. Does current Vue still produce less application-specific client code per
+   component than current Svelte?
+2. If so, can that lower growth repay Vue’s larger shared runtime after
+   production minification, code splitting, and HTTP compression?
+
+The second question cannot be answered by compiling one component. A browser
+receives a complete entry graph, and route chunks are separate compressed
+responses. The harness therefore moves from isolated compiler output to
+complete, code-split applications while preserving the limitations of every
+lane.
+
+This is a bundle-size study, not a general framework benchmark.
+
+## Toolchain
+
+The committed results use:
+
+| Tool | Version |
+| --- | --- |
+| Node.js | 22.19.0 |
+| Vite | 8.1.5 |
+| Vue | 3.5.40 |
+| Svelte | 5.56.8 |
+| `@vitejs/plugin-vue` | 6.0.8 |
+| `@sveltejs/vite-plugin-svelte` | 7.2.0 |
+| Playwright (parity only) | 1.62.0 |
+
+`package.json` and `package-lock.json` pin exact versions. The scripts record
+their resolved versions in every result document and the verifier rejects a
+result whose recorded framework or build version differs from `package.json`.
+
+All builds target ES2022, use Vite’s Oxc production minifier, omit source maps,
+and disable Vite’s own display-only compressed-size calculation. This harness
+reads the emitted JavaScript bytes itself.
+
+## Size definitions
+
+For each emitted `.js` or `.mjs` file:
+
+- **raw** is the byte length of minified production JavaScript;
+- **gzip** is Node’s `gzipSync` output at level 9;
+- **Brotli** is Node’s `brotliCompressSync` output at quality 11.
+
+For a single-bundle build, the total is that file’s size. For a code-split
+build, each file is compressed independently and the resulting lengths are
+summed. This matches ordinary transfer accounting because each HTTP response
+has its own compressed representation.
+
+The route-split and hand-authored lanes also concatenate all emitted JavaScript
+and compress it once. This **coalesced** number is not a network total. It is a
+diagnostic for repeated syntax that would share one compression dictionary if
+the application were a single response.
+
+No HTTP headers, HTML, CSS, source maps, images, or cached bytes are included.
+The study is intentionally restricted to emitted JavaScript.
+
+## Five complementary lanes
+
+### 1. Original 2021 specimen
+
+`scripts/run-original-specimen.mjs` downloads the exact `todomvc.vue` and
+`todomvc.svelte` files from Evan You’s repository at commit
+`7bb60ff681a3f5016e8af26084e72100cd37a876`.
+
+The Vue source requires one compatibility migration:
+`@vnode-mounted` becomes `@vue:mounted`. The Svelte source is unchanged. Both
+components are compiled as externalized ES modules so framework imports are
+not bundled. Shared import/export syntax is removed for the reported
+component-only measurement.
+
+The same sources are also mounted as complete CSR and hydration-capable
+applications. Those totals include each framework’s browser runtime. This
+separates “what did the component compiler emit?” from “what did the browser
+receive?”
+
+The lane preserves a historical specimen, including legacy Svelte syntax. It
+does not claim to compare ideal new code in either framework.
+
+### 2. Controlled definition scaling
+
+`scripts/run-benchmark.mjs` creates complete applications with 0, 1, 2, 5, 10,
+20, 40, 80, 160, 320, and 640 distinct component modules. It does not render
+one imported component hundreds of times; that would pay for only one
+definition.
+
+Two component shapes are generated:
+
+- a counter with local and derived state, conditional output, a dynamic class,
+  and event handlers;
+- a TodoMVC-style component with input, filtering, keyed lists, bindings,
+  derived counts, dynamic classes, and add/remove/filter behavior.
+
+Each shape is built in three lanes:
+
+- **CSR:** browser client mount;
+- **hydrate:** browser client capable of hydrating server-rendered HTML;
+- **SSR:** bundled server-rendering program.
+
+The SSR result is not browser transfer and is never compared to the CSR result
+as though they served the same purpose.
+
+Linear fits summarize sampled growth after one component has activated the
+relevant runtime features. They are descriptive fits, not framework constants.
+
+### 3. Generated heterogeneous lazy routes
+
+`scripts/run-route-split.mjs` reduces the pathological repetition in the
+controlled lane. It generates eight behavior families—counter, disclosure,
+tabs, task tracker, search, settings, pagination, and notifications—and places
+one of each into every lazy route.
+
+It builds 0–512 definitions in route groups of eight. Each emitted JavaScript
+file is compressed separately before the complete transfer is summed.
+
+This lane asks whether Vue’s raw-code amortization can survive a chunk graph
+that prevents one global Brotli dictionary. Because the components are still
+generated from eight templates, its crossover is evidence that the mechanism
+can occur, not a prediction for a product.
+
+### 4. Independently maintained matched application
+
+`scripts/run-matched-app.mjs` downloads the keyed Vue and Svelte implementations
+from `js-framework-benchmark` at commit
+`6bd71fcab935b7e4c627b7c394a86633fcd8feea`.
+
+Both are built with this repository’s Vite configuration. The only
+normalization replaces Svelte’s Rollup-oriented `dist/main.js` HTML reference
+with a Vite module entry to its existing `src/main.js`. Application source is
+otherwise unchanged.
+
+This lane avoids authoring the comparison toward either framework, but it is a
+small performance benchmark rather than a substantial product.
+
+### 5. Hand-authored product application
+
+The framework-neutral [fixture specification](fixtures/hand-authored/SPEC.md)
+was written before either implementation was measured. It defines eight
+research-workspace routes with three distinct leaf components each:
+
+Dashboard, Search, Records, Reader, Editor, Settings, Notifications, and
+Library.
+
+Dashboard is initial; every other route is lazy. Builds contain the first 1, 2,
+4, or 8 routes, yielding 5, 9, 17, or 33 component definitions including the
+application and route shells.
+
+The full Vue and Svelte applications expose the same labels, initial data,
+test identifiers, and visible state transitions. The same Playwright test
+performs interactions across every route and every leaf component in both
+applications. A result is not publishable if either implementation fails.
+
+Playwright and Chromium are parity tools only. The benchmark script invokes
+Vite directly, reads `dist`, and performs compression in Node. Browser
+binaries, test code, and test dependencies cannot enter the measured graphs.
+
+## Why compression changes the answer
+
+Suppose Vue has a larger fixed runtime but adds fewer raw bytes per component:
+
+```text
+Vue:    large shared baseline + n × smaller generated increment
+Svelte: small shared baseline + n × larger generated increment
+```
+
+That model can describe raw output while failing to predict transfer size.
+Repeated generated code is highly compressible, and the compressor works on
+the actual response—not on a theoretical per-component cost.
+
+Two opposite mistakes follow:
+
+1. Compress one component and multiply its compressed length. This assumes
+   every component pays for a fresh compression dictionary.
+2. Clone one component hundreds of times and compress the entire application
+   once. This gives every clone access to a global dictionary with nearly
+   identical syntax.
+
+The harness reports both raw and per-response compressed results, introduces
+structural variety, and preserves lazy boundaries. It does not pretend those
+controls reproduce every real chunk graph.
+
+## Reproducibility and integrity
+
+`npm run benchmark:all` regenerates all five JSON and Markdown reports.
+Temporary build roots are cleared before use and removed after successful runs.
+Upstream inputs are commit-pinned, and their downloaded bytes are recorded with
+SHA-256 digests in the generated JSON.
+
+`npm run verify`:
+
+- validates that every byte count is a non-negative safe integer;
+- recomputes totals from the emitted-file records;
+- validates initial/static-import totals in the hand-authored lane;
+- validates coalesced/raw invariants;
+- checks recorded build versions against `package.json`;
+- computes canonical SHA-256 hashes for all five JSON documents.
+
+Canonicalization sorts object keys and omits only environmental metadata:
+generation timestamp, reported Node version, and operating-system platform.
+Asset names, measurements, upstream commits, migrations, component counts, and
+tool versions remain hashed.
+
+Two consecutive full runs on the authoring machine reproduced all committed
+measurements. The manual GitHub Actions reproduction workflow is configured to
+run the same complete matrix; the pull-request workflow runs parity, the
+hand-authored lane, chart generation, and result verification.
+
+## Threats to validity
+
+- Bundle size is only one engineering variable.
+- Generated components repeat source shapes even when their values differ.
+- The hand-authored fixture is intentionally dependency-free and smaller than
+  a long-lived product.
+- Different routing, manual chunks, target browsers, minifiers, framework
+  options, or deployment compression can change the result.
+- Tree-shaking rewards code that is unused by the chosen specimen.
+- Component count is not a stable measure of application complexity.
+- Initial transfer and complete cold traversal answer different product
+  questions.
+- A framework upgrade can change every result.
+- Server bundle size is operationally different from browser transfer.
+
+The repository therefore supports architectural observations and reproducible
+examples, not a universal winner.

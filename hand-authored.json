@@ -1,0 +1,427 @@
+{
+  "metadata": {
+    "generatedAt": "2026-07-27T11:46:30.899Z",
+    "node": "v22.19.0",
+    "routeCounts": [
+      1,
+      2,
+      4,
+      8
+    ],
+    "routeNames": [
+      "Dashboard",
+      "Search",
+      "Records",
+      "Reader",
+      "Editor",
+      "Settings",
+      "Notifications",
+      "Library"
+    ],
+    "compression": {
+      "gzipLevel": 9,
+      "brotliQuality": 11
+    },
+    "versions": {
+      "vite": "8.1.5",
+      "vue": "3.5.40",
+      "svelte": "5.56.8"
+    }
+  },
+  "results": [
+    {
+      "framework": "vue",
+      "routes": 1,
+      "componentDefinitions": 5,
+      "jsFiles": 1,
+      "files": [
+        {
+          "file": "assets/index-BEP06wFI.js",
+          "initial": true,
+          "raw": 66379,
+          "gzip": 25853,
+          "brotli": 23560
+        }
+      ],
+      "initial": {
+        "raw": 66379,
+        "gzip": 25853,
+        "brotli": 23560
+      },
+      "complete": {
+        "raw": 66379,
+        "gzip": 25853,
+        "brotli": 23560
+      },
+      "coalesced": {
+        "raw": 66379,
+        "gzip": 25853,
+        "brotli": 23560
+      }
+    },
+    {
+      "framework": "svelte",
+      "routes": 1,
+      "componentDefinitions": 5,
+      "jsFiles": 1,
+      "files": [
+        {
+          "file": "assets/index-BtQLXBMO.js",
+          "initial": true,
+          "raw": 40004,
+          "gzip": 15509,
+          "brotli": 13992
+        }
+      ],
+      "initial": {
+        "raw": 40004,
+        "gzip": 15509,
+        "brotli": 13992
+      },
+      "complete": {
+        "raw": 40004,
+        "gzip": 15509,
+        "brotli": 13992
+      },
+      "coalesced": {
+        "raw": 40004,
+        "gzip": 15509,
+        "brotli": 13992
+      }
+    },
+    {
+      "framework": "vue",
+      "routes": 2,
+      "componentDefinitions": 9,
+      "jsFiles": 2,
+      "files": [
+        {
+          "file": "assets/SearchRoute-CopjtN89.js",
+          "initial": false,
+          "raw": 3250,
+          "gzip": 1350,
+          "brotli": 1177
+        },
+        {
+          "file": "assets/index-CjUvLonw.js",
+          "initial": true,
+          "raw": 70688,
+          "gzip": 27567,
+          "brotli": 25070
+        }
+      ],
+      "initial": {
+        "raw": 70688,
+        "gzip": 27567,
+        "brotli": 25070
+      },
+      "complete": {
+        "raw": 73938,
+        "gzip": 28917,
+        "brotli": 26247
+      },
+      "coalesced": {
+        "raw": 73938,
+        "gzip": 28812,
+        "brotli": 26073
+      }
+    },
+    {
+      "framework": "svelte",
+      "routes": 2,
+      "componentDefinitions": 9,
+      "jsFiles": 2,
+      "files": [
+        {
+          "file": "assets/SearchRoute-CMgqQaze.js",
+          "initial": false,
+          "raw": 3218,
+          "gzip": 1547,
+          "brotli": 1307
+        },
+        {
+          "file": "assets/index-CxXZOpYS.js",
+          "initial": true,
+          "raw": 45110,
+          "gzip": 17489,
+          "brotli": 15803
+        }
+      ],
+      "initial": {
+        "raw": 45110,
+        "gzip": 17489,
+        "brotli": 15803
+      },
+      "complete": {
+        "raw": 48328,
+        "gzip": 19036,
+        "brotli": 17110
+      },
+      "coalesced": {
+        "raw": 48328,
+        "gzip": 18967,
+        "brotli": 16884
+      }
+    },
+    {
+      "framework": "vue",
+      "routes": 4,
+      "componentDefinitions": 17,
+      "jsFiles": 4,
+      "files": [
+        {
+          "file": "assets/ReaderRoute-ry_53NKh.js",
+          "initial": false,
+          "raw": 3041,
+          "gzip": 1371,
+          "brotli": 1151
+        },
+        {
+          "file": "assets/RecordsRoute-B8XV1uAQ.js",
+          "initial": false,
+          "raw": 2948,
+          "gzip": 1341,
+          "brotli": 1179
+        },
+        {
+          "file": "assets/SearchRoute-LYZtQ3mM.js",
+          "initial": false,
+          "raw": 3245,
+          "gzip": 1349,
+          "brotli": 1178
+        },
+        {
+          "file": "assets/index-DmdzAFCm.js",
+          "initial": true,
+          "raw": 71454,
+          "gzip": 27856,
+          "brotli": 25345
+        }
+      ],
+      "initial": {
+        "raw": 71454,
+        "gzip": 27856,
+        "brotli": 25345
+      },
+      "complete": {
+        "raw": 80688,
+        "gzip": 31917,
+        "brotli": 28853
+      },
+      "coalesced": {
+        "raw": 80688,
+        "gzip": 30978,
+        "brotli": 27740
+      }
+    },
+    {
+      "framework": "svelte",
+      "routes": 4,
+      "componentDefinitions": 17,
+      "jsFiles": 4,
+      "files": [
+        {
+          "file": "assets/ReaderRoute-CGvcBXHz.js",
+          "initial": false,
+          "raw": 2874,
+          "gzip": 1424,
+          "brotli": 1198
+        },
+        {
+          "file": "assets/RecordsRoute-CoW8OIB6.js",
+          "initial": false,
+          "raw": 3246,
+          "gzip": 1628,
+          "brotli": 1389
+        },
+        {
+          "file": "assets/SearchRoute-Gb70MNae.js",
+          "initial": false,
+          "raw": 3223,
+          "gzip": 1539,
+          "brotli": 1297
+        },
+        {
+          "file": "assets/index-CIlnfaJX.js",
+          "initial": true,
+          "raw": 48041,
+          "gzip": 18679,
+          "brotli": 16828
+        }
+      ],
+      "initial": {
+        "raw": 48041,
+        "gzip": 18679,
+        "brotli": 16828
+      },
+      "complete": {
+        "raw": 57384,
+        "gzip": 23270,
+        "brotli": 20712
+      },
+      "coalesced": {
+        "raw": 57384,
+        "gzip": 22432,
+        "brotli": 19849
+      }
+    },
+    {
+      "framework": "vue",
+      "routes": 8,
+      "componentDefinitions": 33,
+      "jsFiles": 8,
+      "files": [
+        {
+          "file": "assets/EditorRoute-SaHsMJzv.js",
+          "initial": false,
+          "raw": 2225,
+          "gzip": 1099,
+          "brotli": 954
+        },
+        {
+          "file": "assets/LibraryRoute-BnpMN0Nx.js",
+          "initial": false,
+          "raw": 2785,
+          "gzip": 1296,
+          "brotli": 1104
+        },
+        {
+          "file": "assets/NotificationsRoute-C8wmMX1G.js",
+          "initial": false,
+          "raw": 2943,
+          "gzip": 1212,
+          "brotli": 1033
+        },
+        {
+          "file": "assets/ReaderRoute-DibqBFnr.js",
+          "initial": false,
+          "raw": 3041,
+          "gzip": 1373,
+          "brotli": 1149
+        },
+        {
+          "file": "assets/RecordsRoute-D2zewIvq.js",
+          "initial": false,
+          "raw": 2948,
+          "gzip": 1348,
+          "brotli": 1192
+        },
+        {
+          "file": "assets/SearchRoute-Bc5VWOta.js",
+          "initial": false,
+          "raw": 3250,
+          "gzip": 1349,
+          "brotli": 1180
+        },
+        {
+          "file": "assets/SettingsRoute-Db_EjnfA.js",
+          "initial": false,
+          "raw": 2963,
+          "gzip": 1373,
+          "brotli": 1173
+        },
+        {
+          "file": "assets/index-DyzPRnGl.js",
+          "initial": true,
+          "raw": 72539,
+          "gzip": 28219,
+          "brotli": 25568
+        }
+      ],
+      "initial": {
+        "raw": 72539,
+        "gzip": 28219,
+        "brotli": 25568
+      },
+      "complete": {
+        "raw": 92694,
+        "gzip": 37269,
+        "brotli": 33353
+      },
+      "coalesced": {
+        "raw": 92694,
+        "gzip": 34407,
+        "brotli": 30610
+      }
+    },
+    {
+      "framework": "svelte",
+      "routes": 8,
+      "componentDefinitions": 33,
+      "jsFiles": 8,
+      "files": [
+        {
+          "file": "assets/EditorRoute-Cce3xCpS.js",
+          "initial": false,
+          "raw": 2297,
+          "gzip": 1171,
+          "brotli": 986
+        },
+        {
+          "file": "assets/LibraryRoute-DZ_cpcQU.js",
+          "initial": false,
+          "raw": 3115,
+          "gzip": 1509,
+          "brotli": 1263
+        },
+        {
+          "file": "assets/NotificationsRoute-D-emoVA4.js",
+          "initial": false,
+          "raw": 2955,
+          "gzip": 1421,
+          "brotli": 1198
+        },
+        {
+          "file": "assets/ReaderRoute-QJ_DSRO0.js",
+          "initial": false,
+          "raw": 2874,
+          "gzip": 1423,
+          "brotli": 1186
+        },
+        {
+          "file": "assets/RecordsRoute-QIT3v4y0.js",
+          "initial": false,
+          "raw": 3241,
+          "gzip": 1634,
+          "brotli": 1393
+        },
+        {
+          "file": "assets/SearchRoute-BRdRvAJf.js",
+          "initial": false,
+          "raw": 3228,
+          "gzip": 1536,
+          "brotli": 1301
+        },
+        {
+          "file": "assets/SettingsRoute-CoV5Ixyi.js",
+          "initial": false,
+          "raw": 2994,
+          "gzip": 1522,
+          "brotli": 1254
+        },
+        {
+          "file": "assets/index-pXpw2CNx.js",
+          "initial": true,
+          "raw": 49118,
+          "gzip": 19050,
+          "brotli": 17168
+        }
+      ],
+      "initial": {
+        "raw": 49118,
+        "gzip": 19050,
+        "brotli": 17168
+      },
+      "complete": {
+        "raw": 69822,
+        "gzip": 29266,
+        "brotli": 25749
+      },
+      "coalesced": {
+        "raw": 69822,
+        "gzip": 26184,
+        "brotli": 22928
+      }
+    }
+  ]
+}

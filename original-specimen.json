@@ -1,0 +1,120 @@
+{
+  "metadata": {
+    "generatedAt": "2026-07-27T11:46:25.730Z",
+    "node": "v22.19.0",
+    "originalCommit": "7bb60ff681a3f5016e8af26084e72100cd37a876",
+    "sources": {
+      "vue": "https://raw.githubusercontent.com/yyx990803/vue-svelte-size-analysis/7bb60ff681a3f5016e8af26084e72100cd37a876/todomvc.vue",
+      "svelte": "https://raw.githubusercontent.com/yyx990803/vue-svelte-size-analysis/7bb60ff681a3f5016e8af26084e72100cd37a876/todomvc.svelte"
+    },
+    "sourceSha256": {
+      "vue": "5664c63ac4f87a267f56b2566a5ec2e18db109e362bb253f9360740f8a3cf65a",
+      "svelte": "c9dec3d5e4057007bd617f5d4c099a1746c97b9722ec50827a15b4c8a5004d68"
+    },
+    "sourceMigrations": {
+      "vue": [
+        "@vnode-mounted → @vue:mounted"
+      ],
+      "svelte": []
+    },
+    "versions": {
+      "vite": "8.1.5",
+      "vue": "3.5.40",
+      "svelte": "5.56.8",
+      "vuePlugin": "6.0.8",
+      "sveltePlugin": "7.2.0"
+    }
+  },
+  "componentResults": [
+    {
+      "framework": "vue",
+      "emitted": {
+        "raw": 4120,
+        "gzip": 1650,
+        "brotli": 1425
+      },
+      "componentOnly": {
+        "raw": 3802,
+        "gzip": 1484,
+        "brotli": 1306
+      },
+      "moduleSyntaxBytes": 318
+    },
+    {
+      "framework": "svelte",
+      "emitted": {
+        "raw": 5257,
+        "gzip": 1776,
+        "brotli": 1512
+      },
+      "componentOnly": {
+        "raw": 5213,
+        "gzip": 1762,
+        "brotli": 1500
+      },
+      "moduleSyntaxBytes": 44
+    }
+  ],
+  "appResults": [
+    {
+      "framework": "vue",
+      "lane": "csr",
+      "files": [
+        {
+          "file": "assets/index-D15-3OU7.js",
+          "raw": 66160,
+          "gzip": 25764,
+          "brotli": 23445
+        }
+      ],
+      "raw": 66160,
+      "gzip": 25764,
+      "brotli": 23445
+    },
+    {
+      "framework": "svelte",
+      "lane": "csr",
+      "files": [
+        {
+          "file": "assets/index-CQroUjQ8.js",
+          "raw": 41203,
+          "gzip": 15919,
+          "brotli": 14407
+        }
+      ],
+      "raw": 41203,
+      "gzip": 15919,
+      "brotli": 14407
+    },
+    {
+      "framework": "vue",
+      "lane": "hydrate",
+      "files": [
+        {
+          "file": "assets/index-puZZjRSR.js",
+          "raw": 70606,
+          "gzip": 27550,
+          "brotli": 25078
+        }
+      ],
+      "raw": 70606,
+      "gzip": 27550,
+      "brotli": 25078
+    },
+    {
+      "framework": "svelte",
+      "lane": "hydrate",
+      "files": [
+        {
+          "file": "assets/index-BjfmI9wm.js",
+          "raw": 41694,
+          "gzip": 16116,
+          "brotli": 14587
+        }
+      ],
+      "raw": 41694,
+      "gzip": 16116,
+      "brotli": 14587
+    }
+  ]
+}

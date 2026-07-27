@@ -1,0 +1,2274 @@
+{
+  "metadata": {
+    "generatedAt": "2026-07-27T11:28:05.347Z",
+    "node": "v22.19.0",
+    "platform": "darwin-arm64",
+    "componentCounts": [
+      0,
+      1,
+      2,
+      5,
+      10,
+      20,
+      40,
+      80,
+      160,
+      320,
+      640
+    ],
+    "versions": {
+      "vite": "8.1.5",
+      "vue": "3.5.40",
+      "svelte": "5.56.8",
+      "vuePlugin": "6.0.8",
+      "sveltePlugin": "7.2.0",
+      "vueServerRenderer": "3.5.40"
+    }
+  },
+  "results": [
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 0,
+      "files": [
+        {
+          "file": "assets/index-U_DX2yeu.js",
+          "raw": 59392,
+          "gzip": 23248,
+          "brotli": 21190
+        }
+      ],
+      "raw": 59392,
+      "gzip": 23248,
+      "brotli": 21190
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 0,
+      "files": [
+        {
+          "file": "assets/index-z7eoQrRD.js",
+          "raw": 23032,
+          "gzip": 9233,
+          "brotli": 8403
+        }
+      ],
+      "raw": 23032,
+      "gzip": 9233,
+      "brotli": 8403
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 1,
+      "files": [
+        {
+          "file": "assets/index-BUfTzrc8.js",
+          "raw": 60667,
+          "gzip": 23762,
+          "brotli": 21636
+        }
+      ],
+      "raw": 60667,
+      "gzip": 23762,
+      "brotli": 21636
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 1,
+      "files": [
+        {
+          "file": "assets/index-BO-_e2L6.js",
+          "raw": 30627,
+          "gzip": 11988,
+          "brotli": 10878
+        }
+      ],
+      "raw": 30627,
+      "gzip": 11988,
+      "brotli": 10878
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 2,
+      "files": [
+        {
+          "file": "assets/index-nHHqZylP.js",
+          "raw": 61179,
+          "gzip": 23798,
+          "brotli": 21694
+        }
+      ],
+      "raw": 61179,
+      "gzip": 23798,
+      "brotli": 21694
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 2,
+      "files": [
+        {
+          "file": "assets/index-DOW5-I5W.js",
+          "raw": 31250,
+          "gzip": 12044,
+          "brotli": 10934
+        }
+      ],
+      "raw": 31250,
+      "gzip": 12044,
+      "brotli": 10934
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 5,
+      "files": [
+        {
+          "file": "assets/index-B3YTYAP6.js",
+          "raw": 62685,
+          "gzip": 23908,
+          "brotli": 21788
+        }
+      ],
+      "raw": 62685,
+      "gzip": 23908,
+      "brotli": 21788
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 5,
+      "files": [
+        {
+          "file": "assets/index-BybnDqBj.js",
+          "raw": 33099,
+          "gzip": 12215,
+          "brotli": 11039
+        }
+      ],
+      "raw": 33099,
+      "gzip": 12215,
+      "brotli": 11039
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 10,
+      "files": [
+        {
+          "file": "assets/index-CJdF-e0Q.js",
+          "raw": 65180,
+          "gzip": 24060,
+          "brotli": 21865
+        }
+      ],
+      "raw": 65180,
+      "gzip": 24060,
+      "brotli": 21865
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 10,
+      "files": [
+        {
+          "file": "assets/index-D7LzrzHP.js",
+          "raw": 36149,
+          "gzip": 12462,
+          "brotli": 11170
+        }
+      ],
+      "raw": 36149,
+      "gzip": 12462,
+      "brotli": 11170
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 20,
+      "files": [
+        {
+          "file": "assets/index-cf1Ng2J3.js",
+          "raw": 70200,
+          "gzip": 24389,
+          "brotli": 22075
+        }
+      ],
+      "raw": 70200,
+      "gzip": 24389,
+      "brotli": 22075
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 20,
+      "files": [
+        {
+          "file": "assets/index-DGe0cGut.js",
+          "raw": 42274,
+          "gzip": 12936,
+          "brotli": 11431
+        }
+      ],
+      "raw": 42274,
+      "gzip": 12936,
+      "brotli": 11431
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 40,
+      "files": [
+        {
+          "file": "assets/index-CTAe_lt3.js",
+          "raw": 80240,
+          "gzip": 25000,
+          "brotli": 22275
+        }
+      ],
+      "raw": 80240,
+      "gzip": 25000,
+      "brotli": 22275
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 40,
+      "files": [
+        {
+          "file": "assets/index-Clj362vE.js",
+          "raw": 54551,
+          "gzip": 13866,
+          "brotli": 11873
+        }
+      ],
+      "raw": 54551,
+      "gzip": 13866,
+      "brotli": 11873
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 80,
+      "files": [
+        {
+          "file": "assets/index-C-QyJPE5.js",
+          "raw": 100320,
+          "gzip": 26207,
+          "brotli": 22770
+        }
+      ],
+      "raw": 100320,
+      "gzip": 26207,
+      "brotli": 22770
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 80,
+      "files": [
+        {
+          "file": "assets/index-Z0PmMXvi.js",
+          "raw": 79091,
+          "gzip": 15707,
+          "brotli": 12806
+        }
+      ],
+      "raw": 79091,
+      "gzip": 15707,
+      "brotli": 12806
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 160,
+      "files": [
+        {
+          "file": "assets/index-xGACGOPT.js",
+          "raw": 140720,
+          "gzip": 28520,
+          "brotli": 24069
+        }
+      ],
+      "raw": 140720,
+      "gzip": 28520,
+      "brotli": 24069
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 160,
+      "files": [
+        {
+          "file": "assets/index-t3JQezrB.js",
+          "raw": 128357,
+          "gzip": 19140,
+          "brotli": 14488
+        }
+      ],
+      "raw": 128357,
+      "gzip": 19140,
+      "brotli": 14488
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 320,
+      "files": [
+        {
+          "file": "assets/index-B60UP2Nd.js",
+          "raw": 221680,
+          "gzip": 33071,
+          "brotli": 26152
+        }
+      ],
+      "raw": 221680,
+      "gzip": 33071,
+      "brotli": 26152
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 320,
+      "files": [
+        {
+          "file": "assets/index-COQF06ly.js",
+          "raw": 227032,
+          "gzip": 25515,
+          "brotli": 17574
+        }
+      ],
+      "raw": 227032,
+      "gzip": 25515,
+      "brotli": 17574
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 640,
+      "files": [
+        {
+          "file": "assets/index-Cgb5leaE.js",
+          "raw": 383600,
+          "gzip": 42074,
+          "brotli": 29653
+        }
+      ],
+      "raw": 383600,
+      "gzip": 42074,
+      "brotli": 29653
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "csr",
+      "count": 640,
+      "files": [
+        {
+          "file": "assets/index-C9OQYjO7.js",
+          "raw": 424472,
+          "gzip": 37822,
+          "brotli": 23154
+        }
+      ],
+      "raw": 424472,
+      "gzip": 37822,
+      "brotli": 23154
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 0,
+      "files": [
+        {
+          "file": "assets/index-J_PrStKk.js",
+          "raw": 63834,
+          "gzip": 25043,
+          "brotli": 22818
+        }
+      ],
+      "raw": 63834,
+      "gzip": 25043,
+      "brotli": 22818
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 0,
+      "files": [
+        {
+          "file": "assets/index-BTo3G2ZL.js",
+          "raw": 24887,
+          "gzip": 9922,
+          "brotli": 9013
+        }
+      ],
+      "raw": 24887,
+      "gzip": 9922,
+      "brotli": 9013
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 1,
+      "files": [
+        {
+          "file": "assets/index-C8LEdkTO.js",
+          "raw": 65108,
+          "gzip": 25545,
+          "brotli": 23272
+        }
+      ],
+      "raw": 65108,
+      "gzip": 25545,
+      "brotli": 23272
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 1,
+      "files": [
+        {
+          "file": "assets/index-z2wxKwbY.js",
+          "raw": 31151,
+          "gzip": 12196,
+          "brotli": 11066
+        }
+      ],
+      "raw": 31151,
+      "gzip": 12196,
+      "brotli": 11066
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 2,
+      "files": [
+        {
+          "file": "assets/index-DcgjTFFm.js",
+          "raw": 65620,
+          "gzip": 25594,
+          "brotli": 23286
+        }
+      ],
+      "raw": 65620,
+      "gzip": 25594,
+      "brotli": 23286
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 2,
+      "files": [
+        {
+          "file": "assets/index-CGaVfS5V.js",
+          "raw": 31775,
+          "gzip": 12258,
+          "brotli": 11114
+        }
+      ],
+      "raw": 31775,
+      "gzip": 12258,
+      "brotli": 11114
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 5,
+      "files": [
+        {
+          "file": "assets/index-DaZJgWPd.js",
+          "raw": 67132,
+          "gzip": 25692,
+          "brotli": 23384
+        }
+      ],
+      "raw": 67132,
+      "gzip": 25692,
+      "brotli": 23384
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 5,
+      "files": [
+        {
+          "file": "assets/index-Bj2DFKb-.js",
+          "raw": 33624,
+          "gzip": 12420,
+          "brotli": 11221
+        }
+      ],
+      "raw": 33624,
+      "gzip": 12420,
+      "brotli": 11221
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 10,
+      "files": [
+        {
+          "file": "assets/index-8dUH6OHG.js",
+          "raw": 69627,
+          "gzip": 25870,
+          "brotli": 23485
+        }
+      ],
+      "raw": 69627,
+      "gzip": 25870,
+      "brotli": 23485
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 10,
+      "files": [
+        {
+          "file": "assets/index-BMO50tXB.js",
+          "raw": 36675,
+          "gzip": 12655,
+          "brotli": 11351
+        }
+      ],
+      "raw": 36675,
+      "gzip": 12655,
+      "brotli": 11351
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 20,
+      "files": [
+        {
+          "file": "assets/index-UUj4PHLQ.js",
+          "raw": 74648,
+          "gzip": 26203,
+          "brotli": 23612
+        }
+      ],
+      "raw": 74648,
+      "gzip": 26203,
+      "brotli": 23612
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 20,
+      "files": [
+        {
+          "file": "assets/index-DtpRnpSy.js",
+          "raw": 42800,
+          "gzip": 13144,
+          "brotli": 11618
+        }
+      ],
+      "raw": 42800,
+      "gzip": 13144,
+      "brotli": 11618
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 40,
+      "files": [
+        {
+          "file": "assets/index-CzE7HLt0.js",
+          "raw": 84688,
+          "gzip": 26860,
+          "brotli": 23888
+        }
+      ],
+      "raw": 84688,
+      "gzip": 26860,
+      "brotli": 23888
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 40,
+      "files": [
+        {
+          "file": "assets/index-BaNrIEy2.js",
+          "raw": 55079,
+          "gzip": 14076,
+          "brotli": 12052
+        }
+      ],
+      "raw": 55079,
+      "gzip": 14076,
+      "brotli": 12052
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 80,
+      "files": [
+        {
+          "file": "assets/index-BjDTP6cf.js",
+          "raw": 104768,
+          "gzip": 28118,
+          "brotli": 24372
+        }
+      ],
+      "raw": 104768,
+      "gzip": 28118,
+      "brotli": 24372
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 80,
+      "files": [
+        {
+          "file": "assets/index-Cw2BV_xQ.js",
+          "raw": 79617,
+          "gzip": 15920,
+          "brotli": 12964
+        }
+      ],
+      "raw": 79617,
+      "gzip": 15920,
+      "brotli": 12964
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 160,
+      "files": [
+        {
+          "file": "assets/index-J1hBNws4.js",
+          "raw": 145168,
+          "gzip": 30522,
+          "brotli": 25599
+        }
+      ],
+      "raw": 145168,
+      "gzip": 30522,
+      "brotli": 25599
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 160,
+      "files": [
+        {
+          "file": "assets/index-BEZlCIX_.js",
+          "raw": 128886,
+          "gzip": 19358,
+          "brotli": 14586
+        }
+      ],
+      "raw": 128886,
+      "gzip": 19358,
+      "brotli": 14586
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 320,
+      "files": [
+        {
+          "file": "assets/index-DhAaDx-f.js",
+          "raw": 226128,
+          "gzip": 35156,
+          "brotli": 27396
+        }
+      ],
+      "raw": 226128,
+      "gzip": 35156,
+      "brotli": 27396
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 320,
+      "files": [
+        {
+          "file": "assets/index-ofCur6Pl.js",
+          "raw": 227558,
+          "gzip": 25704,
+          "brotli": 17745
+        }
+      ],
+      "raw": 227558,
+      "gzip": 25704,
+      "brotli": 17745
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 640,
+      "files": [
+        {
+          "file": "assets/index-BotJHEnR.js",
+          "raw": 388048,
+          "gzip": 44273,
+          "brotli": 30707
+        }
+      ],
+      "raw": 388048,
+      "gzip": 44273,
+      "brotli": 30707
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "hydrate",
+      "count": 640,
+      "files": [
+        {
+          "file": "assets/index-CNO5dRwF.js",
+          "raw": 424998,
+          "gzip": 38049,
+          "brotli": 23470
+        }
+      ],
+      "raw": 424998,
+      "gzip": 38049,
+      "brotli": 23470
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 0,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 625138,
+          "gzip": 199372,
+          "brotli": 167539
+        }
+      ],
+      "raw": 625138,
+      "gzip": 199372,
+      "brotli": 167539
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 0,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 21117,
+          "gzip": 8112,
+          "brotli": 7310
+        }
+      ],
+      "raw": 21117,
+      "gzip": 8112,
+      "brotli": 7310
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 1,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 625852,
+          "gzip": 199595,
+          "brotli": 167728
+        }
+      ],
+      "raw": 625852,
+      "gzip": 199595,
+      "brotli": 167728
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 1,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 21789,
+          "gzip": 8376,
+          "brotli": 7563
+        }
+      ],
+      "raw": 21789,
+      "gzip": 8376,
+      "brotli": 7563
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 2,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 626575,
+          "gzip": 199641,
+          "brotli": 167734
+        }
+      ],
+      "raw": 626575,
+      "gzip": 199641,
+      "brotli": 167734
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 2,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 22208,
+          "gzip": 8408,
+          "brotli": 7557
+        }
+      ],
+      "raw": 22208,
+      "gzip": 8408,
+      "brotli": 7557
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 5,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 628753,
+          "gzip": 199777,
+          "brotli": 167829
+        }
+      ],
+      "raw": 628753,
+      "gzip": 199777,
+      "brotli": 167829
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 5,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 23465,
+          "gzip": 8481,
+          "brotli": 7615
+        }
+      ],
+      "raw": 23465,
+      "gzip": 8481,
+      "brotli": 7615
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 10,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 632377,
+          "gzip": 200005,
+          "brotli": 168047
+        }
+      ],
+      "raw": 632377,
+      "gzip": 200005,
+      "brotli": 168047
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 10,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 25565,
+          "gzip": 8605,
+          "brotli": 7726
+        }
+      ],
+      "raw": 25565,
+      "gzip": 8605,
+      "brotli": 7726
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 20,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 639700,
+          "gzip": 200424,
+          "brotli": 168269
+        }
+      ],
+      "raw": 639700,
+      "gzip": 200424,
+      "brotli": 168269
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 20,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 29795,
+          "gzip": 8839,
+          "brotli": 7831
+        }
+      ],
+      "raw": 29795,
+      "gzip": 8839,
+      "brotli": 7831
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 40,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 654326,
+          "gzip": 201264,
+          "brotli": 168626
+        }
+      ],
+      "raw": 654326,
+      "gzip": 201264,
+      "brotli": 168626
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 40,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 38255,
+          "gzip": 9279,
+          "brotli": 8005
+        }
+      ],
+      "raw": 38255,
+      "gzip": 9279,
+      "brotli": 8005
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 80,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 683600,
+          "gzip": 202908,
+          "brotli": 169382
+        }
+      ],
+      "raw": 683600,
+      "gzip": 202908,
+      "brotli": 169382
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 80,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 55205,
+          "gzip": 10159,
+          "brotli": 8348
+        }
+      ],
+      "raw": 55205,
+      "gzip": 10159,
+      "brotli": 8348
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 160,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 742459,
+          "gzip": 206058,
+          "brotli": 170702
+        }
+      ],
+      "raw": 742459,
+      "gzip": 206058,
+      "brotli": 170702
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 160,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 89305,
+          "gzip": 11791,
+          "brotli": 9017
+        }
+      ],
+      "raw": 89305,
+      "gzip": 11791,
+      "brotli": 9017
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 320,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 860375,
+          "gzip": 211851,
+          "brotli": 173119
+        }
+      ],
+      "raw": 860375,
+      "gzip": 211851,
+      "brotli": 173119
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 320,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 157753,
+          "gzip": 14862,
+          "brotli": 10170
+        }
+      ],
+      "raw": 157753,
+      "gzip": 14862,
+      "brotli": 10170
+    },
+    {
+      "framework": "vue",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 640,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 1096215,
+          "gzip": 222912,
+          "brotli": 177613
+        }
+      ],
+      "raw": 1096215,
+      "gzip": 222912,
+      "brotli": 177613
+    },
+    {
+      "framework": "svelte",
+      "workload": "counter",
+      "lane": "ssr",
+      "count": 640,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 295033,
+          "gzip": 20672,
+          "brotli": 12482
+        }
+      ],
+      "raw": 295033,
+      "gzip": 20672,
+      "brotli": 12482
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 0,
+      "files": [
+        {
+          "file": "assets/index-B0rgWyDL.js",
+          "raw": 59389,
+          "gzip": 23247,
+          "brotli": 21163
+        }
+      ],
+      "raw": 59389,
+      "gzip": 23247,
+      "brotli": 21163
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 0,
+      "files": [
+        {
+          "file": "assets/index-lRpZdCq8.js",
+          "raw": 23029,
+          "gzip": 9232,
+          "brotli": 8403
+        }
+      ],
+      "raw": 23029,
+      "gzip": 9232,
+      "brotli": 8403
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 1,
+      "files": [
+        {
+          "file": "assets/index-R_ReOfrm.js",
+          "raw": 65186,
+          "gzip": 25466,
+          "brotli": 23183
+        }
+      ],
+      "raw": 65186,
+      "gzip": 25466,
+      "brotli": 23183
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 1,
+      "files": [
+        {
+          "file": "assets/index-BNOr_4FO.js",
+          "raw": 39115,
+          "gzip": 15273,
+          "brotli": 13829
+        }
+      ],
+      "raw": 39115,
+      "gzip": 15273,
+      "brotli": 13829
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 2,
+      "files": [
+        {
+          "file": "assets/index-BKEBPz1M.js",
+          "raw": 67165,
+          "gzip": 25616,
+          "brotli": 23313
+        }
+      ],
+      "raw": 67165,
+      "gzip": 25616,
+      "brotli": 23313
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 2,
+      "files": [
+        {
+          "file": "assets/index-DaapTyoB.js",
+          "raw": 41206,
+          "gzip": 15409,
+          "brotli": 13919
+        }
+      ],
+      "raw": 41206,
+      "gzip": 15409,
+      "brotli": 13919
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 5,
+      "files": [
+        {
+          "file": "assets/index-C33qQ223.js",
+          "raw": 73083,
+          "gzip": 26034,
+          "brotli": 23563
+        }
+      ],
+      "raw": 73083,
+      "gzip": 26034,
+      "brotli": 23563
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 5,
+      "files": [
+        {
+          "file": "assets/index-BkAzipww.js",
+          "raw": 47461,
+          "gzip": 15750,
+          "brotli": 14133
+        }
+      ],
+      "raw": 47461,
+      "gzip": 15750,
+      "brotli": 14133
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 10,
+      "files": [
+        {
+          "file": "assets/index-DKbUzuG-.js",
+          "raw": 82923,
+          "gzip": 26684,
+          "brotli": 23918
+        }
+      ],
+      "raw": 82923,
+      "gzip": 26684,
+      "brotli": 23918
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 10,
+      "files": [
+        {
+          "file": "assets/index-YjbG1U4D.js",
+          "raw": 57808,
+          "gzip": 16299,
+          "brotli": 14366
+        }
+      ],
+      "raw": 57808,
+      "gzip": 16299,
+      "brotli": 14366
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 20,
+      "files": [
+        {
+          "file": "assets/index-NzgmxUZ8.js",
+          "raw": 102662,
+          "gzip": 27972,
+          "brotli": 24494
+        }
+      ],
+      "raw": 102662,
+      "gzip": 27972,
+      "brotli": 24494
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 20,
+      "files": [
+        {
+          "file": "assets/index-C9xufKdE.js",
+          "raw": 78556,
+          "gzip": 17381,
+          "brotli": 14756
+        }
+      ],
+      "raw": 78556,
+      "gzip": 17381,
+      "brotli": 14756
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 40,
+      "files": [
+        {
+          "file": "assets/index-Dsv4fTHF.js",
+          "raw": 142122,
+          "gzip": 30462,
+          "brotli": 25684
+        }
+      ],
+      "raw": 142122,
+      "gzip": 30462,
+      "brotli": 25684
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 40,
+      "files": [
+        {
+          "file": "assets/index-Xvc0DJxG.js",
+          "raw": 120010,
+          "gzip": 19501,
+          "brotli": 15608
+        }
+      ],
+      "raw": 120010,
+      "gzip": 19501,
+      "brotli": 15608
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 80,
+      "files": [
+        {
+          "file": "assets/index-xUEygwmt.js",
+          "raw": 221042,
+          "gzip": 35386,
+          "brotli": 27920
+        }
+      ],
+      "raw": 221042,
+      "gzip": 35386,
+      "brotli": 27920
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 80,
+      "files": [
+        {
+          "file": "assets/index-CKP1ykuC.js",
+          "raw": 202921,
+          "gzip": 23570,
+          "brotli": 17296
+        }
+      ],
+      "raw": 202921,
+      "gzip": 23570,
+      "brotli": 17296
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 160,
+      "files": [
+        {
+          "file": "assets/index-CckRf2sD.js",
+          "raw": 379482,
+          "gzip": 45002,
+          "brotli": 32096
+        }
+      ],
+      "raw": 379482,
+      "gzip": 45002,
+      "brotli": 32096
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 160,
+      "files": [
+        {
+          "file": "assets/index-O1R3sshc.js",
+          "raw": 369280,
+          "gzip": 31095,
+          "brotli": 20608
+        }
+      ],
+      "raw": 369280,
+      "gzip": 31095,
+      "brotli": 20608
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 320,
+      "files": [
+        {
+          "file": "assets/index-DYMp_Fiz.js",
+          "raw": 698842,
+          "gzip": 64125,
+          "brotli": 40518
+        }
+      ],
+      "raw": 698842,
+      "gzip": 64125,
+      "brotli": 40518
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 320,
+      "files": [
+        {
+          "file": "assets/index-CbTAKhf2.js",
+          "raw": 702355,
+          "gzip": 45656,
+          "brotli": 26248
+        }
+      ],
+      "raw": 702355,
+      "gzip": 45656,
+      "brotli": 26248
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 640,
+      "files": [
+        {
+          "file": "assets/index-DyX7I_rE.js",
+          "raw": 1341722,
+          "gzip": 101629,
+          "brotli": 56114
+        }
+      ],
+      "raw": 1341722,
+      "gzip": 101629,
+      "brotli": 56114
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "csr",
+      "count": 640,
+      "files": [
+        {
+          "file": "assets/index-PRxNafI4.js",
+          "raw": 1371049,
+          "gzip": 74490,
+          "brotli": 38107
+        }
+      ],
+      "raw": 1371049,
+      "gzip": 74490,
+      "brotli": 38107
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 0,
+      "files": [
+        {
+          "file": "assets/index-BmveDsto.js",
+          "raw": 63831,
+          "gzip": 25042,
+          "brotli": 22827
+        }
+      ],
+      "raw": 63831,
+      "gzip": 25042,
+      "brotli": 22827
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 0,
+      "files": [
+        {
+          "file": "assets/index-CCRSPI1G.js",
+          "raw": 24884,
+          "gzip": 9921,
+          "brotli": 9015
+        }
+      ],
+      "raw": 24884,
+      "gzip": 9921,
+      "brotli": 9015
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 1,
+      "files": [
+        {
+          "file": "assets/index-Ac5K874n.js",
+          "raw": 69630,
+          "gzip": 27271,
+          "brotli": 24793
+        }
+      ],
+      "raw": 69630,
+      "gzip": 27271,
+      "brotli": 24793
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 1,
+      "files": [
+        {
+          "file": "assets/index-DodwqDWR.js",
+          "raw": 39607,
+          "gzip": 15468,
+          "brotli": 14000
+        }
+      ],
+      "raw": 39607,
+      "gzip": 15468,
+      "brotli": 14000
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 2,
+      "files": [
+        {
+          "file": "assets/index-RcCKHQW4.js",
+          "raw": 71613,
+          "gzip": 27423,
+          "brotli": 24907
+        }
+      ],
+      "raw": 71613,
+      "gzip": 27423,
+      "brotli": 24907
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 2,
+      "files": [
+        {
+          "file": "assets/index-CWF0LtjN.js",
+          "raw": 41700,
+          "gzip": 15596,
+          "brotli": 14091
+        }
+      ],
+      "raw": 41700,
+      "gzip": 15596,
+      "brotli": 14091
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 5,
+      "files": [
+        {
+          "file": "assets/index-DABNzJn2.js",
+          "raw": 77532,
+          "gzip": 27849,
+          "brotli": 25151
+        }
+      ],
+      "raw": 77532,
+      "gzip": 27849,
+      "brotli": 25151
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 5,
+      "files": [
+        {
+          "file": "assets/index-BeBQjw2U.js",
+          "raw": 47955,
+          "gzip": 15940,
+          "brotli": 14281
+        }
+      ],
+      "raw": 47955,
+      "gzip": 15940,
+      "brotli": 14281
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 10,
+      "files": [
+        {
+          "file": "assets/index-DsXEh33f.js",
+          "raw": 87374,
+          "gzip": 28524,
+          "brotli": 25441
+        }
+      ],
+      "raw": 87374,
+      "gzip": 28524,
+      "brotli": 25441
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 10,
+      "files": [
+        {
+          "file": "assets/index-DwBKlxqC.js",
+          "raw": 58303,
+          "gzip": 16489,
+          "brotli": 14565
+        }
+      ],
+      "raw": 58303,
+      "gzip": 16489,
+      "brotli": 14565
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 20,
+      "files": [
+        {
+          "file": "assets/index-3xGz_gVl.js",
+          "raw": 107120,
+          "gzip": 29867,
+          "brotli": 26132
+        }
+      ],
+      "raw": 107120,
+      "gzip": 29867,
+      "brotli": 26132
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 20,
+      "files": [
+        {
+          "file": "assets/index-DEeod38C.js",
+          "raw": 79052,
+          "gzip": 17575,
+          "brotli": 14952
+        }
+      ],
+      "raw": 79052,
+      "gzip": 17575,
+      "brotli": 14952
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 40,
+      "files": [
+        {
+          "file": "assets/index-DcPOuAfP.js",
+          "raw": 146580,
+          "gzip": 32425,
+          "brotli": 27236
+        }
+      ],
+      "raw": 146580,
+      "gzip": 32425,
+      "brotli": 27236
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 40,
+      "files": [
+        {
+          "file": "assets/index-VVyRyXQ_.js",
+          "raw": 120507,
+          "gzip": 19695,
+          "brotli": 15786
+        }
+      ],
+      "raw": 120507,
+      "gzip": 19695,
+      "brotli": 15786
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 80,
+      "files": [
+        {
+          "file": "assets/index-hNIHR95K.js",
+          "raw": 225500,
+          "gzip": 37394,
+          "brotli": 29573
+        }
+      ],
+      "raw": 225500,
+      "gzip": 37394,
+      "brotli": 29573
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 80,
+      "files": [
+        {
+          "file": "assets/index-BbZdC1AB.js",
+          "raw": 203418,
+          "gzip": 23768,
+          "brotli": 17491
+        }
+      ],
+      "raw": 203418,
+      "gzip": 23768,
+      "brotli": 17491
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 160,
+      "files": [
+        {
+          "file": "assets/index-B4NL7MPS.js",
+          "raw": 383940,
+          "gzip": 47105,
+          "brotli": 33786
+        }
+      ],
+      "raw": 383940,
+      "gzip": 47105,
+      "brotli": 33786
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 160,
+      "files": [
+        {
+          "file": "assets/index-6fvVdi7R.js",
+          "raw": 369777,
+          "gzip": 31261,
+          "brotli": 20638
+        }
+      ],
+      "raw": 369777,
+      "gzip": 31261,
+      "brotli": 20638
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 320,
+      "files": [
+        {
+          "file": "assets/index-DLc-0-tT.js",
+          "raw": 703330,
+          "gzip": 66236,
+          "brotli": 42440
+        }
+      ],
+      "raw": 703330,
+      "gzip": 66236,
+      "brotli": 42440
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 320,
+      "files": [
+        {
+          "file": "assets/index-D932a09_.js",
+          "raw": 702852,
+          "gzip": 45823,
+          "brotli": 26521
+        }
+      ],
+      "raw": 702852,
+      "gzip": 45823,
+      "brotli": 26521
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 640,
+      "files": [
+        {
+          "file": "assets/index-CAnraNrR.js",
+          "raw": 1346210,
+          "gzip": 103907,
+          "brotli": 57762
+        }
+      ],
+      "raw": 1346210,
+      "gzip": 103907,
+      "brotli": 57762
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "hydrate",
+      "count": 640,
+      "files": [
+        {
+          "file": "assets/index-DysPkRqu.js",
+          "raw": 1371550,
+          "gzip": 74664,
+          "brotli": 38082
+        }
+      ],
+      "raw": 1371550,
+      "gzip": 74664,
+      "brotli": 38082
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 0,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 625135,
+          "gzip": 199371,
+          "brotli": 167589
+        }
+      ],
+      "raw": 625135,
+      "gzip": 199371,
+      "brotli": 167589
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 0,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 21114,
+          "gzip": 8112,
+          "brotli": 7314
+        }
+      ],
+      "raw": 21114,
+      "gzip": 8112,
+      "brotli": 7314
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 1,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 627140,
+          "gzip": 200008,
+          "brotli": 168138
+        }
+      ],
+      "raw": 627140,
+      "gzip": 200008,
+      "brotli": 168138
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 1,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 22747,
+          "gzip": 8748,
+          "brotli": 7851
+        }
+      ],
+      "raw": 22747,
+      "gzip": 8748,
+      "brotli": 7851
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 2,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 629083,
+          "gzip": 200096,
+          "brotli": 168176
+        }
+      ],
+      "raw": 629083,
+      "gzip": 200096,
+      "brotli": 168176
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 2,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 24068,
+          "gzip": 8802,
+          "brotli": 7900
+        }
+      ],
+      "raw": 24068,
+      "gzip": 8802,
+      "brotli": 7900
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 5,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 634921,
+          "gzip": 200346,
+          "brotli": 168231
+        }
+      ],
+      "raw": 634921,
+      "gzip": 200346,
+      "brotli": 168231
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 5,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 28031,
+          "gzip": 8949,
+          "brotli": 7969
+        }
+      ],
+      "raw": 28031,
+      "gzip": 8949,
+      "brotli": 7969
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 10,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 644645,
+          "gzip": 200756,
+          "brotli": 168451
+        }
+      ],
+      "raw": 644645,
+      "gzip": 200756,
+      "brotli": 168451
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 10,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 34636,
+          "gzip": 9190,
+          "brotli": 8081
+        }
+      ],
+      "raw": 34636,
+      "gzip": 9190,
+      "brotli": 8081
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 20,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 664228,
+          "gzip": 201541,
+          "brotli": 168918
+        }
+      ],
+      "raw": 664228,
+      "gzip": 201541,
+      "brotli": 168918
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 20,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 47926,
+          "gzip": 9665,
+          "brotli": 8237
+        }
+      ],
+      "raw": 47926,
+      "gzip": 9665,
+      "brotli": 8237
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 40,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 703374,
+          "gzip": 203060,
+          "brotli": 169418
+        }
+      ],
+      "raw": 703374,
+      "gzip": 203060,
+      "brotli": 169418
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 40,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 74506,
+          "gzip": 10569,
+          "brotli": 8530
+        }
+      ],
+      "raw": 74506,
+      "gzip": 10569,
+      "brotli": 8530
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 80,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 781688,
+          "gzip": 206008,
+          "brotli": 170543
+        }
+      ],
+      "raw": 781688,
+      "gzip": 206008,
+      "brotli": 170543
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 80,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 127666,
+          "gzip": 12314,
+          "brotli": 9081
+        }
+      ],
+      "raw": 127666,
+      "gzip": 12314,
+      "brotli": 9081
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 160,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 938987,
+          "gzip": 211637,
+          "brotli": 172751
+        }
+      ],
+      "raw": 938987,
+      "gzip": 211637,
+      "brotli": 172751
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 160,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 234466,
+          "gzip": 15564,
+          "brotli": 10183
+        }
+      ],
+      "raw": 234466,
+      "gzip": 15564,
+      "brotli": 10183
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 320,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 1254023,
+          "gzip": 221865,
+          "brotli": 176467
+        }
+      ],
+      "raw": 1254023,
+      "gzip": 221865,
+      "brotli": 176467
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 320,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 448386,
+          "gzip": 21738,
+          "brotli": 12248
+        }
+      ],
+      "raw": 448386,
+      "gzip": 21738,
+      "brotli": 12248
+    },
+    {
+      "framework": "vue",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 640,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 1884103,
+          "gzip": 241692,
+          "brotli": 182631
+        }
+      ],
+      "raw": 1884103,
+      "gzip": 241692,
+      "brotli": 182631
+    },
+    {
+      "framework": "svelte",
+      "workload": "todo",
+      "lane": "ssr",
+      "count": 640,
+      "files": [
+        {
+          "file": "server.js",
+          "raw": 876226,
+          "gzip": 32948,
+          "brotli": 15646
+        }
+      ],
+      "raw": 876226,
+      "gzip": 32948,
+      "brotli": 15646
+    }
+  ]
+}

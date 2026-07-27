@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "generatedAt": "2026-07-27T11:46:26.877Z",
+    "node": "v22.19.0",
+    "sourceCommit": "6bd71fcab935b7e4c627b7c394a86633fcd8feea",
+    "sourceRepository": "https://github.com/krausest/js-framework-benchmark",
+    "sourceLicense": "Apache-2.0",
+    "buildNormalizations": {
+      "vue": [],
+      "svelte": [
+        "Replaced the Rollup-oriented dist/main.js script tag with a Vite module entry to /src/main.js"
+      ]
+    },
+    "versions": {
+      "vite": "8.1.5",
+      "vue": "3.5.40",
+      "svelte": "5.56.8",
+      "vuePlugin": "6.0.8",
+      "sveltePlugin": "7.2.0"
+    }
+  },
+  "results": [
+    {
+      "framework": "vue",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/krausest/js-framework-benchmark/6bd71fcab935b7e4c627b7c394a86633fcd8feea/frameworks/keyed/vue/index.html",
+          "sha256": "30846b5e0453fd15397799b494dad3ef71d7778afa0583bd60f7d7779b8f40d0"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/krausest/js-framework-benchmark/6bd71fcab935b7e4c627b7c394a86633fcd8feea/frameworks/keyed/vue/src/App.vue",
+          "sha256": "9106cc0b702d1d97ebd7a0a0b22d0684327a49ada355157b3c51a22a3468bca8"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/krausest/js-framework-benchmark/6bd71fcab935b7e4c627b7c394a86633fcd8feea/frameworks/keyed/vue/src/data.js",
+          "sha256": "9fb1b13b3dab8b6ce55fc2c88127b260df0b60a15fccd9eb176e43e6ff055f17"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/krausest/js-framework-benchmark/6bd71fcab935b7e4c627b7c394a86633fcd8feea/frameworks/keyed/vue/src/main.js",
+          "sha256": "50cb9f18b1c7115799ae456f0d0038840278b49ea520b5549d468ec76c248fb9"
+        }
+      ],
+      "files": [
+        {
+          "file": "assets/index-8x71xZX3.js",
+          "raw": 63652,
+          "gzip": 24740,
+          "brotli": 22573
+        }
+      ],
+      "raw": 63652,
+      "gzip": 24740,
+      "brotli": 22573
+    },
+    {
+      "framework": "svelte",
+      "sources": [
+        {
+          "url": "https://raw.githubusercontent.com/krausest/js-framework-benchmark/6bd71fcab935b7e4c627b7c394a86633fcd8feea/frameworks/keyed/svelte/index.html",
+          "sha256": "237699b8ff66b36170ab2a8d92280e0997951e7a57d4216e04f34e5535032245"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/krausest/js-framework-benchmark/6bd71fcab935b7e4c627b7c394a86633fcd8feea/frameworks/keyed/svelte/src/Main.svelte",
+          "sha256": "2f7699f132f12bb9934ec2dead99d10afafd7a2000ba05838f7413654246ae15"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/krausest/js-framework-benchmark/6bd71fcab935b7e4c627b7c394a86633fcd8feea/frameworks/keyed/svelte/src/main.js",
+          "sha256": "9d41e9f525c2005693cc9d8ae2cecd8d036edb6be0235d4f0877f33a4cd98c75"
+        }
+      ],
+      "files": [
+        {
+          "file": "assets/index-o0vGWDuR.js",
+          "raw": 35566,
+          "gzip": 13957,
+          "brotli": 12654
+        }
+      ],
+      "raw": 35566,
+      "gzip": 13957,
+      "brotli": 12654
+    }
+  ]
+}

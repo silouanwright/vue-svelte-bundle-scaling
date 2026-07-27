@@ -1,0 +1,37 @@
+{
+  "name": "vue-svelte-bundle-scaling-2026",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10.9.3",
+  "engines": {
+    "node": "22.19.0"
+  },
+  "scripts": {
+    "benchmark": "node --expose-gc scripts/run-benchmark.mjs",
+    "benchmark:all": "npm run benchmark:original && npm run benchmark && npm run benchmark:route-split && npm run benchmark:matched-app && npm run benchmark:hand-authored",
+    "benchmark:hand-authored": "node --expose-gc scripts/run-hand-authored.mjs",
+    "report": "node scripts/run-benchmark.mjs --report-only",
+    "benchmark:original": "node scripts/run-original-specimen.mjs",
+    "benchmark:matched-app": "node scripts/run-matched-app.mjs",
+    "benchmark:route-split": "node --expose-gc scripts/run-route-split.mjs",
+    "charts": "node scripts/generate-charts.mjs",
+    "check": "npm run check:docs && npm run verify",
+    "check:docs": "node scripts/check-docs.mjs",
+    "test": "npm run test:parity",
+    "test:parity": "playwright test",
+    "verify": "node scripts/verify-results.mjs",
+    "verify:write": "node scripts/verify-results.mjs --write-lock"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.0"
+  },
+  "dependencies": {
+    "@sveltejs/vite-plugin-svelte": "7.2.0",
+    "@vitejs/plugin-vue": "6.0.8",
+    "@vue/server-renderer": "3.5.40",
+    "svelte": "5.56.8",
+    "vite": "8.1.5",
+    "vue": "3.5.40"
+  }
+}

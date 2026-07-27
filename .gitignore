@@ -1,0 +1,8 @@
+node_modules/
+.work/
+.work-original/
+.work-matched/
+.work-route-split/
+.work-hand-authored/
+playwright-report/
+test-results/
