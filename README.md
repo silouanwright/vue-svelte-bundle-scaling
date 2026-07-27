@@ -78,6 +78,29 @@ makes an advantage that already exists arrive sooner.
 We put together this updated example to build on and expand Evan You’s original
 comparison five years later, using a current toolchain and broader benchmarks.
 
+The current-source Svelte implementation is idiomatic Svelte 5 and follows
+[Svelte’s documented best
+practices](https://svelte.dev/docs/svelte/best-practices):
+
+- Local state, derived values, component inputs, and bindable inputs use
+  `$state`, `$derived`, `$props`, and `$bindable`.
+- Events use current attributes such as `onclick` and `onsubmit`, not legacy
+  `on:` directives.
+- Changing collections use keyed `{#each}` blocks.
+- Dynamic components use the direct Svelte 5 form, `<CurrentRoute />`, rather
+  than legacy `<svelte:component>`.
+- Dynamic classes use the currently recommended object-valued `class` syntax.
+- The replace-only notification collection uses `$state.raw` instead of paying
+  for deep reactivity it does not use.
+- Production builds use the current Svelte Vite plugin, and the trimmed profile
+  disables version disclosure through the supported compiler option.
+- All 33 hand-authored Svelte components compile with zero Svelte warnings and
+  pass the same Playwright behavior contract as the Vue implementation.
+
+“The Svelte code was written badly” is therefore not a sufficient rebuttal.
+Anyone making that claim needs to identify a behavior-equivalent change and
+show its measured effect. This repository makes that straightforward to test.
+
 ## Updated packages for the 2026 benchmark
 
 - Vue 3.5.40
