@@ -82,7 +82,9 @@ benchmarks.
 That is the overview, and if that is all you came for, that is all you need to
 read. To run the benchmarks yourself, see [Reproduce it](#reproduce-it).
 Everything below gets into a more technical discussion of the workloads,
-results, and limitations. If you want that detail, read on.
+results, and limitations.
+
+If you want that detail, read on.
 
 ## The nitty-gritty
 
