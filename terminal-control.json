@@ -1,0 +1,57 @@
+{
+  "metadata": {
+    "generatedAt": "2026-07-27T22:37:47.000Z",
+    "source": "naufalafif/realworld-js-framework-comparison",
+    "sourceCommit": "2c338de860222deba6b842260cfbec6609c272bd",
+    "profile": "Plain Vite production builds; Vue Composition API only with the unused Options API and production diagnostics disabled",
+    "compression": "gzip level 9 and Brotli quality 11; each emitted JavaScript and CSS response compressed independently",
+    "resolvedVersions": {
+      "vue": "3.5.31",
+      "svelte": "5.55.0",
+      "vite": "6.4.1",
+      "xterm": "5.5.0"
+    }
+  },
+  "results": [
+    {
+      "framework": "vue",
+      "raw": 374776,
+      "gzip": 102054,
+      "brotli": 86265,
+      "files": [
+        {
+          "file": "assets/index.css",
+          "raw": 10791,
+          "gzip": 3701,
+          "brotli": 3008
+        },
+        {
+          "file": "assets/index.js",
+          "raw": 363985,
+          "gzip": 98353,
+          "brotli": 83257
+        }
+      ]
+    },
+    {
+      "framework": "svelte",
+      "raw": 352924,
+      "gzip": 92765,
+      "brotli": 77671,
+      "files": [
+        {
+          "file": "assets/index.css",
+          "raw": 10791,
+          "gzip": 3701,
+          "brotli": 3008
+        },
+        {
+          "file": "assets/index.js",
+          "raw": 342133,
+          "gzip": 89064,
+          "brotli": 74663
+        }
+      ]
+    }
+  ]
+}

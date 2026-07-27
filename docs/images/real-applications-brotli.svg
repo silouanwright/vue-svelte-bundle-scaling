@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-labelledby="title description">
   <title id="title">Measured transfer from a small app to a medium-size app</title>
-  <desc id="description">Svelte is smaller for the controlled small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the three measured states for each framework.</desc>
+  <desc id="description">Svelte is smaller for the controlled Weather Front and independently authored terminal applications. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured states for each framework.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -16,7 +16,7 @@
   </style>
   <rect width="880" height="500" fill="#ffffff" />
   <text x="42" y="38" class="title">From a small app to a medium-sized app (kB)</text>
-  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · three measured production states</text>
+  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · four measured production states</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="#238a62" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="#238a62" />
   <text x="718" y="35" class="legend">Vue</text>
@@ -24,44 +24,49 @@
   <rect x="783" y="25" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 788 30)" />
   <text x="816" y="35" class="legend">Svelte</text>
 
-  <line x1="92" y1="408" x2="830" y2="408" class="grid" />
-  <text x="78" y="413" text-anchor="end" class="tick">0 kB</text>
-  <line x1="92" y1="362.29" x2="830" y2="362.29" class="grid" />
-  <text x="78" y="367.29" text-anchor="end" class="tick">100 kB</text>
-  <line x1="92" y1="316.57" x2="830" y2="316.57" class="grid" />
-  <text x="78" y="321.57" text-anchor="end" class="tick">200 kB</text>
-  <line x1="92" y1="270.86" x2="830" y2="270.86" class="grid" />
-  <text x="78" y="275.86" text-anchor="end" class="tick">300 kB</text>
-  <line x1="92" y1="225.14" x2="830" y2="225.14" class="grid" />
-  <text x="78" y="230.14" text-anchor="end" class="tick">400 kB</text>
-  <line x1="92" y1="179.43" x2="830" y2="179.43" class="grid" />
-  <text x="78" y="184.43" text-anchor="end" class="tick">500 kB</text>
-  <line x1="92" y1="133.71" x2="830" y2="133.71" class="grid" />
-  <text x="78" y="138.71" text-anchor="end" class="tick">600 kB</text>
-  <line x1="92" y1="88" x2="92" y2="408" class="axis" />
-  <line x1="92" y1="408" x2="830" y2="408" class="axis" />
-  <line x1="182.89379680563192" y1="88" x2="182.89379680563192" y2="408" stroke="#7b8794" stroke-width="1.5" stroke-dasharray="5 5" />
-  <text x="192.89379680563192" y="105" class="crossover">Approx. crossover</text>
-  <text x="192.89379680563192" y="122" class="detail">Vue becomes smaller</text>
+  <line x1="92" y1="390" x2="830" y2="390" class="grid" />
+  <text x="78" y="395" text-anchor="end" class="tick">0 kB</text>
+  <line x1="92" y1="346.86" x2="830" y2="346.86" class="grid" />
+  <text x="78" y="351.86" text-anchor="end" class="tick">100 kB</text>
+  <line x1="92" y1="303.71" x2="830" y2="303.71" class="grid" />
+  <text x="78" y="308.71" text-anchor="end" class="tick">200 kB</text>
+  <line x1="92" y1="260.57" x2="830" y2="260.57" class="grid" />
+  <text x="78" y="265.57" text-anchor="end" class="tick">300 kB</text>
+  <line x1="92" y1="217.43" x2="830" y2="217.43" class="grid" />
+  <text x="78" y="222.43" text-anchor="end" class="tick">400 kB</text>
+  <line x1="92" y1="174.29" x2="830" y2="174.29" class="grid" />
+  <text x="78" y="179.29" text-anchor="end" class="tick">500 kB</text>
+  <line x1="92" y1="131.14" x2="830" y2="131.14" class="grid" />
+  <text x="78" y="136.14" text-anchor="end" class="tick">600 kB</text>
+  <line x1="92" y1="88" x2="92" y2="390" class="axis" />
+  <line x1="92" y1="390" x2="830" y2="390" class="axis" />
+  <line x1="351.1652797081836" y1="88" x2="351.1652797081836" y2="390" stroke="#7b8794" stroke-width="1.5" stroke-dasharray="5 5" />
+  <text x="361.1652797081836" y="105" class="crossover">Approx. crossover</text>
+  <text x="361.1652797081836" y="122" class="detail">Vue becomes smaller</text>
 
-  <path d="M 156 397.03 Q 454 219.28, 752 230.14" fill="none" stroke="#238a62" stroke-width="4" stroke-linecap="round" />
-  <circle cx="156" cy="397.03" r="6" fill="#238a62" /><circle cx="454" cy="266.43" r="6" fill="#238a62" /><circle cx="752" cy="230.14" r="6" fill="#238a62" />
-  <path d="M 156 400.62 Q 454 184.14, 752 107.74" fill="none" stroke="#d93600" stroke-width="4" stroke-linecap="round" />
-  <rect x="151" y="395.62" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 156 400.62)" /><rect x="449" y="214.16" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 454 219.16)" /><rect x="747" y="102.74" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 752 107.74)" />
-  <text x="146" y="386.62" text-anchor="end" class="value">16 kB</text>
-  <text x="166" y="407.03" class="value">24 kB</text>
-  <text x="444" y="207.16" text-anchor="end" class="value">413 kB</text>
-  <text x="464" y="288.43" class="value">309 kB</text>
-  <text x="742" y="95.74" text-anchor="end" class="value">656 kB</text>
-  <text x="762" y="252.14" class="value">389 kB</text>
+  <path d="M 138 379.64 C 169.33 375.16, 261.33 373.32, 326 352.78 C 390.67 332.24, 455.67 278.17, 526 256.4 C 596.33 234.63, 711.00 227.85, 748 222.14" fill="none" stroke="#238a62" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="138" cy="379.64" r="6" fill="#238a62" /><circle cx="326" cy="352.78" r="6" fill="#238a62" /><circle cx="526" cy="256.4" r="6" fill="#238a62" /><circle cx="748" cy="222.14" r="6" fill="#238a62" />
+  <path d="M 138 383.04 C 169.33 378.62, 261.33 385.03, 326 356.49 C 390.67 327.95, 455.67 253.42, 526 211.78 C 596.33 170.14, 711.00 124.16, 748 106.63" fill="none" stroke="#d93600" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="133" y="378.04" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 138 383.04)" /><rect x="321" y="351.49" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 326 356.49)" /><rect x="521" y="206.78" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 526 211.78)" /><rect x="743" y="101.63" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 748 106.63)" />
+  <text x="128" y="369.04" text-anchor="end" class="value">16 kB</text>
+  <text x="148" y="393.64" class="value">24 kB</text>
+  <text x="316" y="344.49" text-anchor="end" class="value">77 kB</text>
+  <text x="316" y="370.78" text-anchor="end" class="value">86 kB</text>
+  <text x="516" y="199.78" text-anchor="end" class="value">413 kB</text>
+  <text x="536" y="278.4" class="value">309 kB</text>
+  <text x="738" y="94.63" text-anchor="end" class="value">656 kB</text>
+  <text x="758" y="244.14" class="value">389 kB</text>
 
-  <text x="156" y="430" text-anchor="middle" class="label">Small app</text>
-  <text x="156" y="449" text-anchor="middle" class="detail">Weather Front</text>
-  <text x="156" y="467" text-anchor="middle" class="detail">Entire app</text>
-  <text x="454" y="430" text-anchor="middle" class="label">Medium-size app</text>
-  <text x="454" y="449" text-anchor="middle" class="detail">OpenSlides · one route</text>
-  <text x="454" y="467" text-anchor="middle" class="detail">Dashboard</text>
-  <text x="752" y="430" text-anchor="middle" class="label">Medium-size app</text>
-  <text x="752" y="449" text-anchor="middle" class="detail">OpenSlides · two routes</text>
-  <text x="752" y="467" text-anchor="middle" class="detail">Dashboard + editor</text>
+  <text x="138" y="417" text-anchor="middle" class="label">Small app</text>
+  <text x="138" y="437" text-anchor="middle" class="detail">Weather Front</text>
+  <text x="138" y="455" text-anchor="middle" class="detail">Entire app</text>
+  <text x="326" y="417" text-anchor="middle" class="label">Small app</text>
+  <text x="326" y="437" text-anchor="middle" class="detail">Terminal</text>
+  <text x="326" y="455" text-anchor="middle" class="detail">Entire app</text>
+  <text x="526" y="417" text-anchor="middle" class="label">Medium-size app</text>
+  <text x="526" y="437" text-anchor="middle" class="detail">OpenSlides · one route</text>
+  <text x="526" y="455" text-anchor="middle" class="detail">Dashboard</text>
+  <text x="748" y="417" text-anchor="middle" class="label">Medium-size app</text>
+  <text x="748" y="437" text-anchor="middle" class="detail">OpenSlides · two routes</text>
+  <text x="748" y="455" text-anchor="middle" class="detail">Dashboard + editor</text>
 </svg>

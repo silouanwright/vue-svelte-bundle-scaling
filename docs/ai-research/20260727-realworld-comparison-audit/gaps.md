@@ -4,4 +4,5 @@
   comparison shows matched handlers.
 - The repository's CRUD lane uses materially different ecosystem strategies
   and is not a clean framework-layer control.
-- No additional work is required to decide the lead-chart crossover question.
+- The four-point lead curve interpolates between separate applications; it is
+  not a measured universal crossover threshold.

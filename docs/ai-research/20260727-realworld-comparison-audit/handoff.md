@@ -11,9 +11,12 @@ The terminal result reproduced, but 76.088 kB gzip / 63.215 kB Brotli is
 byte-identical shared xterm JavaScript. Default Vue framework + app code is
 25.566 kB gzip versus Svelte's 13.131 kB; disabling Vue's unused Options API
 reduces Vue to 22.331 kB. This corroborates Svelte's small-app advantage but
-does not locate a crossover near 100 kB.
+does not locate a framework-code crossover near 100 kB.
 
-Do not move the lead chart's illustrated crossover because of this source.
+The lead chart measures complete production transfer, so it now includes the
+Composition-only complete terminal builds: 86.265 kB Brotli for Vue and 77.671
+kB for Svelte. Treat the resulting curve as an interpolation across measured
+applications, not a universal size threshold.
 
 ## Key evidence
 
@@ -26,10 +29,10 @@ Do not move the lead chart's illustrated crossover because of this source.
 
 ## Open gaps
 
-None for the chart decision. The shared terminal Playwright test remains
-shallower than the OpenSlides parity suite.
+The shared terminal Playwright test remains shallower than the OpenSlides
+parity suite.
 
 ## Resume prompt
 
-Read `findings.md` first. Do not treat the ~100 kB terminal total as 100 kB of
-framework/application code.
+Read `findings.md` first. Preserve the distinction between complete production
+transfer and framework/application code.

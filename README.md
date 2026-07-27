@@ -5,15 +5,16 @@
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
   widgets, and small initial routes.
 - Vue can become smaller as an application grows. Svelte is 7.865 kB smaller
-  in the controlled small Weather Front application. After loading the
-  dashboard and editor in route-split OpenSlides, Vue is 267.736 kB smaller.
+  in Weather Front and 8.594 kB smaller in an independent terminal app. After
+  loading the dashboard and editor in route-split OpenSlides, Vue is 267.736
+  kB smaller.
 
-![Svelte is smaller for the controlled small Weather Front application, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
+![Svelte is smaller for the Weather Front and terminal applications, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
 
-*Weather Front is a separate, normalized Vue 3.5/Svelte 5 application. The
-middle and final markers are cumulative OpenSlides route states. Each curve
-passes through the three measured production states. The dashed vertical line
-marks their interpolated crossover; it is an approximation between these
+*Weather Front and Terminal are separate small applications. The third and
+fourth markers are cumulative OpenSlides route states. Each curve passes
+through the four measured production states. The dashed vertical line marks
+their interpolated crossover; it is an approximation between these
 applications, not a universal threshold.*
 
 Here, “small” and “medium-sized” describe product scope rather than universal
@@ -77,10 +78,10 @@ The architectural tradeoff is also clearly documented in the Vue FAQ:
 
 ## Is Vue amortization still visible in 2026?
 
-Yes. OpenSlides adds what Evan You’s projection did not measure directly: a
-medium-sized application in which Vue becomes substantially smaller after
-real routes load. Weather Front establishes the other end honestly: Svelte
-still wins in a small application.
+Yes. Weather Front and the independent terminal app establish the small end
+honestly: Svelte wins both. OpenSlides adds what Evan You’s projection did not
+measure directly: a medium-sized application in which Vue becomes
+substantially smaller after real routes load.
 
 ## OpenSlides: the primary 2026 case study
 
@@ -186,16 +187,23 @@ and toolchain even when the broader size curve remains useful.
 
 An [independent current comparison](https://github.com/naufalafif/realworld-js-framework-comparison/tree/2c338de860222deba6b842260cfbec6609c272bd)
 reports a terminal application at 99.6 KiB for Vue and 87.4 KiB for Svelte. I
-reproduced the result, but a vendor split showed that 76.088 kB gzip of both
-builds is byte-identical xterm code.
-The default framework-plus-application layer is 25.566 kB for Vue and
-13.131 kB for Svelte; disabling Vue’s unused Options API reduces Vue to
-22.331 kB.
+reproduced it with the source pinned at the linked commit. For the lead graph,
+I disabled Vue’s unused Options API and production diagnostics:
 
-This is legitimate additional evidence for Svelte’s small-application
-advantage. It is not evidence that Svelte remains smaller after accumulating
-100 kB of framework-generated application code. The detailed reproduction,
-source audit, and Brotli measurements are in the
+| Terminal app transfer | Vue 3.5 | Svelte 5 | Smaller result |
+| --- | ---: | ---: | --- |
+| gzip | 102.054 kB | 92.765 kB | Svelte by 9.289 kB |
+| Brotli | 86.265 kB | 77.671 kB | Svelte by 8.594 kB |
+
+This is a valid complete-production-transfer point, so it belongs in a graph
+of complete transfer. It also needs context: a vendor split showed that 76.088
+kB gzip / 63.215 kB Brotli of both builds is byte-identical xterm code. The
+terminal therefore corroborates Svelte’s small-app advantage; it does not show
+Svelte remaining smaller after accumulating 100 kB of framework-generated
+application code or establish a universal crossover near 100 kB.
+
+The complete measurement is recorded in [`terminal-control.json`](terminal-control.json).
+The detailed reproduction, source audit, and diagnostic split are in the
 [`independent comparison audit`](docs/ai-research/20260727-realworld-comparison-audit/findings.md).
 
 The complete measurements are in

@@ -329,12 +329,19 @@ function smallLargeComparisonChart(results) {
 `.replace(/^[ \t]+$/gm, "");
 }
 
-function realApplicationsChart(weatherResults, openslidesResults) {
+function realApplicationsChart(
+  weatherResults,
+  terminalResults,
+  openslidesResults,
+) {
   const weather = Object.fromEntries(
     weatherResults.map((result) => [
       result.framework,
       result.complete.brotli,
     ]),
+  );
+  const terminal = Object.fromEntries(
+    terminalResults.map((result) => [result.framework, result.brotli]),
   );
   const openslides = Object.fromEntries(
     openslidesResults.map((result) => [result.framework, result]),
@@ -346,6 +353,13 @@ function realApplicationsChart(weatherResults, openslidesResults) {
       condition: "Entire app",
       vue: weather.vue,
       svelte: weather.svelte,
+    },
+    {
+      label: "Small app",
+      detail: "Terminal",
+      condition: "Entire app",
+      vue: terminal.vue,
+      svelte: terminal.svelte,
     },
     {
       label: "Medium-size app",
@@ -366,10 +380,10 @@ function realApplicationsChart(weatherResults, openslidesResults) {
     left: 92,
     right: 830,
     top: 88,
-    bottom: 408,
+    bottom: 390,
     maximum: 700_000,
   };
-  const stageX = [156, 454, 752];
+  const stageX = [138, 326, 526, 748];
   const y = (value) =>
     Number(
       (
@@ -377,36 +391,78 @@ function realApplicationsChart(weatherResults, openslidesResults) {
         (value / chart.maximum) * (chart.bottom - chart.top)
       ).toFixed(2),
     );
-  const controlValue = (framework) =>
-    2 * stages[1][framework] -
-    (stages[0][framework] + stages[2][framework]) / 2;
-  const quadraticValue = (start, control, end, t) =>
-    (1 - t) ** 2 * start +
-    2 * (1 - t) * t * control +
-    t ** 2 * end;
-  const frameworkValueAt = (framework, t) =>
-    quadraticValue(
-      stages[0][framework],
-      controlValue(framework),
-      stages[2][framework],
-      t,
-    );
+  const cubicValue = (start, control1, control2, end, t) =>
+    (1 - t) ** 3 * start +
+    3 * (1 - t) ** 2 * t * control1 +
+    3 * (1 - t) * t ** 2 * control2 +
+    t ** 3 * end;
+  const segment = (framework, index) => {
+    const previousIndex = Math.max(0, index - 1);
+    const nextIndex = index + 1;
+    const followingIndex = Math.min(stages.length - 1, index + 2);
+    const start = {
+      x: stageX[index],
+      y: y(stages[index][framework]),
+    };
+    const end = {
+      x: stageX[nextIndex],
+      y: y(stages[nextIndex][framework]),
+    };
+    const previous = {
+      x: stageX[previousIndex],
+      y: y(stages[previousIndex][framework]),
+    };
+    const following = {
+      x: stageX[followingIndex],
+      y: y(stages[followingIndex][framework]),
+    };
+    return {
+      start,
+      control1: {
+        x: start.x + (end.x - previous.x) / 6,
+        y: start.y + (end.y - previous.y) / 6,
+      },
+      control2: {
+        x: end.x - (following.x - start.x) / 6,
+        y: end.y - (following.y - start.y) / 6,
+      },
+      end,
+    };
+  };
+  const valueOnSegment = (framework, index, t) => {
+    const curve = segment(framework, index);
+    return {
+      x: cubicValue(
+        curve.start.x,
+        curve.control1.x,
+        curve.control2.x,
+        curve.end.x,
+        t,
+      ),
+      y: cubicValue(
+        curve.start.y,
+        curve.control1.y,
+        curve.control2.y,
+        curve.end.y,
+        t,
+      ),
+    };
+  };
   let crossoverLow = 0;
-  let crossoverHigh = 0.5;
+  let crossoverHigh = 1;
   for (let iteration = 0; iteration < 60; iteration += 1) {
     const midpoint = (crossoverLow + crossoverHigh) / 2;
     const difference =
-      frameworkValueAt("vue", midpoint) -
-      frameworkValueAt("svelte", midpoint);
-    if (difference > 0) {
+      valueOnSegment("vue", 1, midpoint).y -
+      valueOnSegment("svelte", 1, midpoint).y;
+    if (difference < 0) {
       crossoverLow = midpoint;
     } else {
       crossoverHigh = midpoint;
     }
   }
   const crossoverT = (crossoverLow + crossoverHigh) / 2;
-  const crossoverX =
-    stageX[0] + (stageX[2] - stageX[0]) * crossoverT;
+  const crossoverX = valueOnSegment("vue", 1, crossoverT).x;
   const ticks = [0, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000];
   const grid = ticks
     .map(
@@ -418,12 +474,13 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   const plots = ["vue", "svelte"]
     .map((framework) => {
       const color = colors[framework];
-      const controlY = Number(
-        (
-          2 * y(stages[1][framework]) -
-          (y(stages[0][framework]) + y(stages[2][framework])) / 2
-        ).toFixed(2),
-      );
+      const path = stages
+        .slice(0, -1)
+        .map((_, index) => {
+          const curve = segment(framework, index);
+          return `C ${curve.control1.x.toFixed(2)} ${curve.control1.y.toFixed(2)}, ${curve.control2.x.toFixed(2)} ${curve.control2.y.toFixed(2)}, ${curve.end.x} ${curve.end.y}`;
+        })
+        .join(" ");
       const circles = stages
         .map(
           (stage, index) =>
@@ -433,22 +490,22 @@ function realApplicationsChart(weatherResults, openslidesResults) {
         )
         .join("");
       return `
-  <path d="M ${stageX[0]} ${y(stages[0][framework])} Q ${stageX[1]} ${controlY}, ${stageX[2]} ${y(stages[2][framework])}" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" />
+  <path d="M ${stageX[0]} ${y(stages[0][framework])} ${path}" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
   ${circles}`;
     })
     .join("");
   const stageLabels = stages
     .map(
       (stage, index) => `
-  <text x="${stageX[index]}" y="430" text-anchor="middle" class="label">${stage.label}</text>
-  <text x="${stageX[index]}" y="449" text-anchor="middle" class="detail">${stage.detail}</text>
-  <text x="${stageX[index]}" y="467" text-anchor="middle" class="detail">${stage.condition}</text>`,
+  <text x="${stageX[index]}" y="417" text-anchor="middle" class="label">${stage.label}</text>
+  <text x="${stageX[index]}" y="437" text-anchor="middle" class="detail">${stage.detail}</text>
+  <text x="${stageX[index]}" y="455" text-anchor="middle" class="detail">${stage.condition}</text>`,
     )
     .join("");
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
   <title id="title">Measured transfer from a small app to a medium-size app</title>
-  <desc id="description">Svelte is smaller for the controlled small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the three measured states for each framework.</desc>
+  <desc id="description">Svelte is smaller for the controlled Weather Front and independently authored terminal applications. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured states for each framework.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -464,7 +521,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
   <text x="42" y="38" class="title">From a small app to a medium-sized app (kB)</text>
-  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · three measured production states</text>
+  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · four measured production states</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="${colors.vue}" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="${colors.vue}" />
   <text x="718" y="35" class="legend">Vue</text>
@@ -479,11 +536,13 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   <text x="${crossoverX + 10}" y="${chart.top + 34}" class="detail">Vue becomes smaller</text>
   ${plots}
   <text x="${stageX[0] - 10}" y="${y(stages[0].svelte) - 14}" text-anchor="end" class="value">${Math.floor(stages[0].svelte / 1000)} kB</text>
-  <text x="${stageX[0] + 10}" y="${y(stages[0].vue) + 10}" class="value">${Math.floor(stages[0].vue / 1000)} kB</text>
+  <text x="${stageX[0] + 10}" y="${y(stages[0].vue) + 14}" class="value">${Math.floor(stages[0].vue / 1000)} kB</text>
   <text x="${stageX[1] - 10}" y="${y(stages[1].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[1].svelte / 1000)} kB</text>
-  <text x="${stageX[1] + 10}" y="${y(stages[1].vue) + 22}" class="value">${Math.floor(stages[1].vue / 1000)} kB</text>
+  <text x="${stageX[1] - 10}" y="${y(stages[1].vue) + 18}" text-anchor="end" class="value">${Math.floor(stages[1].vue / 1000)} kB</text>
   <text x="${stageX[2] - 10}" y="${y(stages[2].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[2].svelte / 1000)} kB</text>
   <text x="${stageX[2] + 10}" y="${y(stages[2].vue) + 22}" class="value">${Math.floor(stages[2].vue / 1000)} kB</text>
+  <text x="${stageX[3] - 10}" y="${y(stages[3].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[3].svelte / 1000)} kB</text>
+  <text x="${stageX[3] + 10}" y="${y(stages[3].vue) + 22}" class="value">${Math.floor(stages[3].vue / 1000)} kB</text>
   ${stageLabels}
 </svg>
 `.replace(/^[ \t]+$/gm, "");
@@ -608,9 +667,16 @@ const openslides = JSON.parse(
 const weatherStaged = JSON.parse(
   fs.readFileSync(path.join(root, "weather-staged.json"), "utf8"),
 );
+const terminalControl = JSON.parse(
+  fs.readFileSync(path.join(root, "terminal-control.json"), "utf8"),
+);
 fs.writeFileSync(
   path.join(outputDir, "real-applications-brotli.svg"),
-  realApplicationsChart(weatherStaged.results, openslides.results),
+  realApplicationsChart(
+    weatherStaged.results,
+    terminalControl.results,
+    openslides.results,
+  ),
 );
 
 console.log("Generated 4 deterministic SVG charts");

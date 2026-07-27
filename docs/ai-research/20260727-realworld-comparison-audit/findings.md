@@ -9,7 +9,8 @@ chart's illustrated crossover?
 ## Current conclusion
 
 The published terminal result is reproducible and the implementations are
-credible equivalents, but it must not be used to place an application-code
+credible equivalents. It is a valid point in a graph of complete production
+transfer, but it must not be interpreted as locating an application-code
 crossover near 100 kB. Roughly 76 kB gzip of both bundles is byte-identical
 `xterm` code. The framework plus application layer remains a small comparison:
 about 25.6 kB for default Vue, 22.3 kB for Composition-only Vue, and 13.1 kB
@@ -77,6 +78,14 @@ Svelte remained smaller by 9.200 kB gzip / 8.510 kB Brotli. The default Vue
 configuration is not fraudulent or badly authored, but it leaves a legitimate
 production optimization unused.
 
+Rebuilding the complete production output without the diagnostic vendor split,
+while retaining the Composition-only Vue configuration, measured:
+
+| Complete JavaScript + CSS | Vue | Svelte | Vue − Svelte |
+| --- | ---: | ---: | ---: |
+| gzip level 9 | 102.054 kB | 92.765 kB | +9.289 kB |
+| Brotli quality 11 | 86.265 kB | 77.671 kB | +8.594 kB |
+
 ## Source and behavior parity
 
 The Vue and Svelte terminal components implement the same xterm construction,
@@ -104,11 +113,12 @@ has a real advantage in small application/framework layers.
 
 ## Chart decision
 
-Do not move the illustrated crossover to 100 kB because of the terminal
-result. The terminal is a small application layer mounted on 76 kB of shared
-vendor code. Padding both frameworks with the same library increases total
-transfer without advancing the Vue-versus-Svelte amortization curve.
+Include the terminal as a second measured small-application point because the
+lead chart measures complete production transfer, and the terminal total is a
+legitimate observation of that quantity.
 
-The result is worth mentioning as additional small-app corroboration. It does
-not provide an intermediate application-scaling coordinate between Weather
-Front and OpenSlides.
+Do not describe it as proving that Svelte remains smaller through 100 kB of
+framework-generated application code. The terminal is a small application
+layer mounted on 76 kB of shared vendor code. It refines the complete-transfer
+illustration between Weather Front and OpenSlides without locating a universal
+framework-code crossover.

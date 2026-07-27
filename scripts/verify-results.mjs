@@ -16,6 +16,7 @@ const resultFiles = [
   "hand-authored-trimmed.json",
   "weather-upstream.json",
   "weather-staged.json",
+  "terminal-control.json",
   "openslides.json",
 ];
 const sizeKeys = ["raw", "gzip", "brotli"];
