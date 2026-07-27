@@ -67,6 +67,9 @@ honestly: Svelte wins both. OpenSlides supplies what Evan You could only
 hypothesize from TodoMVC: an actual, working medium-sized application that
 concretely shows Vue becoming substantially smaller.
 
+The lead chart therefore uses measured production builds from working
+applications, not projected copies of one TodoMVC component.
+
 Svelte starts smaller. Vue grows more slowly. The exact crossover varies by
 application, but a smaller framework baseline does not guarantee a smaller
 substantial application.

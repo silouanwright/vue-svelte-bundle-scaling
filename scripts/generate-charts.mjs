@@ -387,8 +387,8 @@ function realApplicationsChart(
   const chart = {
     left: 92,
     right: 830,
-    top: 88,
-    bottom: 390,
+    top: 100,
+    bottom: 402,
     maximum,
   };
   const stageX = [138, 326, 526, 748];
@@ -468,9 +468,9 @@ function realApplicationsChart(
   const stageLabels = stages
     .map(
       (stage, index) => `
-  <text x="${stageX[index]}" y="417" text-anchor="middle" class="label">${stage.label}</text>
-  <text x="${stageX[index]}" y="437" text-anchor="middle" class="detail">${stage.detail}</text>
-  <text x="${stageX[index]}" y="455" text-anchor="middle" class="detail">${stage.condition}</text>`,
+  <text x="${stageX[index]}" y="429" text-anchor="middle" class="label">${stage.label}</text>
+  <text x="${stageX[index]}" y="449" text-anchor="middle" class="detail">${stage.detail}</text>
+  <text x="${stageX[index]}" y="467" text-anchor="middle" class="detail">${stage.condition}</text>`,
     )
     .join("");
   const formatSize = (value) =>
@@ -504,8 +504,8 @@ function realApplicationsChart(
     .crossover { font-size: 12px; font-weight: 700; fill: #4a5560; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
-  <text x="42" y="38" class="title">${title}</text>
-  <text x="42" y="61" class="subtitle">${subtitle}</text>
+  <text x="42" y="50" class="title">${title}</text>
+  <text x="42" y="73" class="subtitle">${subtitle}</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="${colors.vue}" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="${colors.vue}" />
   <text x="718" y="35" class="legend">Vue</text>
@@ -686,8 +686,7 @@ fs.writeFileSync(
         600_000,
       ],
       title: "From a small app to a medium-sized app (kB)",
-      subtitle:
-        "Vue versus Svelte · cumulative Brotli transfer · four measured production states",
+      subtitle: "Vue vs. Svelte · Real application measurements",
       description:
         "Svelte is smaller for the controlled Weather Front and independently authored terminal applications. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured Brotli transfer states for each framework.",
     },
@@ -713,8 +712,7 @@ fs.writeFileSync(
         3_000_000,
       ],
       title: "Production output before compression (kB)",
-      subtitle:
-        "Vue versus Svelte · cumulative uncompressed production bytes · four measured states",
+      subtitle: "Vue vs. Svelte · Real application measurements",
       description:
         "Before transfer compression, Svelte emits less production output for the Weather Front and terminal applications. Vue emits less after the OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured uncompressed production states for each framework.",
     },
