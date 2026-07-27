@@ -49,7 +49,25 @@ cost could become a disadvantage for medium-to-large applications. This is
 also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
 
-## What this 2026 benchmark adds
+## Is this still true in 2026?
+
+Yes.
+
+## What this new 2026 benchmark adds
+
+This repository updates Evan You’s comparison with the current toolchain:
+
+- Vue 3.5.40
+- Svelte 5.56.8
+- Vite 8.1.5
+- `@vitejs/plugin-vue` 6.0.8
+- `@sveltejs/vite-plugin-svelte` 7.2.0
+- Node.js 22.19.0
+
+That is all we wanted to communicate. If the TL;DR and chart answered your
+question, you can stop reading here. If you want the nitty-gritty, read on.
+
+## The nitty-gritty
 
 Five years of framework and build-tool changes make the historical component
 counts unsuitable as present-day thresholds. Svelte 5 is a major architectural
@@ -59,8 +77,7 @@ the compiler-dominated Svelte 4
 design](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive#what-changed-and-why).
 Vue and Vite have also changed substantially.
 
-This repository therefore rebuilds the comparison with Vue 3.5, Svelte 5, and
-Vite 8. It also tests several questions the original arithmetic could not
+The benchmark also tests several questions the original arithmetic could not
 answer:
 
 - What happens when complete production applications are bundled and compressed
