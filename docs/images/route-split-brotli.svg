@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-labelledby="title description">
-  <title id="title">Vue eventually becomes smaller than Svelte</title>
+  <title id="title">Route-split application simulation</title>
   <desc id="description">Composition-only production profile. Total JavaScript transferred after visiting every route, with each response compressed independently using Brotli. Each line connects separately measured production builds at 64, 128, 256, and 512 matched feature definitions. Vue's transferred JavaScript grows more slowly, so the measured gap closes and reverses by the largest build. Only the precise crossover location is estimated.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
@@ -18,7 +18,7 @@
     .callout-text { fill: #644b11; font-size: 12px; }
   </style>
   <rect width="880" height="500" fill="#ffffff" />
-  <text x="86" y="38" class="title">Vue eventually becomes smaller than Svelte</text>
+  <text x="86" y="38" class="title">Route-split application simulation</text>
 
     <line x1="660" y1="30" x2="696" y2="30" stroke="#238a62" stroke-width="4" />
     <text x="706" y="35" class="legend">Vue 3.5</text>

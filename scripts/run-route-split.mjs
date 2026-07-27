@@ -319,7 +319,7 @@ async function openRoute(loader) {
 </script>
 <template>
   <main>
-    <h1>Route-split bundle benchmark</h1>
+    <h1>Route-split application simulation</h1>
     <nav>
       <button v-for="(loader, index) in routes" :key="index" @click="openRoute(loader)">
         Route {{ index }}
@@ -340,7 +340,7 @@ async function openRoute(loader) {
   }
 </script>
 <main>
-  <h1>Route-split bundle benchmark</h1>
+  <h1>Route-split application simulation</h1>
   <nav>
     {#each routes as loader, index}
       <button onclick={() => openRoute(loader)}>Route {index}</button>
@@ -386,7 +386,7 @@ async function generateCase(framework, count) {
   await writeGenerated(join(caseRoot, "src", "main.js"), entry);
   await writeGenerated(
     join(caseRoot, "index.html"),
-    `<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Route split</title></head><body><div id="app"></div><script type="module" src="/src/main.js"></script></body></html>`,
+    `<!doctype html><html lang="en"><head><meta charset="UTF-8"><title>Route-split application simulation</title></head><body><div id="app"></div><script type="module" src="/src/main.js"></script></body></html>`,
   );
   return caseRoot;
 }
@@ -520,7 +520,7 @@ function report(results, metadata) {
   const vuePoints = results.filter((result) => result.framework === "vue");
   const sveltePoints = results.filter((result) => result.framework === "svelte");
   const lines = [
-    `# Heterogeneous Route-Split Bundle Results${trimmed ? " — Trimmed Production Profile" : ""}`,
+    `# Route-Split Application Simulation Results${trimmed ? " — Trimmed Production Profile" : ""}`,
     "",
     `Generated: ${metadata.generatedAt}`,
     "",

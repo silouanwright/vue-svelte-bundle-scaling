@@ -267,8 +267,8 @@ function smallLargeComparisonChart(results) {
     y: 116,
     width: 350,
     height: 340,
-    title: "Small version",
-    note: "1 route · 8 matched features · Brotli transfer",
+    title: "Small simulation",
+    note: "1 route · 8 component definitions · Brotli transfer",
     maximum: 25_000,
     ticks: [0, 5_000, 10_000, 15_000, 20_000, 25_000],
     barWidth: 56,
@@ -285,8 +285,8 @@ function smallLargeComparisonChart(results) {
     y: 116,
     width: 310,
     height: 340,
-    title: "Large version",
-    note: "64 routes · 512 matched features · Brotli transfer",
+    title: "Large simulation",
+    note: "64 routes · 512 component definitions · Brotli transfer",
     maximum: 130_000,
     ticks: [0, 40_000, 80_000, 120_000],
     barWidth: 56,
@@ -300,8 +300,8 @@ function smallLargeComparisonChart(results) {
   });
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
-  <title id="title">The same application fixture at two sizes</title>
-  <desc id="description">Complete production bundles from the matched route-loaded fixture. Svelte is smaller at eight matched features. Vue is smaller at 512 matched features after its larger shared runtime is amortized.</desc>
+  <title id="title">Route-split application simulation at two sizes</title>
+  <desc id="description">Complete production bundles from the generated route-split application simulation. Svelte is smaller at eight component definitions. Vue is smaller at 512 component definitions after its larger shared runtime is amortized.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -316,7 +316,7 @@ function smallLargeComparisonChart(results) {
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
-  <text x="42" y="62" class="title">The same application fixture at two sizes</text>
+  <text x="42" y="62" class="title">Route-split application simulation at two sizes</text>
   <text x="42" y="86" class="subtitle">Svelte wins small; Vue wins after its larger runtime is amortized.</text>
   <rect x="650" y="27" width="15" height="15" rx="2" fill="${colors.vue}" />
   <text x="674" y="40" class="legend">Vue 3.5</text>
@@ -370,7 +370,7 @@ const formatLines = (value) =>
 fs.writeFileSync(
   path.join(outputDir, "route-split-brotli.svg"),
   lineChart({
-    title: "Vue eventually becomes smaller than Svelte",
+    title: "Route-split application simulation",
     description:
       "Composition-only production profile. Total JavaScript transferred after visiting every route, with each response compressed independently using Brotli. Each line connects separately measured production builds at 64, 128, 256, and 512 matched feature definitions. Vue's transferred JavaScript grows more slowly, so the measured gap closes and reverses by the largest build. Only the precise crossover location is estimated.",
     xLabel: "Nonblank source lines",

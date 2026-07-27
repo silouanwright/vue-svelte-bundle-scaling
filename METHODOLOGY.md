@@ -39,8 +39,9 @@ All builds target ES2022, use Vite’s Oxc production minifier, omit source maps
 and disable Vite’s own display-only compressed-size calculation. This harness
 reads the emitted JavaScript bytes itself.
 
-The primary reports use the official plugin defaults. The generated
-route-split and hand-authored lanes also have an app-informed trimmed profile:
+The primary reports use the official plugin defaults. The route-split
+application simulation and hand-authored lane also have an app-informed
+trimmed profile:
 
 - Vue sets `features.optionsAPI` to `false`, because those fixtures exclusively
   use Composition API and `<script setup>`;
@@ -65,10 +66,10 @@ build, each file is compressed independently and the resulting lengths are
 summed. This matches ordinary transfer accounting because each HTTP response
 has its own compressed representation.
 
-The route-split and hand-authored lanes also concatenate all emitted JavaScript
-and compress it once. This **coalesced** number is not a network total. It is a
-diagnostic for repeated syntax that would share one compression dictionary if
-the application were a single response.
+The route-split application simulation and hand-authored lane also concatenate
+all emitted JavaScript and compress it once. This **coalesced** number is not a
+network total. It is a diagnostic for repeated syntax that would share one
+compression dictionary if the application were a single response.
 
 No HTTP headers, HTML, CSS, source maps, images, or cached bytes are included.
 The study is intentionally restricted to emitted JavaScript.
@@ -88,10 +89,10 @@ complete cold traversal
 the union of every JavaScript response loaded across all sampled routes
 ```
 
-The route-split scaling result reports a complete cold traversal. It counts
-each independently compressed JavaScript response once, matching a session
-that eventually visits every sampled route with an initially empty cache. It
-does not assume that building a route makes every user download it.
+The route-split application simulation reports a complete cold traversal. It
+counts each independently compressed JavaScript response once, matching a
+session that eventually visits every sampled route with an initially empty
+cache. It does not assume that building a route makes every user download it.
 
 Already loaded modules are reused during a running application. Unchanged
 content-hashed assets may also be reused across visits when deployment cache
@@ -151,12 +152,15 @@ as though they served the same purpose.
 Linear fits summarize sampled growth after one component has activated the
 relevant runtime features. They are descriptive fits, not framework constants.
 
-### 3. Generated heterogeneous lazy routes
+### 3. Route-split application simulation
 
-`scripts/run-route-split.mjs` reduces the pathological repetition in the
-controlled lane. It generates eight behavior families—counter, disclosure,
-tabs, task tracker, search, settings, pagination, and notifications—and places
-one of each into every lazy route.
+This repository calls the generated fixture built by
+`scripts/run-route-split.mjs` the **route-split application simulation**. It is
+a browser-runnable application benchmark, not TodoMVC or the hand-authored
+product application. It reduces the pathological repetition in the controlled
+lane by generating eight behavior families—counter, disclosure, tabs, task
+tracker, search, settings, pagination, and notifications—and placing one of
+each into every lazy route.
 
 It builds 0–512 definitions in route groups of eight. Each emitted JavaScript
 file is compressed separately before the complete transfer is summed.

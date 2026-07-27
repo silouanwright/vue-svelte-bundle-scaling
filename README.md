@@ -4,15 +4,18 @@
 
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
   widgets, and small initial routes.
-- Vue’s framework-and-component layer is likely to be smaller in medium-to-large
-  applications, especially when users load many routes.
+- Vue’s larger runtime can be repaid as an application grows. In this
+  repository’s route-split application simulation, Vue becomes smaller after
+  enough lazy routes are loaded.
 
-![Svelte uses fewer source lines in the matched fixture, while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
+![In the route-split application simulation, Svelte starts smaller while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
 
-*The chart plots each framework against its own source-line count, so its
-estimated 1.6k-line intersection is not an equal-functionality threshold. The
-matched-functionality Brotli benchmark crosses near 243 matched feature
-definitions.*
+*This is the route-split application simulation: a generated, browser-runnable
+benchmark with eight interactive component families per lazy route. It is not
+TodoMVC or the separately authored product-shaped application. The chart plots
+each framework against its own source-line count; its estimated 1.6k-line
+intersection is illustrative, while the matched-functionality Brotli result
+crosses near 243 component definitions.*
 
 ## Why this benchmark exists
 
@@ -56,19 +59,24 @@ then offsetting it by generating less code for each additional component.
 In 2021, Vue creator Evan You responded to this underlying claim with
 [benchmarks](https://github.com/yyx990803/vue-svelte-size-analysis)
 showing that while Svelte had a dramatically smaller framework baseline, Vue
-followed this model. He concluded that Svelte provided a compelling advantage
-for isolated components, but that its generated-code cost could become a
-disadvantage for medium-to-large applications. This is also clearly documented
-in the Vue FAQ:
+generated substantially less component-specific code. He concluded that
+Svelte provided a compelling advantage for isolated components, but that its
+generated-code cost could become a disadvantage for medium-to-large
+applications. This is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
 
-The example application was TodoMVC—a tiny application. Even at that scale, the
-benchmarks show that Vue is already generating less component-specific code
-than Svelte.
+Evan’s specimen was one TodoMVC component. Vue generated less
+component-specific code for it, but Svelte still had the smaller complete
+application after its runtime was included. Evan then used those measurements
+to estimate when Vue’s larger shared runtime could be repaid; he did not build
+a larger TodoMVC application and measure a complete-bundle crossover.
 
 ## Is this still true in 2026?
 
-Yes.
+Yes. Vue still generates less component-specific code in the historical
+specimen, and the route-split application simulation demonstrates the
+amortization mechanism in complete, independently compressed production
+bundles.
 
 I put together this updated example to build on and expand Evan You’s original
 comparison five years later, using a current toolchain and broader benchmarks.
@@ -82,9 +90,10 @@ comparison five years later, using a current toolchain and broader benchmarks.
 - `@sveltejs/vite-plugin-svelte` 7.2.0
 - Node.js 22.19.0
 
-The current Svelte implementation is idiomatic Svelte 5 and follows
+The newly authored Svelte fixtures use idiomatic Svelte 5 and follow
 [Svelte’s documented best
-practices](https://svelte.dev/docs/svelte/best-practices).
+practices](https://svelte.dev/docs/svelte/best-practices). The historical
+TodoMVC lane deliberately preserves Evan You’s legacy Svelte source.
 
 ## New statistics for the 2026 benchmark
 
@@ -100,27 +109,33 @@ The extended interpretation and limitations live in
 [`analysis.md`](analysis.md). The exact workloads, controls, and transfer model
 live in [`METHODOLOGY.md`](METHODOLOGY.md).
 
-## The same application, small and large
+## Route-split application simulation
 
-The clearest practical comparison is the same complete application fixture at
-different sizes. With one route and eight matched features, Svelte is smaller.
-After the fixture expands to 64 routes and 512 matched features, Vue is smaller.
-Both measurements include the framework runtime and every route response a user
-would load while traversing the application.
+The route-split application simulation is a generated, browser-runnable
+benchmark—not TodoMVC and not a production product. Its application shell
+lazily loads routes. Each route contains one counter, disclosure, tabs panel,
+task tracker, search panel, settings form, pagination control, and notification
+panel.
+
+The clearest comparison is the same simulation at two sizes. With one route
+and eight component definitions, Svelte is smaller. After the
+simulation expands to 64 routes and 512 matched component definitions, Vue is
+smaller. Both measurements include the framework runtime and every route
+response loaded during a complete traversal.
 
 | Complete application transfer | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| 1 route, 8 matched features | 22.463 kB | 15.954 kB | Svelte by 6.509 kB |
-| 64 routes, 512 matched features | 114.570 kB | 121.849 kB | Vue by 7.279 kB |
+| 1 route, 8 component definitions | 22.463 kB | 15.954 kB | Svelte by 6.509 kB |
+| 64 routes, 512 component definitions | 114.570 kB | 121.849 kB | Vue by 7.279 kB |
 
-![Svelte produces the smaller complete application at eight matched features, while Vue produces the smaller complete application at 512 matched features](docs/images/small-large-complete-bundles.svg)
+![Svelte produces the smaller route-split application simulation at eight component definitions, while Vue produces the smaller simulation at 512 component definitions](docs/images/small-large-complete-bundles.svg)
 
 *Each panel uses its own y-axis. These are two measured builds, not a claim that
 every application crosses at the same point. The opening chart shows the
 intermediate builds and estimated crossover.*
 
 <details>
-<summary>How the updated TodoMVC compiler comparison explains the crossover</summary>
+<summary>How the historical TodoMVC measurement explains the mechanism</summary>
 
 Evan You’s original analysis isolated the component-specific code from the
 shared framework runtime. Recompiling the same TodoMVC specimen with the pinned

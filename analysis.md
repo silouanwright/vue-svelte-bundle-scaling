@@ -17,8 +17,9 @@ The evidence in this repository supports five conclusions:
 3. Vue’s raw client-code growth can be lower and can repay its larger runtime.
 4. Whole-bundle compression can delay or reverse that raw crossover when
    hundreds of components repeat similar compiler output.
-5. Vue’s amortization can become a gzip and Brotli advantage when diverse code
-   is divided among independently compressed lazy routes.
+5. In the route-split application simulation, Vue’s amortization becomes a gzip
+   and Brotli advantage when diverse code is divided among independently
+   compressed lazy routes.
 
 That final result is an existence proof, not a new universal threshold. The
 application, compiler, component structures, chunk boundaries, minifier, and
@@ -114,12 +115,14 @@ The modern controlled lane proves why the distinction matters. Multiplying
 isolated compressed costs predicts neither framework’s actual whole-bundle
 curve once hundreds of definitions are minified and compressed together.
 
-## 4. Vue can become smaller as route-loaded components accumulate
+## 4. Vue becomes smaller in the route-split application simulation
 
-The primary scaling workload introduces eight kinds of component behavior:
-counters, disclosures, tabs, task trackers, search panels, settings forms,
-pagination controls, and notifications. Each lazy route contains one of each.
-Every emitted JavaScript response is compressed independently.
+The route-split application simulation is a generated, browser-runnable
+benchmark rather than TodoMVC or a production product. It introduces eight
+kinds of component behavior: counters, disclosures, tabs, task trackers,
+search panels, settings forms, pagination controls, and notifications. Each
+lazy route contains one of each. Every emitted JavaScript response is
+compressed independently.
 
 | Components | Routes | Vue Brotli | Svelte Brotli | Vue − Svelte |
 | ---: | ---: | ---: | ---: | ---: |
@@ -132,7 +135,7 @@ Linear interpolation between the sampled default-profile builds places the
 crossover near 237 compact component definitions for gzip and 338 for Brotli
 in this workload.
 
-![Svelte uses fewer source lines in the matched fixture, while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
+![In the route-split application simulation, Svelte uses fewer source lines while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
 
 The opening chart uses the Composition-only production profile: Vue’s unused
 Options API is disabled, and Svelte’s version disclosure is disabled. It
@@ -233,8 +236,8 @@ version disclosure.
 
 | Measurement | Default | Trimmed |
 | --- | ---: | ---: |
-| Route-split gzip crossover | ≈ 237 definitions | ≈ 171 definitions |
-| Route-split Brotli crossover | ≈ 338 definitions | ≈ 243 definitions |
+| Simulation gzip crossover | ≈ 237 definitions | ≈ 171 definitions |
+| Simulation Brotli crossover | ≈ 338 definitions | ≈ 243 definitions |
 | Complete 33-definition Vue − Svelte gap | +7,437 B | +5,861 B |
 
 The result is asymmetric because the optional surfaces are asymmetric. Vue’s
