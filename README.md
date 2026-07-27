@@ -109,19 +109,22 @@ shared framework baseline is smaller.
 
 | Output | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| Component only, minified | 3.802 kB | 5.213 kB | Vue by 1.411 kB |
-| Component only, gzip | 1.484 kB | 1.762 kB | Vue by 0.278 kB |
-| Component only, Brotli | 1.306 kB | 1.500 kB | Vue by 0.194 kB |
-| Complete CSR bundle, minified | 66.160 kB | 41.203 kB | Svelte by 24.957 kB |
-| Complete CSR bundle, gzip | 25.764 kB | 15.919 kB | Svelte by 9.845 kB |
-| Complete CSR bundle, Brotli | 23.445 kB | 14.407 kB | Svelte by 9.038 kB |
-| Complete hydration bundle, Brotli | 25.078 kB | 14.587 kB | Svelte by 10.491 kB |
+| Generated component code, minified | 3.802 kB | 5.213 kB | Vue by 1.411 kB |
+| Generated component code, gzip | 1.484 kB | 1.762 kB | Vue by 0.278 kB |
+| Generated component code, Brotli | 1.306 kB | 1.500 kB | Vue by 0.194 kB |
+| Tiny application, CSR, minified | 66.160 kB | 41.203 kB | Svelte by 24.957 kB |
+| Tiny application, CSR, gzip | 25.764 kB | 15.919 kB | Svelte by 9.845 kB |
+| Tiny application, CSR, Brotli | 23.445 kB | 14.407 kB | Svelte by 9.038 kB |
+| Tiny application, hydration, Brotli | 25.078 kB | 14.587 kB | Svelte by 10.491 kB |
 
 ![Vue emits less component-specific code while Svelte’s complete one-component TodoMVC bundle remains smaller](docs/images/todomvc-2026-results.svg)
 
-*The component-only rows exclude shared module bindings. Complete bundles
-include the framework runtime and application component together. Exact build
-details are in [`original-specimen.md`](original-specimen.md).*
+*The left panel isolates the code generated for the TodoMVC component; it
+excludes the shared framework runtime. The right panel adds that runtime and
+shows the complete tiny application. Svelte wins this starting point. Vue’s
+smaller generated output is the advantage that the larger scaling benchmarks
+test as application code accumulates. Exact build details are in
+[`original-specimen.md`](original-specimen.md).*
 
 ## Run the benchmarks
 

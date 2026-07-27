@@ -205,11 +205,12 @@ function groupedBarPanel({
   width: panelWidth,
   height: panelHeight,
   title,
+  note,
   categories,
   maximum,
   ticks,
 }) {
-  const chartTop = panelY + 34;
+  const chartTop = panelY + 52;
   const chartBottom = panelY + panelHeight - 52;
   const chartHeight = chartBottom - chartTop;
   const y = (value) =>
@@ -247,6 +248,7 @@ function groupedBarPanel({
 
   return `
   <text x="${panelX}" y="${panelY + 4}" class="panel-title">${escapeXml(title)}</text>
+  <text x="${panelX}" y="${panelY + 25}" class="panel-note">${escapeXml(note)}</text>
   ${grid}
   <line x1="${panelX}" y1="${chartTop}" x2="${panelX}" y2="${chartBottom}" class="axis" />
   <line x1="${panelX}" y1="${chartBottom}" x2="${panelX + panelWidth}" y2="${chartBottom}" class="axis" />
@@ -265,7 +267,8 @@ function todoMvcResultsChart(componentResults, appResults) {
     y: 92,
     width: 350,
     height: 340,
-    title: "Component-only output",
+    title: "One component’s generated code",
+    note: "Framework runtime excluded",
     maximum: 6000,
     ticks: [0, 2000, 4000, 6000],
     categories: [
@@ -283,7 +286,8 @@ function todoMvcResultsChart(componentResults, appResults) {
     y: 92,
     width: 310,
     height: 340,
-    title: "Complete bundle (Brotli)",
+    title: "Tiny one-component application",
+    note: "Framework runtime included · Brotli",
     maximum: 30_000,
     ticks: [0, 10_000, 20_000, 30_000],
     categories: [
@@ -308,6 +312,7 @@ function todoMvcResultsChart(componentResults, appResults) {
     .title { font-size: 23px; font-weight: 700; }
     .subtitle { font-size: 14px; fill: #4a5560; }
     .panel-title { font-size: 16px; font-weight: 700; }
+    .panel-note { font-size: 12px; fill: #4a5560; }
     .axis { stroke: #44515e; stroke-width: 1.5; }
     .grid { stroke: #dce2e7; stroke-width: 1; }
     .tick { font-size: 12px; }
@@ -317,7 +322,7 @@ function todoMvcResultsChart(componentResults, appResults) {
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
   <text x="42" y="38" class="title">TodoMVC in 2026: the tradeoff remains</text>
-  <text x="42" y="62" class="subtitle">Vue emits less component code; Svelte’s one-component app remains smaller.</text>
+  <text x="42" y="62" class="subtitle">Vue starts larger but adds less code as the application grows.</text>
   <rect x="650" y="27" width="15" height="15" rx="2" fill="${colors.vue}" />
   <text x="674" y="40" class="legend">Vue 3.5</text>
   <rect x="760" y="27" width="15" height="15" rx="2" fill="${colors.svelte}" />
