@@ -3,7 +3,7 @@
 ## TL;DR
 
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
-  widgets, and small applications.
+  widgets, and small-to-medium applications.
 - Vue is likely to become smaller for medium-to-large applications as its
   shared runtime is amortized across more components, features, and routes.
 
@@ -101,7 +101,7 @@ replication separately preserves Evan You’s original sources.
 Reproduction commands begin at
 [`Run the benchmarks`](#run-the-benchmarks).
 
-## Vue wins in a medium-sized application
+## Vue wins in medium-to-large applications
 
 OpenSlides is a working, MIT-licensed desktop application for building
 animated code presentations. I ported its frontend from Svelte 5 to Vue 3 to
@@ -140,7 +140,7 @@ See the [`parity ledger`](fixtures/openslides/PARITY.md), [shared Playwright
 contract](tests/openslides-parity.spec.mjs), and
 [`complete results`](results/openslides.md).
 
-## Svelte wins in small applications
+## Svelte wins in small-to-medium applications
 
 Svelte wins both small applications measured in the lead chart:
 
