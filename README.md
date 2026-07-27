@@ -2,18 +2,15 @@
 
 ## TL;DR
 
-Svelte is the likely bundle-size winner for Hello World demos, isolated
-widgets, and small initial routes. For medium-to-large applications whose
-users load many substantial features, Svelte’s smaller runtime no longer
-settles the question: Vue’s shared runtime is amortizable and can become the
-smaller cumulative framework layer. Which framework actually ends up smaller
-depends on the application’s components, chunk graph, and user journeys.
+- Svelte is the likely bundle-size winner for Hello World demos, isolated
+  widgets, and small initial routes.
+- Vue is likely to be smaller for medium-to-large applications, especially when
+  users load many routes.
 
 ![Svelte uses fewer source lines in the matched fixture, while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
 
 ## Why this benchmark exists
 
-Svelte’s bundle-size advantage is not a claim invented for this rebuttal.
 In paraphrase, Svelte advocates argue:
 
 - “Svelte avoids the upfront cost of a large framework runtime by compiling
