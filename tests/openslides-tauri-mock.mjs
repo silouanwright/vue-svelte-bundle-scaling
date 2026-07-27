@@ -111,10 +111,41 @@ export async function installOpenSlidesBackend(page, options = {}) {
     ...structuredClone(project),
     groupId: options.stacked ? "group-playwright" : null,
     groupOrder: options.stacked ? index : undefined,
+    slides: project.slides.map((slide) => ({
+      ...structuredClone(slide),
+      duration: options.autoplayDuration ?? slide.duration,
+    })),
   }));
+  for (let index = 2; index < (options.projectCount ?? 2); index += 1) {
+    const source = index % 2 === 0 ? PROJECT : SECOND_PROJECT;
+    projects.push({
+      ...structuredClone(source),
+      id: `project-${index + 1}`,
+      name: `Generated Deck ${String(index + 1).padStart(3, "0")}`,
+      settings: {
+        ...structuredClone(source.settings),
+        currentSlideId: `project-${index + 1}-slide-1`,
+      },
+      slides: source.slides.map((slide, slideIndex) => ({
+        ...structuredClone(slide),
+        id: `project-${index + 1}-slide-${slideIndex + 1}`,
+        duration: options.autoplayDuration ?? slide.duration,
+      })),
+      groupId: null,
+      groupOrder: undefined,
+    });
+  }
   await page.addInitScript(
-    ({ defaultSettings, seedProjects, languages, themes }) => {
-      const clone = (value) => structuredClone(value);
+    ({ defaultSettings, importProject, seedProjects, languages, themes }) => {
+      const clone = (value) => {
+        try {
+          return structuredClone(value);
+        } catch {
+          // Vue reactive proxies are JSON-serializable through Tauri IPC but
+          // cannot be passed directly to structuredClone in the browser mock.
+          return JSON.parse(JSON.stringify(value));
+        }
+      };
       const projects = new Map(
         seedProjects.map((project) => [project.id, clone(project)]),
       );
@@ -123,7 +154,8 @@ export async function installOpenSlidesBackend(page, options = {}) {
       const calls = [];
       let callbackId = 1;
       let resourceId = 1;
-      let sequence = 1;
+      let sequence = seedProjects.length;
+      let fullscreen = false;
 
       const summarize = (item) => ({
         id: item.id,
@@ -157,7 +189,10 @@ export async function installOpenSlidesBackend(page, options = {}) {
       const runCallback = (id, payload) => callbacks.get(id)?.(payload);
 
       const invoke = async (command, args = {}) => {
-        if (!command.startsWith("plugin:")) {
+        if (
+          !command.startsWith("plugin:") ||
+          command.startsWith("plugin:window|")
+        ) {
           calls.push({ command, args: clone(args) });
         }
         if (command === "plugin:event|listen") {
@@ -192,7 +227,11 @@ export async function installOpenSlidesBackend(page, options = {}) {
           return [resourceId++, id];
         }
         if (command.startsWith("plugin:menu|")) return null;
-        if (command === "plugin:window|is_fullscreen") return false;
+        if (command === "plugin:window|is_fullscreen") return fullscreen;
+        if (command === "plugin:window|set_fullscreen") {
+          fullscreen = Boolean(args.value);
+          return null;
+        }
         if (command.startsWith("plugin:window|")) return null;
 
         switch (command) {
@@ -309,9 +348,20 @@ export async function installOpenSlidesBackend(page, options = {}) {
             return null;
           }
           case "export_project_to_json":
-            return JSON.stringify(mustProject(args.projectId));
-          case "import_project_from_json":
-            throw { code: "CANCELLED", message: "Cancelled in Playwright" };
+            mustProject(args.projectId);
+            return "/tmp/benchmark-deck.openslides.json";
+          case "import_project_from_json": {
+            const item = clone(importProject);
+            item.id = `project-${++sequence}`;
+            item.name = "Imported Presentation";
+            item.slides = item.slides.map((slide, index) => ({
+              ...slide,
+              id: `${item.id}-slide-${index + 1}`,
+            }));
+            item.settings.currentSlideId = item.slides[0]?.id ?? null;
+            projects.set(item.id, item);
+            return clone(item);
+          }
           case "search_slides": {
             const item = mustProject(args.projectId);
             const query = String(args.query ?? "").toLowerCase();
@@ -397,6 +447,11 @@ export async function installOpenSlidesBackend(page, options = {}) {
       };
       window.__OPENSLIDES_E2E__ = {
         calls,
+        emit(event, payload) {
+          for (const id of listeners.get(event) ?? []) {
+            runCallback(id, { event, id, payload });
+          }
+        },
         snapshot() {
           return clone([...projects.values()]);
         },
@@ -404,6 +459,7 @@ export async function installOpenSlidesBackend(page, options = {}) {
     },
     {
       defaultSettings: DEFAULT_SETTINGS,
+      importProject: PROJECT,
       seedProjects: projects,
       languages: LANGUAGES,
       themes: THEMES,

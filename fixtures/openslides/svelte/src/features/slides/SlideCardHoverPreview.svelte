@@ -22,7 +22,7 @@
 </script>
 
 {#if show && html}
-  <div use:portal>
+  <div use:portal data-slide-hover-preview>
     <CodeThumbnail
       bind:ref={containerEl}
       html={html ?? null}

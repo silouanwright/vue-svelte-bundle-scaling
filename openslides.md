@@ -1,6 +1,6 @@
 # OpenSlides real-application benchmark
 
-Generated: 2026-07-27T20:34:44.699Z
+Generated: 2026-07-27T21:25:49.678Z
 
 > Behaviorally matched for the documented benchmark scope; the shared Playwright contract passes against both production implementations
 
@@ -14,16 +14,16 @@ Generated: 2026-07-27T20:34:44.699Z
 
 | Entry JavaScript + CSS | Vue | Svelte | Vue − Svelte |
 | --- | ---: | ---: | ---: |
-| Raw | 631,276 B | 1,029,663 B | −398,387 B |
-| gzip | 191,825 B | 303,784 B | −111,959 B |
-| Brotli | 162,626 B | 248,026 B | −85,400 B |
+| Raw | 635,658 B | 1,030,039 B | −394,381 B |
+| gzip | 192,863 B | 303,906 B | −111,043 B |
+| Brotli | 163,396 B | 248,124 B | −84,728 B |
 
 | Cold production journey | Vue | Svelte | Vue − Svelte |
 | --- | ---: | ---: | ---: |
-| Dashboard gzip | 455,960 B | 618,301 B | −162,341 B |
-| Dashboard Brotli | 337,268 B | 465,349 B | −128,081 B |
-| Dashboard → editor gzip | 505,425 B | 882,438 B | −377,013 B |
-| Dashboard → editor Brotli | 379,583 B | 639,979 B | −260,396 B |
+| Dashboard gzip | 456,999 B | 618,423 B | −161,424 B |
+| Dashboard Brotli | 338,033 B | 465,447 B | −127,414 B |
+| Dashboard → editor gzip | 754,968 B | 882,558 B | −127,590 B |
+| Dashboard → editor Brotli | 543,247 B | 640,079 B | −96,832 B |
 
 The cold journey includes the Shiki worker, Wasm engine, selected languages,
 and selected theme actually requested by each production build. The two
@@ -35,8 +35,8 @@ solely to the Svelte compiler.
 | Source inventory | Vue | Svelte |
 | --- | ---: | ---: |
 | Components | 27 | 99 |
-| Component lines | 3,699 | 8,626 |
-| Total TS/JS/CSS/component lines | 8,573 | 18,746 |
+| Component lines | 3,866 | 8,639 |
+| Total TS/JS/CSS/component lines | 8,773 | 18,759 |
 
 The implementations are behavior-matched rather than source-shape-matched.
 Vue uses fewer, larger component files; Svelte uses more, smaller component

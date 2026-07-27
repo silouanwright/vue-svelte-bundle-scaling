@@ -10,11 +10,16 @@ import {
   importProjectMutation,
   projectsQuery,
   renameProjectMutation,
-  updateProjectThemeMutation,
 } from "$lib/queries";
 import { DEFAULT_THEME } from "$lib/constants";
 import { setWindowTitle } from "$lib/lib/window-title";
-import { setIsCommandOpen, setIsShortcutsOpen } from "$lib/stores/ui-state";
+import { api } from "$lib/lib/tauri-api";
+import { useAppMenu } from "$lib/lib/use-app-menu";
+import {
+  setIsCommandOpen,
+  setIsShortcutsOpen,
+  toggleTheme,
+} from "$lib/stores/ui-state";
 import Button from "$lib/ui/Button.vue";
 import ConfirmDialog from "$lib/ui/ConfirmDialog.vue";
 import EmptyState from "$lib/ui/EmptyState.vue";
@@ -42,13 +47,20 @@ async function createProject() {
     newName.value.trim() || "Untitled Presentation",
   );
   if (selectedTheme.value !== project.theme) {
-    await updateProjectThemeMutation(project.id).mutateAsync(
-      selectedTheme.value,
-    );
+    await api.updateProjectTheme(project.id, selectedTheme.value);
   }
   creating.value = false;
   newName.value = "Untitled Presentation";
   await router.push({ name: "editor", params: { projectId: project.id } });
+}
+
+async function importProject() {
+  try {
+    const project = await importMutation.mutateAsync();
+    await router.push({ name: "editor", params: { projectId: project.id } });
+  } catch {
+    // The mutation owns cancellation and error reporting.
+  }
 }
 
 function keydown(event: KeyboardEvent) {
@@ -60,6 +72,19 @@ function keydown(event: KeyboardEvent) {
 function openCreate() {
   creating.value = true;
 }
+
+useAppMenu({
+  "menu://new-project": openCreate,
+  "menu://open-dashboard": () => void router.push({ name: "dashboard" }),
+  "menu://command-palette": () => setIsCommandOpen(true),
+  "menu://toggle-theme": toggleTheme,
+  "menu://shortcuts-app": () => setIsShortcutsOpen(true),
+  "menu://shortcuts-help": () => setIsShortcutsOpen(true),
+  "menu://export": () => {
+    const first = projects.value[0];
+    if (first) exportMutation.mutate(first.id);
+  },
+});
 
 onMounted(() => {
   setWindowTitle("OpenSlides — Presentations");
@@ -98,7 +123,7 @@ onBeforeUnmount(() => {
           variant="outline"
           size="sm"
           :disabled="importMutation.isPending.value"
-          @click="importMutation.mutate()"
+          @click="importProject"
         >
           <Upload />Import
         </Button>
@@ -153,7 +178,7 @@ onBeforeUnmount(() => {
         description="Create your first presentation, or import an existing one."
       >
         <Button @click="creating = true"><Plus />Create Presentation</Button>
-        <Button variant="outline" @click="importMutation.mutate()">
+        <Button variant="outline" @click="importProject">
           <Upload />Import
         </Button>
       </EmptyState>

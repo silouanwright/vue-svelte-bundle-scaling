@@ -22,6 +22,7 @@
 <div class="flex min-w-0 items-center justify-between gap-1">
   <div class="flex min-w-0 items-center gap-1">
     <DragHandle
+      data-slide-drag-handle
       onclick={(e) => e.stopPropagation()}
       aria-label="Drag to reorder slide"
     />

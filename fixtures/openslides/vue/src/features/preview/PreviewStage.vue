@@ -25,6 +25,10 @@ watch(
   [() => props.project.theme, language],
   ([theme, currentLanguage]) => {
     const revision = ++highlighterRevision;
+    // ShikiMagicMove reads the requested theme synchronously. Clear the
+    // previous instance while the singleton loads a newly selected theme or
+    // language so it cannot render against assets that are not ready yet.
+    highlighter.value = null;
     void getHighlighter(theme, currentLanguage).then((instance) => {
       if (revision === highlighterRevision) highlighter.value = instance;
     });
@@ -112,6 +116,14 @@ function dimmed(index: number) {
     ><code><span
       v-for="(line, index) in lines"
       :key="index"
+      :data-highlight-dim-effect="dimmed(index) ? '' : undefined"
+      :data-highlight-scale-effect="
+        activeHighlight &&
+        !dimmed(index) &&
+        activeHighlight.sizeUpEnabled
+          ? ''
+          : undefined
+      "
       class="block min-h-[1em] origin-left transition-[opacity,transform] duration-300"
       :style="{
         opacity: dimmed(index)

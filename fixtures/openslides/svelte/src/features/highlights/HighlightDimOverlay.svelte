@@ -44,6 +44,7 @@
 </script>
 
 <div
+  data-highlight-dim-effect
   class="pointer-events-none absolute inset-0 z-20"
   style="
     background-color: {dimColor === 'black'

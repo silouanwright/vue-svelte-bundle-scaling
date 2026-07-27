@@ -3,12 +3,18 @@ import type { Highlight } from "$lib/types";
 import SliderField from "$lib/ui/SliderField.vue";
 import Switch from "$lib/ui/Switch.vue";
 
-defineProps<{ highlight: Highlight }>();
+withDefaults(defineProps<{ highlight: Highlight; disabled?: boolean }>(), {
+  disabled: false,
+});
 const emit = defineEmits<{ update: [patch: Partial<Highlight>] }>();
 </script>
 
 <template>
-  <div class="mt-3 space-y-4 border-t border-border/50 pt-3">
+  <div
+    data-highlight-settings
+    class="mt-3 space-y-4 border-t border-border/50 pt-3"
+    :class="disabled && 'pointer-events-none opacity-50'"
+  >
     <p class="text-[10px] font-semibold uppercase tracking-wide text-muted-foreground">
       Step settings
     </p>
@@ -18,6 +24,7 @@ const emit = defineEmits<{ update: [patch: Partial<Highlight>] }>();
       :min="0"
       :max="100"
       :step="1"
+      :disabled="disabled"
       :format="(value) => `${value}%`"
       @commit="emit('update', { dimAmount: $event })"
     />
@@ -25,6 +32,7 @@ const emit = defineEmits<{ update: [patch: Partial<Highlight>] }>();
       Scale selected lines
       <Switch
         :model-value="highlight.sizeUpEnabled"
+        :disabled="disabled"
         @update:model-value="emit('update', { sizeUpEnabled: $event })"
       />
     </label>
@@ -34,7 +42,7 @@ const emit = defineEmits<{ update: [patch: Partial<Highlight>] }>();
       :min="100"
       :max="175"
       :step="1"
-      :disabled="!highlight.sizeUpEnabled"
+      :disabled="disabled || !highlight.sizeUpEnabled"
       :format="(value) => `${value}%`"
       @commit="emit('update', { sizeUpAmount: $event })"
     />
@@ -42,6 +50,7 @@ const emit = defineEmits<{ update: [patch: Partial<Highlight>] }>();
       Custom timing
       <Switch
         :model-value="highlight.useCustomTransition"
+        :disabled="disabled"
         @update:model-value="
           emit('update', { useCustomTransition: $event })
         "
@@ -54,6 +63,7 @@ const emit = defineEmits<{ update: [patch: Partial<Highlight>] }>();
         :min="0"
         :max="2000"
         :step="50"
+        :disabled="disabled"
         :format="(value) => `${value}ms`"
         @commit="emit('update', { dimTransition: $event })"
       />
@@ -63,6 +73,7 @@ const emit = defineEmits<{ update: [patch: Partial<Highlight>] }>();
         :min="0"
         :max="2000"
         :step="50"
+        :disabled="disabled"
         :format="(value) => `${value}ms`"
         @commit="emit('update', { sizeUpTransition: $event })"
       />

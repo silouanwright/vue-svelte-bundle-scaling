@@ -7,6 +7,11 @@ import Button from "$lib/ui/Button.vue";
 import SliderField from "$lib/ui/SliderField.vue";
 import Switch from "$lib/ui/Switch.vue";
 import { backendConfig } from "$lib/lib/backend-config";
+import {
+  setEditorShowLineNumbers,
+  setShowSlideHoverPreview,
+  ui,
+} from "$lib/stores/ui-state";
 
 const props = defineProps<{ open: boolean; project: Project }>();
 const emit = defineEmits<{
@@ -91,6 +96,20 @@ const themes = availableThemes();
             :format="(value) => `${value}px`"
             @commit="emit('settings', { editorFontSize: $event })"
           />
+          <label class="flex items-center justify-between gap-4 text-xs">
+            Editor line numbers
+            <Switch
+              :model-value="ui.editorShowLineNumbers"
+              @update:model-value="setEditorShowLineNumbers"
+            />
+          </label>
+          <label class="flex items-center justify-between gap-4 text-xs">
+            Slide hover previews
+            <Switch
+              :model-value="ui.showSlideHoverPreview"
+              @update:model-value="setShowSlideHoverPreview"
+            />
+          </label>
           <label class="block space-y-1.5 text-xs">
             <span class="text-muted-foreground">Language</span>
             <select

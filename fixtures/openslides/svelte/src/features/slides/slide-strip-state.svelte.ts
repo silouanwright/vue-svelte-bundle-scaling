@@ -23,7 +23,7 @@ export function createSlideStripState(args: {
 }) {
   /* Local working copy of the slide order: keeps optimistic reorders/renames
    * while the query cache catches up. */
-  let ordered = $state<Slide[]>([]);
+  let ordered = $state.raw<Slide[]>([]);
   $effect(() => {
     const src = args.slides();
     untrack(() => {

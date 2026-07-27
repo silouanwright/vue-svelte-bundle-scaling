@@ -12,7 +12,9 @@ import { VueDraggable } from "vue-draggable-plus";
 import "splitpanes/dist/splitpanes.css";
 import {
   ArrowLeftToLine,
+  ArrowDown,
   ArrowRightToLine,
+  ArrowUp,
   ChevronLeft,
   Command,
   Highlighter,
@@ -29,8 +31,10 @@ import type { Highlight, Project, Slide } from "$lib/types";
 import { HIGHLIGHT_DEFAULTS, resolveProjectLanguage } from "$lib/types";
 import {
   createSlideMutation,
+  createProjectMutation,
   deleteSlideMutation,
   duplicateSlideMutation,
+  exportProjectMutation,
   projectQuery,
   reorderSlidesMutation,
   renameProjectMutation,
@@ -45,7 +49,12 @@ import {
 import { projectKeys } from "$lib/queries/keys";
 import { queryClient } from "$lib/queries/query-client";
 import { setWindowTitle } from "$lib/lib/window-title";
-import { onOpenSearch } from "$lib/lib/app-events";
+import {
+  emitRedo,
+  emitUndo,
+  onOpenSearch,
+} from "$lib/lib/app-events";
+import { useAppMenu } from "$lib/lib/use-app-menu";
 import {
   clearPendingSave,
   enqueueCodeSave,
@@ -54,7 +63,9 @@ import {
 import { setLocalCode } from "$lib/stores/slide-code";
 import {
   setIsCommandOpen,
+  setIsShortcutsOpen,
   setIsSettingsOpen,
+  toggleZenMode,
   toggleTheme,
   ui,
 } from "$lib/stores/ui-state";
@@ -102,8 +113,10 @@ let saveTimer: ReturnType<typeof setTimeout> | undefined;
 let removeSearchListener: (() => void) | undefined;
 
 const createSlide = createSlideMutation(projectId.value);
+const createProject = createProjectMutation();
 const deleteSlide = deleteSlideMutation(projectId.value);
 const duplicateSlide = duplicateSlideMutation(projectId.value);
+const exportProject = exportProjectMutation();
 const reorderSlides = reorderSlidesMutation(projectId.value);
 const updateSlide = updateSlideSettingsMutation(projectId.value);
 const updateSettings = updateProjectSettingsMutation(projectId.value);
@@ -222,6 +235,21 @@ function removeHighlight(id: string) {
   highlightIndex.value = Math.min(highlightIndex.value, highlights.length - 1);
 }
 
+function moveHighlight(id: string, direction: -1 | 1) {
+  const slide = currentSlide.value;
+  if (!slide) return;
+  const from = slide.highlights.findIndex((highlight) => highlight.id === id);
+  const to = from + direction;
+  if (from < 0 || to < 0 || to >= slide.highlights.length) return;
+  const highlights = [...slide.highlights];
+  const [highlight] = highlights.splice(from, 1);
+  if (!highlight) return;
+  highlights.splice(to, 0, highlight);
+  updateSlide.mutate({ slideId: slide.id, payload: { highlights } });
+  if (highlightIndex.value === from) highlightIndex.value = to;
+  else if (highlightIndex.value === to) highlightIndex.value = from;
+}
+
 function updateActiveHighlight(patch: Partial<Highlight>) {
   const slide = currentSlide.value;
   const index = highlightIndex.value;
@@ -330,6 +358,11 @@ async function addSlide() {
 }
 
 function keydown(event: KeyboardEvent) {
+  if (event.key === "Escape" && ui.isZenMode) {
+    event.preventDefault();
+    toggleZenMode();
+    return;
+  }
   if (event.key === "Escape" && selectionMode.value) {
     event.preventDefault();
     clearSelection();
@@ -359,6 +392,29 @@ function searchFromCommand() {
   searchOpen.value = true;
 }
 
+useAppMenu({
+  "menu://new-project": () => {
+    void createProject.mutateAsync("Untitled Presentation").then((created) => {
+      void router.push({ name: "editor", params: { projectId: created.id } });
+    });
+  },
+  "menu://open-dashboard": () => void router.push({ name: "dashboard" }),
+  "menu://export": () => exportProject.mutate(projectId.value),
+  "menu://present": () => (presenting.value = true),
+  "menu://zen": toggleZenMode,
+  "menu://settings": () => setIsSettingsOpen(true),
+  "menu://command-palette": () => setIsCommandOpen(true),
+  "menu://add-slide": () => void addSlide(),
+  "menu://duplicate-slide": () => {
+    if (currentSlide.value) duplicateSlide.mutate(currentSlide.value.id);
+  },
+  "menu://toggle-theme": toggleTheme,
+  "menu://shortcuts-app": () => setIsShortcutsOpen(true),
+  "menu://shortcuts-help": () => setIsShortcutsOpen(true),
+  "menu://undo": emitUndo,
+  "menu://redo": emitRedo,
+});
+
 onMounted(() => {
   window.addEventListener("keydown", keydown);
   window.addEventListener("openslides:present", presentFromCommand);
@@ -380,7 +436,7 @@ onBeforeUnmount(() => {
     loading-label="Loading presentation…"
   >
     <div v-if="project" class="flex h-full flex-col overflow-hidden bg-background">
-      <TitleBar :title="project.name">
+      <TitleBar v-if="!ui.isZenMode" :title="project.name">
         <template #leading>
           <Button
             variant="ghost"
@@ -437,8 +493,23 @@ onBeforeUnmount(() => {
         </template>
       </TitleBar>
 
+      <div v-if="ui.isZenMode && currentSlide" class="relative min-h-0 flex-1">
+        <PreviewStage
+          :project="project"
+          :slide="currentSlide"
+          :highlight-index="highlightIndex"
+        />
+        <button
+          type="button"
+          class="absolute top-3 right-3 z-30 rounded-md bg-card/80 px-2 py-1 text-[11px] text-muted-foreground shadow backdrop-blur hover:text-foreground"
+          @click="toggleZenMode"
+        >
+          Exit Focus (Esc)
+        </button>
+      </div>
+
       <EmptyState
-        v-if="!currentSlide"
+        v-else-if="!currentSlide"
         :icon="MonitorPlay"
         title="This presentation has no slides"
         description="Add a slide to begin writing and presenting code."
@@ -523,6 +594,7 @@ onBeforeUnmount(() => {
                   <div
                     v-for="(highlight, index) in currentSlide.highlights"
                     :key="highlight.id"
+                    :data-highlight-id="highlight.id"
                     class="group mb-1 flex items-center rounded-md"
                     :class="
                       highlightIndex === index
@@ -531,6 +603,7 @@ onBeforeUnmount(() => {
                     "
                   >
                     <button
+                      data-highlight-select
                       class="min-w-0 flex-1 px-2 py-1.5 text-left text-xs"
                       @click="highlightIndex = index"
                     >
@@ -540,7 +613,28 @@ onBeforeUnmount(() => {
                     <Button
                       variant="ghost"
                       size="icon"
+                      class="h-6 w-6"
+                      :disabled="index === 0"
+                      aria-label="Move highlight up"
+                      @click="moveHighlight(highlight.id, -1)"
+                    >
+                      <ArrowUp />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      class="h-6 w-6"
+                      :disabled="index === currentSlide.highlights.length - 1"
+                      aria-label="Move highlight down"
+                      @click="moveHighlight(highlight.id, 1)"
+                    >
+                      <ArrowDown />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
                       class="h-6 w-6 opacity-0 group-hover:opacity-100"
+                      aria-label="Delete highlight"
                       @click="removeHighlight(highlight.id)"
                     >
                       <Trash2 />
@@ -549,6 +643,7 @@ onBeforeUnmount(() => {
                   <HighlightSettings
                     v-if="highlightIndex >= 0 && currentSlide.highlights[highlightIndex]"
                     :highlight="currentSlide.highlights[highlightIndex]!"
+                    :disabled="project.settings.useGlobalHighlight"
                     @update="updateActiveHighlight"
                   />
                 </aside>

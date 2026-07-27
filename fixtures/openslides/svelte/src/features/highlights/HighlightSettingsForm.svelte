@@ -20,7 +20,10 @@
   const id = $derived(highlight.id);
 </script>
 
-<div class="space-y-2 {disabled ? 'pointer-events-none opacity-50' : ''}">
+<div
+  data-highlight-settings
+  class="space-y-2 {disabled ? 'pointer-events-none opacity-50' : ''}"
+>
   <SliderField
     label="Dim amount"
     labelClassName="text-[9px]"

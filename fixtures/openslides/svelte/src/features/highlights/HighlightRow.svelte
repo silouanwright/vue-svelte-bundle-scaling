@@ -52,6 +52,7 @@
 </script>
 
 <div
+  data-highlight-id={highlight.id}
   class={cn(
     "rounded-md border transition-colors",
     isPreviewing
@@ -65,6 +66,7 @@
     {@render dragHandle?.()}
     <button
       type="button"
+      data-highlight-select
       class="flex min-w-0 flex-1 items-center gap-1.5 text-left"
       onclick={() => onToggleExpand(highlight.id)}
       title="L{highlight.startLine +
@@ -82,6 +84,7 @@
       size="icon"
       class="h-5 w-5 shrink-0"
       disabled={index === 0}
+      aria-label="Move highlight up"
       onclick={() => onMove(highlight.id, -1)}
     >
       <ArrowUp class="h-3 w-3" />
@@ -91,6 +94,7 @@
       size="icon"
       class="h-5 w-5 shrink-0"
       disabled={index === total - 1}
+      aria-label="Move highlight down"
       onclick={() => onMove(highlight.id, 1)}
     >
       <ArrowDown class="h-3 w-3" />
@@ -102,6 +106,7 @@
         "h-5 w-5 shrink-0",
         isPreviewing && "bg-primary/20 text-primary",
       )}
+      aria-label="Preview highlight"
       onclick={() => onPreview(index)}
     >
       <Eye class="h-3 w-3" />
@@ -110,6 +115,7 @@
       variant="ghost"
       size="icon"
       class="h-5 w-5 shrink-0"
+      aria-label="Toggle highlight settings"
       onclick={() => onToggleExpand(highlight.id)}
     >
       {#if isExpanded}
@@ -122,6 +128,7 @@
       variant="ghost"
       size="icon"
       class="h-5 w-5 shrink-0 hover:text-destructive"
+      aria-label="Delete highlight"
       onclick={() => onDelete(highlight.id)}
     >
       <Trash2 class="h-3 w-3" />

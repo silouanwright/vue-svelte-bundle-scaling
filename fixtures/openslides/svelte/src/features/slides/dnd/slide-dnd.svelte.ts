@@ -30,7 +30,7 @@ export function createSlideStripDnd(args: {
   onStack: (sourceIds: string[], targetId: string) => void;
   onReorder: (slideIds: string[], opts: { onError: () => void }) => void;
 }) {
-  let dndItems = $state<StripItem[]>([]);
+  let dndItems = $state.raw<StripItem[]>([]);
   let draggingId = $state<string | null>(null);
   let stackHoverId = $state<string | null>(null);
   /** Payload of the dragged item, snapshotted at DRAG_STARTED. */

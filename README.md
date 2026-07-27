@@ -5,7 +5,7 @@
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
   widgets, and small initial routes.
 - Vue can become smaller as an application grows. In the medium-sized
-  OpenSlides case study, Vue’s entry JavaScript and CSS are 85.4 kB smaller
+  OpenSlides case study, Vue’s entry JavaScript and CSS are 84.728 kB smaller
   with Brotli.
 
 ![The behavior-matched Vue OpenSlides port transfers less entry JavaScript and CSS than the Svelte 5 application with both gzip and Brotli](docs/images/openslides-entry.svg)
@@ -149,8 +149,8 @@ The complete scope is recorded in the
 
 | OpenSlides entry JavaScript + CSS | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| gzip | 191.825 kB | 303.784 kB | Vue by 111.959 kB |
-| Brotli | 162.626 kB | 248.026 kB | Vue by 85.400 kB |
+| gzip | 192.863 kB | 303.906 kB | Vue by 111.043 kB |
+| Brotli | 163.396 kB | 248.124 kB | Vue by 84.728 kB |
 
 This is the direct rebuttal to the universal bundle-size claim. Svelte’s
 smaller framework baseline does not guarantee a smaller substantial
@@ -162,23 +162,25 @@ rather than stopping at the Vite manifest:
 
 | OpenSlides cold production journey | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| Dashboard, Brotli | 337.268 kB | 465.349 kB | Vue by 128.081 kB |
-| Dashboard through editor, Brotli | 379.583 kB | 639.979 kB | Vue by 260.396 kB |
+| Dashboard, Brotli | 338.033 kB | 465.447 kB | Vue by 127.414 kB |
+| Dashboard through editor, Brotli | 543.247 kB | 640.079 kB | Vue by 96.832 kB |
 
-That larger editor gap needs context. The current Svelte implementation loads
-one Shiki asset set through its worker and another through its main-thread
-preview path. The Vue port reuses the same emitted language, theme, and Wasm
-assets across both paths. The extra transfer is real for this application, but
-it would be wrong to attribute all of it to the Svelte compiler. The entry
-JavaScript-and-CSS table is the cleaner framework-and-application comparison.
+The cold editor journey includes Shiki worker, language, theme, and Wasm
+assets requested by the two applications. Both implementations request two
+Shiki asset sets during this journey. Those assets are real application costs,
+but the entry JavaScript-and-CSS table remains the cleaner
+framework-and-application comparison.
 
 The two implementations are behavior-matched, not line-for-line translations.
-Vue uses 27 larger component files and roughly 8,600 total source lines; Svelte
-uses 99 components plus smaller rune and controller modules. That difference
-is part of how the two applications were credibly authored, but it also means
-this case study does not isolate runtime bytes in a laboratory. It proves
-something narrower and still important: a serious Vue implementation can be
-substantially smaller than the Svelte application it replaces.
+Nine shared Playwright workflows—18 passing cases across the two
+implementations—cover every material product claim in the parity ledger. Vue
+uses 27 larger component files and roughly 8,800 total source lines; Svelte
+uses 99 components plus smaller rune and controller modules across roughly
+18,800 lines. That difference is part of how the two applications were
+credibly authored, but it also means this case study does not isolate runtime
+bytes in a laboratory. It proves something narrower and still important: a
+serious Vue implementation can be substantially smaller than the Svelte
+application it replaces.
 
 The complete requested-file inventory and reproduction command are in
 [`openslides.md`](openslides.md).

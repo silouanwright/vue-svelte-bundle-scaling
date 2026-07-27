@@ -4,6 +4,7 @@ import { Copy, GripVertical, Trash2 } from "lucide-vue-next";
 import type { Project, Slide } from "$lib/types";
 import { slideDisplayName } from "$lib/types";
 import { themeBackground } from "$lib/lib/themes";
+import { ui } from "$lib/stores/ui-state";
 import Button from "$lib/ui/Button.vue";
 import PreviewStage from "@/features/preview/PreviewStage.vue";
 
@@ -26,6 +27,7 @@ const hoverPosition = ref({ left: 0, top: 0 });
 let hoverTimer: ReturnType<typeof setTimeout> | undefined;
 
 function mouseEnter(event: MouseEvent) {
+  if (!ui.showSlideHoverPreview) return;
   const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
   hoverPosition.value = {
     left: Math.min(window.innerWidth - 316, Math.max(16, rect.left)),
@@ -68,7 +70,10 @@ onBeforeUnmount(() => {
       <PreviewStage :project="project" :slide="slide" compact />
     </div>
     <div class="flex h-9 items-center gap-2 border-t border-border/50 px-2">
-      <GripVertical class="drag-handle h-3.5 w-3.5 cursor-grab text-muted-foreground" />
+      <GripVertical
+        data-slide-drag-handle
+        class="drag-handle h-3.5 w-3.5 cursor-grab text-muted-foreground"
+      />
       <span class="min-w-0 flex-1 truncate text-xs font-medium">
         {{ slideDisplayName(slide, index) }}
       </span>
