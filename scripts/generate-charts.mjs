@@ -264,7 +264,7 @@ function todoMvcResultsChart(componentResults, appResults) {
   );
   const componentPanel = groupedBarPanel({
     x: 76,
-    y: 104,
+    y: 116,
     width: 350,
     height: 340,
     title: "One component’s generated code",
@@ -283,7 +283,7 @@ function todoMvcResultsChart(componentResults, appResults) {
   });
   const applicationPanel = groupedBarPanel({
     x: 520,
-    y: 104,
+    y: 116,
     width: 310,
     height: 340,
     title: "Tiny one-component application",
@@ -321,8 +321,8 @@ function todoMvcResultsChart(componentResults, appResults) {
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
-  <text x="42" y="50" class="title">TodoMVC in 2026: the tradeoff remains</text>
-  <text x="42" y="74" class="subtitle">Vue starts larger but adds less code as the application grows.</text>
+  <text x="42" y="62" class="title">TodoMVC in 2026: the tradeoff remains</text>
+  <text x="42" y="86" class="subtitle">Vue starts larger but adds less code as the application grows.</text>
   <rect x="650" y="27" width="15" height="15" rx="2" fill="${colors.vue}" />
   <text x="674" y="40" class="legend">Vue 3.5</text>
   <rect x="760" y="27" width="15" height="15" rx="2" fill="${colors.svelte}" />
