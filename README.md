@@ -78,7 +78,7 @@ specimen, and the route-split application simulation demonstrates the
 amortization mechanism in complete, independently compressed production
 bundles.
 
-I put together this updated example to build on and expand Evan You’s original
+I put together this updated study to build on and expand Evan You’s original
 comparison five years later, using a current toolchain and broader benchmarks.
 
 ## Updated packages for the 2026 benchmark
@@ -119,7 +119,7 @@ panel.
 
 The clearest comparison is the same simulation at two sizes. With one route
 and eight component definitions, Svelte is smaller. After the
-simulation expands to 64 routes and 512 matched component definitions, Vue is
+simulation expands to 64 routes and 512 component definitions, Vue is
 smaller. Both measurements include the framework runtime and every route
 response loaded during a complete traversal.
 
