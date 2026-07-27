@@ -73,6 +73,36 @@ the application were a single response.
 No HTTP headers, HTML, CSS, source maps, images, or cached bytes are included.
 The study is intentionally restricted to emitted JavaScript.
 
+## Transfer scopes
+
+A code-split application has three different bundle-size questions:
+
+```text
+cold initial route
+shared runtime + application entry + initial route chunks
+
+continued navigation
++ each newly loaded feature chunk
+
+complete cold traversal
+the union of every JavaScript response loaded across all sampled routes
+```
+
+The route-split scaling result reports a complete cold traversal. It counts
+each independently compressed JavaScript response once, matching a session
+that eventually visits every sampled route with an initially empty cache. It
+does not assume that building a route makes every user download it.
+
+Already loaded modules are reused during a running application. Unchanged
+content-hashed assets may also be reused across visits when deployment cache
+headers permit it. Both frameworks receive that benefit. A new deployment,
+cache eviction, private session, or different device can restore the cold
+cost.
+
+The reports therefore keep initial transfer, individual lazy responses,
+complete cold traversal, and coalesced compression separate. “Bundle size” is
+not one number until the delivery and navigation model is specified.
+
 ## Five complementary lanes
 
 ### 1. Original 2021 specimen
@@ -172,6 +202,29 @@ Playwright and Chromium are parity tools only. The benchmark script invokes
 Vite directly, reads `dist`, and performs compression in Node. Browser
 binaries, test code, and test dependencies cannot enter the measured graphs.
 
+## Fixture-authoring audit
+
+The current-source Svelte fixtures were checked against
+[Svelte’s official best
+practices](https://svelte.dev/docs/svelte/best-practices). They use Svelte 5
+runes, `$derived` for computed state, current event attributes, keyed changing
+lists, and direct dynamic components. All 33 hand-authored Svelte components
+compile without a Svelte warning.
+
+The audit also made the following matched corrections:
+
+- six Svelte `class:` directives became the currently recommended
+  object-valued `class` form;
+- an unmatched no-op Vue `watch` was removed;
+- one replace-only collection uses shallow state in both implementations:
+  `shallowRef` in Vue and `$state.raw` in Svelte.
+
+The Svelte class change added 114 B of Brotli to the complete hand-authored
+application rather than reducing it. It remains because the canonical fixture
+follows current documented source instead of selecting syntax by benchmark
+outcome. The complete audit record is in
+[`docs/ai-research/20260727-svelte-fixture-optimization-audit/`](docs/ai-research/20260727-svelte-fixture-optimization-audit/).
+
 ## Why compression changes the answer
 
 Suppose Vue has a larger fixed runtime but adds fewer raw bytes per component:
@@ -221,8 +274,9 @@ tool versions remain hashed.
 
 Two consecutive full runs on the authoring machine reproduced all committed
 measurements. The manual GitHub Actions reproduction workflow is configured to
-run the same complete matrix; the pull-request workflow runs parity, the
-hand-authored lane, chart generation, and result verification.
+run the same complete matrix; the pull-request workflow runs parity, both
+current-source application profiles, chart generation, and result
+verification.
 
 ## Threats to validity
 

@@ -258,7 +258,7 @@ generated and how it scales; it does not make all framework work disappear.
 Modern Vue and Svelte both combine compiler and runtime techniques, with
 different balances.
 
-## 7. The strongest defensible formulation
+## 8. The strongest defensible formulation
 
 A publication using these results can say:
 
