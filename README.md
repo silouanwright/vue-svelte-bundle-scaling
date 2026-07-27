@@ -10,10 +10,10 @@
 
 ![Svelte is slightly smaller for the small Weather Front application, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
 
-*These are measured production results from two real applications. The lines
-connect those observations so the reversal is easy to see; they are not a
-universal growth curve or a claim that every application crosses at the same
-point.*
+*Weather Front is a separate application, so its connection to OpenSlides is
+dashed. The solid segment adds the OpenSlides editor to its dashboard. These
+are measured production states, not a universal growth curve or crossover
+threshold.*
 
 ## Why this benchmark exists
 
@@ -95,28 +95,10 @@ against both versions. The complete scope is recorded in the
 [`parity ledger`](fixtures/openslides/PARITY.md), and the contract itself is
 [`tests/openslides-parity.spec.mjs`](tests/openslides-parity.spec.mjs).
 
-### Svelte wins the application shell
+### Vue leads after the first user-visible route
 
-Before either route loads, Svelte retains the advantage promised by its
-smaller baseline:
-
-![The route-split Svelte OpenSlides shell transfers less entry JavaScript and CSS than the Vue shell](docs/images/openslides-entry.svg)
-
-| OpenSlides route-split shell | Vue 3.5 | Svelte 5 | Smaller result |
-| --- | ---: | ---: | --- |
-| gzip | 82.662 kB | 56.033 kB | Svelte by 26.629 kB |
-| Brotli | 72.452 kB | 49.255 kB | Svelte by 23.197 kB |
-
-This is the correct initial-route result. Route splitting prevents either
-implementation from charging the user for the editor before it is requested,
-and Svelte sends the smaller shell.
-
-### Vue overtakes Svelte on the first real route
-
-The result reverses when a cold production browser requests the dashboard.
-Vue remains smaller after the editor route is added to the cumulative journey:
-
-![Svelte starts with the smaller OpenSlides shell, while Vue becomes smaller after loading the dashboard and extends its lead after loading the editor](docs/images/openslides-route-split.svg)
+A cold production browser first opens the dashboard, then opens the editor.
+Vue is smaller at both user-visible stages:
 
 | OpenSlides cold production journey | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
@@ -125,10 +107,9 @@ Vue remains smaller after the editor route is added to the cumulative journey:
 | Dashboard through editor, gzip | 510.251 kB | 889.338 kB | Vue by 379.087 kB |
 | Dashboard through editor, Brotli | 389.076 kB | 656.812 kB | Vue by 267.736 kB |
 
-The routing objection therefore changes the shape of the result, but it does
-not rescue the universal bundle-size claim. Svelte wins before application
-functionality loads. Vue overtakes it when the first substantial route is
-requested.
+Route splitting therefore does not rescue the universal bundle-size claim.
+Neither implementation charges the dashboard user for the editor route, yet
+Vue is already smaller when that first route becomes usable.
 
 The cold journey includes every production JavaScript, CSS, worker, language,
 theme, and Shiki Wasm asset actually requested at each stage. Both
