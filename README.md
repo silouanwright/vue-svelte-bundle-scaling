@@ -4,19 +4,21 @@
 
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
   widgets, and small initial routes.
-- Vue can become smaller as an application grows. Svelte is 0.868 kB smaller
-  in the small Weather Front application. After loading the dashboard and
-  editor in route-split OpenSlides, Vue is 267.736 kB smaller.
+- Vue can become smaller as an application grows. Svelte is 7.865 kB smaller
+  in the controlled small Weather Front application. After loading the
+  dashboard and editor in route-split OpenSlides, Vue is 267.736 kB smaller.
 
-![Svelte is slightly smaller for the small Weather Front application, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
+![Svelte is smaller for the controlled small Weather Front application, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
 
-*Weather Front is a separate application. The middle and final markers are
-cumulative OpenSlides route states. Each curve passes through the three
-measured production states; it is not a universal crossover threshold.*
+*Weather Front is a separate, normalized Vue 3.5/Svelte 5 application. The
+middle and final markers are cumulative OpenSlides route states. Each curve
+passes through the three measured production states. The dashed vertical line
+marks their interpolated crossover; it is an approximation between these
+applications, not a universal threshold.*
 
 Here, “small” and “medium-sized” describe product scope rather than universal
-line-count thresholds. Weather Front has one user-facing screen, 8–9 component
-files, and 754–896 source lines across its Vue and Svelte versions.
+line-count thresholds. The normalized Weather Front implementations each have
+six component files and 532–584 source lines.
 OpenSlides has a dashboard, editor, presentation flow, persistence, search,
 settings, and autoplay; its matched implementations contain 27 Vue components
 across 8,771 source lines and 99 Svelte components across 18,762 source lines.
@@ -145,7 +147,7 @@ application it replaces.
 The complete requested-file inventory and reproduction command are in
 [`openslides.md`](openslides.md).
 
-## Other real-application evidence: Weather Front
+## Small-app evidence: Weather Front
 
 Alicia Sykes independently built the same weather application in Vue, Svelte,
 and eleven other frontend stacks. The implementations share the same
@@ -155,20 +157,30 @@ Weather Front is a small but credible application: one principal screen,
 asynchronous data, search, persistence, and loading and error states. It is
 well beyond Hello World, but it is not a medium-sized product application.
 
-I measured only the JavaScript and CSS responses requested during a cold
-production load:
+For the lead graph, I reimplemented its core product surface as a controlled
+Vue 3.5/Svelte 5 comparison. Both versions use plain Vite, matched component
+responsibilities, byte-identical model code and CSS, and the same Playwright
+behavior assertions:
 
-| Weather Front requested transfer | Vue | Svelte | Smaller result |
+| Controlled Weather Front transfer | Vue 3.5 | Svelte 5 | Smaller result |
+| --- | ---: | ---: | --- |
+| gzip | 26.353 kB | 18.005 kB | Svelte by 8.348 kB |
+| Brotli | 24.003 kB | 16.138 kB | Svelte by 7.865 kB |
+
+Svelte wins this fairer small-application comparison by roughly one-third.
+That makes it the useful counterweight to OpenSlides rather than a point chosen
+to minimize Svelte’s advantage.
+
+As an external check, the unmodified upstream project also favors Svelte,
+although it compares Vue/Vite with Svelte 4/SvelteKit:
+
+| Upstream Weather Front transfer | Vue | Svelte | Smaller result |
 | --- | ---: | ---: | --- |
 | gzip | 35.281 kB | 34.693 kB | Svelte by 0.588 kB |
 | Brotli | 31.423 kB | 30.555 kB | Svelte by 0.868 kB |
 
-Svelte still wins, but the difference is already below one kilobyte. This is
-the useful small-application counterweight to OpenSlides. The upstream project
-compares Vue/Vite with Svelte 4/SvelteKit, so I also maintain a normalized
-Vue 3.5/Svelte 5 lane. Svelte wins that controlled version by 7.865 kB with
-Brotli. The two measurements demonstrate why exact numbers depend on the
-application and toolchain even when the broader size curve remains useful.
+The two measurements demonstrate why exact numbers depend on the application
+and toolchain even when the broader size curve remains useful.
 
 The complete measurements are in
 [`weather-upstream.md`](weather-upstream.md) and

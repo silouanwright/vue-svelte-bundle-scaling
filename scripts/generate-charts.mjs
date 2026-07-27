@@ -331,7 +331,10 @@ function smallLargeComparisonChart(results) {
 
 function realApplicationsChart(weatherResults, openslidesResults) {
   const weather = Object.fromEntries(
-    weatherResults.map((result) => [result.framework, result.brotli]),
+    weatherResults.map((result) => [
+      result.framework,
+      result.complete.brotli,
+    ]),
   );
   const openslides = Object.fromEntries(
     openslidesResults.map((result) => [result.framework, result]),
@@ -374,6 +377,36 @@ function realApplicationsChart(weatherResults, openslidesResults) {
         (value / chart.maximum) * (chart.bottom - chart.top)
       ).toFixed(2),
     );
+  const controlValue = (framework) =>
+    2 * stages[1][framework] -
+    (stages[0][framework] + stages[2][framework]) / 2;
+  const quadraticValue = (start, control, end, t) =>
+    (1 - t) ** 2 * start +
+    2 * (1 - t) * t * control +
+    t ** 2 * end;
+  const frameworkValueAt = (framework, t) =>
+    quadraticValue(
+      stages[0][framework],
+      controlValue(framework),
+      stages[2][framework],
+      t,
+    );
+  let crossoverLow = 0;
+  let crossoverHigh = 0.5;
+  for (let iteration = 0; iteration < 60; iteration += 1) {
+    const midpoint = (crossoverLow + crossoverHigh) / 2;
+    const difference =
+      frameworkValueAt("vue", midpoint) -
+      frameworkValueAt("svelte", midpoint);
+    if (difference > 0) {
+      crossoverLow = midpoint;
+    } else {
+      crossoverHigh = midpoint;
+    }
+  }
+  const crossoverT = (crossoverLow + crossoverHigh) / 2;
+  const crossoverX =
+    stageX[0] + (stageX[2] - stageX[0]) * crossoverT;
   const ticks = [0, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000];
   const grid = ticks
     .map(
@@ -415,7 +448,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
   <title id="title">Measured transfer from a small app to a medium-size app</title>
-  <desc id="description">Svelte is slightly smaller for the small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the three measured states for each framework.</desc>
+  <desc id="description">Svelte is smaller for the controlled small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the three measured states for each framework.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -427,6 +460,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
     .detail { font-size: 12px; fill: #4a5560; }
     .value { font-size: 12px; font-weight: 700; }
     .legend { font-size: 14px; font-weight: 650; }
+    .crossover { font-size: 12px; font-weight: 700; fill: #4a5560; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
   <text x="42" y="38" class="title">From a small app to a medium-sized app (kB)</text>
@@ -440,6 +474,9 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   ${grid}
   <line x1="${chart.left}" y1="${chart.top}" x2="${chart.left}" y2="${chart.bottom}" class="axis" />
   <line x1="${chart.left}" y1="${chart.bottom}" x2="${chart.right}" y2="${chart.bottom}" class="axis" />
+  <line x1="${crossoverX}" y1="${chart.top}" x2="${crossoverX}" y2="${chart.bottom}" stroke="#7b8794" stroke-width="1.5" stroke-dasharray="5 5" />
+  <text x="${crossoverX + 10}" y="${chart.top + 17}" class="crossover">Approx. crossover</text>
+  <text x="${crossoverX + 10}" y="${chart.top + 34}" class="detail">Vue becomes smaller</text>
   ${plots}
   <text x="${stageX[0] - 10}" y="${y(stages[0].svelte) - 14}" text-anchor="end" class="value">${Math.floor(stages[0].svelte / 1000)} kB</text>
   <text x="${stageX[0] + 10}" y="${y(stages[0].vue) + 10}" class="value">${Math.floor(stages[0].vue / 1000)} kB</text>
@@ -568,12 +605,12 @@ fs.writeFileSync(
 const openslides = JSON.parse(
   fs.readFileSync(path.join(root, "openslides.json"), "utf8"),
 );
-const weatherUpstream = JSON.parse(
-  fs.readFileSync(path.join(root, "weather-upstream.json"), "utf8"),
+const weatherStaged = JSON.parse(
+  fs.readFileSync(path.join(root, "weather-staged.json"), "utf8"),
 );
 fs.writeFileSync(
   path.join(outputDir, "real-applications-brotli.svg"),
-  realApplicationsChart(weatherUpstream.results, openslides.results),
+  realApplicationsChart(weatherStaged.results, openslides.results),
 );
 
 console.log("Generated 4 deterministic SVG charts");
