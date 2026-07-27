@@ -60,46 +60,13 @@ larger shared baseline.
 
 ## Is this still true in 2026?
 
-Yes. It remains true with Vue’s default Options API compatibility enabled: in
-the route-loaded fixture, Vue becomes smaller near 237 compact definitions
-with gzip and 338 with Brotli.
+Yes. The default Vue build crosses near 237 definitions with gzip and 338 with
+Brotli. Disabling its unused Options API moves those points to roughly 171 and
+243.
 
-Options API is not deprecated—Vue describes both API styles as fully capable.
-But Vue
-[recommends Composition API with Single-File Components for full
-applications](https://vuejs.org/guide/introduction.html#which-to-choose).
-The opening graph therefore uses the more representative production profile
-for this fixture: its Vue source is entirely Composition API and `<script
-setup>`, so the unused Options API is disabled. That moves the measured
-crossovers earlier, to approximately 171 definitions with gzip and 243 with
-Brotli. Disabling Options API does not create Vue’s amortization advantage; it
-makes an advantage that already exists arrive sooner.
-
-We put together this updated example to build on and expand Evan You’s original
-comparison five years later, using a current toolchain and broader benchmarks.
-
-The current-source Svelte implementation is idiomatic Svelte 5 and follows
+The current Svelte implementation is idiomatic Svelte 5 and follows
 [Svelte’s documented best
-practices](https://svelte.dev/docs/svelte/best-practices):
-
-- Local state, derived values, component inputs, and bindable inputs use
-  `$state`, `$derived`, `$props`, and `$bindable`.
-- Events use current attributes such as `onclick` and `onsubmit`, not legacy
-  `on:` directives.
-- Changing collections use keyed `{#each}` blocks.
-- Dynamic components use the direct Svelte 5 form, `<CurrentRoute />`, rather
-  than legacy `<svelte:component>`.
-- Dynamic classes use the currently recommended object-valued `class` syntax.
-- The replace-only notification collection uses `$state.raw` instead of paying
-  for deep reactivity it does not use.
-- Production builds use the current Svelte Vite plugin, and the trimmed profile
-  disables version disclosure through the supported compiler option.
-- All 33 hand-authored Svelte components compile with zero Svelte warnings and
-  pass the same Playwright behavior contract as the Vue implementation.
-
-“The Svelte code was written badly” is therefore not a sufficient rebuttal.
-Anyone making that claim needs to identify a behavior-equivalent change and
-show its measured effect. This repository makes that straightforward to test.
+practices](https://svelte.dev/docs/svelte/best-practices).
 
 ## Updated packages for the 2026 benchmark
 
