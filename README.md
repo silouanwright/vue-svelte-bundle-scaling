@@ -137,7 +137,6 @@ npx playwright install chromium
 npm test
 ```
 
-Chromium is not used to compile, minify, compress, or measure bundles.
 Playwright opens both complete fixtures and performs the same interactions so
 that unlike behavior cannot be rewarded with a smaller result. The browser and
 test code are development-only dependencies and never enter a measured bundle.
