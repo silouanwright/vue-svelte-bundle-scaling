@@ -96,6 +96,29 @@ the compiler-dominated Svelte 4
 design](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive#what-changed-and-why).
 Vue and Vite have also changed substantially.
 
+### Amortization begins before the crossover
+
+The original TodoMVC specimen is a very small application. It already shows
+Vue’s amortization mechanism beginning: the component-only output is 1,306 B
+with Brotli for Vue and 1,500 B for Svelte. But after including each
+framework’s runtime, the complete small Svelte bundle remains roughly 9–10 kB
+smaller. Vue is adding less component code, but it has not yet repaid its
+larger baseline.
+
+The larger scaling workloads do not loop over one TodoMVC component at
+runtime. They generate hundreds of distinct component modules to simulate the
+compiled source graph of a larger application. The route-split workload also
+distributes eight different behavior families across independently transferred
+routes. These are deliberate scaling tests, not claims that one TodoMVC
+application contains hundreds of components.
+
+The independently authored control is an eight-route, 33-component
+product-shaped application. Svelte remains 7,604 B smaller across a complete
+cold traversal, but every lazy feature file is smaller with Vue after Brotli.
+That result shows the same distinction in a small application: Vue’s marginal
+amortization benefit is already visible even though the complete application
+has not crossed over.
+
 The benchmark also tests several questions the original arithmetic could not
 answer:
 
