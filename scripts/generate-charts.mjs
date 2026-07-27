@@ -79,7 +79,7 @@ function lineChart({
   series,
   verticalMarkers = [],
   callout = null,
-  evidenceKey = null,
+  showPointMarkers = true,
 }) {
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
@@ -117,12 +117,14 @@ function lineChart({
       const points = item.values
         .map((value, index) => `${x(itemXValues[index])},${y(value)}`)
         .join(" ");
-      const markers = item.values
-        .map(
-          (value, index) =>
-            `<circle cx="${x(itemXValues[index])}" cy="${y(value)}" r="5" fill="${colors[item.id]}" />`,
-        )
-        .join("");
+      const markers = showPointMarkers
+        ? item.values
+            .map(
+              (value, index) =>
+                `<circle cx="${x(itemXValues[index])}" cy="${y(value)}" r="5" fill="${colors[item.id]}" />`,
+            )
+            .join("")
+        : "";
       return `<polyline points="${points}" fill="none" stroke="${colors[item.id]}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />${markers}`;
     })
     .join("");
@@ -161,29 +163,7 @@ function lineChart({
       )
       .join("")}
   </g>`;
-  const evidenceKeyMarkup =
-    evidenceKey === null
-      ? ""
-      : `
-  <g transform="translate(${evidenceKey.x} ${evidenceKey.y})">
-    <rect width="${evidenceKey.width}" height="${evidenceKey.height}" rx="8" class="evidence-box" />
-    <circle cx="15" cy="17" r="4.5" class="evidence-dot" />
-    <text x="29" y="21" class="evidence-title">${escapeXml(evidenceKey.title)}</text>
-    <text x="29" y="39" class="evidence-text">${escapeXml(evidenceKey.detail)}</text>
-    <line x1="11" y1="55" x2="21" y2="55" class="evidence-line" />
-    <text x="29" y="59" class="evidence-text">${escapeXml(evidenceKey.lineMeaning)}</text>
-  </g>`;
-  const evidenceKeyStyles =
-    evidenceKey === null
-      ? ""
-      : `
-    .evidence-box { fill: #ffffff; stroke: #cbd3da; stroke-width: 1.25; }
-    .evidence-dot { fill: #4a5560; }
-    .evidence-line { stroke: #4a5560; stroke-width: 3; stroke-linecap: round; }
-    .evidence-title { fill: #2d3740; font-size: 12.5px; font-weight: 725; }
-    .evidence-text { fill: #4a5560; font-size: 11.5px; }`;
-  const emptyAnnotationSpacer =
-    evidenceKey === null && callout === null ? "\n" : "";
+  const emptyAnnotationSpacer = callout === null ? "\n" : "";
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
   <title id="title">${escapeXml(title)}</title>
@@ -202,7 +182,7 @@ function lineChart({
     .callout-box { fill: #fff8e6; stroke: #d69e2e; stroke-width: 1.5; }
     .callout-icon { fill: #b7791f; }
     .callout-title { fill: #644b11; font-size: 13px; font-weight: 750; }
-    .callout-text { fill: #644b11; font-size: 12px; }${evidenceKeyStyles}
+    .callout-text { fill: #644b11; font-size: 12px; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
   <text x="${margin.left}" y="38" class="title">${escapeXml(title)}</text>
@@ -212,7 +192,7 @@ function lineChart({
   <line x1="${margin.left}" y1="${margin.top + plotHeight}" x2="${width - margin.right}" y2="${margin.top + plotHeight}" class="axis" />
   ${xTicks}
   ${markers}
-  ${plots}${evidenceKeyMarkup}${calloutMarkup}${emptyAnnotationSpacer}
+  ${plots}${calloutMarkup}${emptyAnnotationSpacer}
   <text x="${margin.left + plotWidth / 2}" y="${height - 20}" text-anchor="middle" class="label">${escapeXml(xLabel)}</text>
   <text x="22" y="${margin.top + plotHeight / 2}" text-anchor="middle" transform="rotate(-90 22 ${margin.top + plotHeight / 2})" class="label">${escapeXml(yLabel)}</text>
 </svg>
@@ -262,7 +242,7 @@ fs.writeFileSync(
   lineChart({
     title: "Vue eventually becomes smaller than Svelte",
     description:
-      "Total JavaScript transferred after visiting every route, with each response compressed independently using Brotli. Every dot is a separately measured production build at 64, 128, 256, or 512 matched feature definitions; the lines interpolate between those measurements. Vue's transferred JavaScript grows more slowly, so the measured gap closes and reverses by the largest build. Only the precise crossover location is estimated.",
+      "Total JavaScript transferred after visiting every route, with each response compressed independently using Brotli. Each line connects separately measured production builds at 64, 128, 256, and 512 matched feature definitions. Vue's transferred JavaScript grows more slowly, so the measured gap closes and reverses by the largest build. Only the precise crossover location is estimated.",
     xLabel: "Nonblank source lines",
     yLabel: "JavaScript transferred after all routes (Brotli)",
     xValues: [0, 2000, 4000, 6000, 8000, 10_000],
@@ -291,15 +271,7 @@ fs.writeFileSync(
         "The principle is proven; the exact threshold is not.",
       ],
     },
-    evidenceKey: {
-      x: 110,
-      y: 83,
-      width: 322,
-      height: 70,
-      title: "Dots = separately measured production builds",
-      detail: "Left → right: 64, 128, 256, 512 matched definitions",
-      lineMeaning: "Lines connect measurements; the crossing is estimated",
-    },
+    showPointMarkers: false,
   }),
 );
 
