@@ -389,18 +389,40 @@ async function generateCase(framework, count) {
   return caseRoot;
 }
 
-async function listJavaScriptFiles(root) {
+async function listMatchingFiles(root, pattern) {
   const files = [];
   async function visit(directory) {
     for (const entry of await readdir(directory)) {
       const target = join(directory, entry);
       const targetStat = await stat(target);
       if (targetStat.isDirectory()) await visit(target);
-      else if (/\.(?:m?js)$/.test(entry)) files.push(target);
+      else if (pattern.test(entry)) files.push(target);
     }
   }
   await visit(root);
   return files.sort();
+}
+
+function listJavaScriptFiles(root) {
+  return listMatchingFiles(root, /\.(?:m?js)$/);
+}
+
+function listSourceFiles(root) {
+  return listMatchingFiles(root, /\.(?:js|svelte|vue)$/);
+}
+
+async function measureSource(root) {
+  const files = await listSourceFiles(root);
+  let bytes = 0;
+  let nonblankLines = 0;
+  for (const filename of files) {
+    const contents = await readFile(filename, "utf8");
+    bytes += Buffer.byteLength(contents);
+    nonblankLines += contents
+      .split("\n")
+      .filter((line) => line.trim().length > 0).length;
+  }
+  return { files: files.length, bytes, nonblankLines };
 }
 
 function compressedSizes(buffer) {
@@ -415,6 +437,7 @@ function compressedSizes(buffer) {
 
 async function measureCase(framework, count) {
   const caseRoot = await generateCase(framework, count);
+  const source = await measureSource(join(caseRoot, "src"));
   const outDir = join(caseRoot, "dist");
   await build({
     root: caseRoot,
@@ -450,6 +473,7 @@ async function measureCase(framework, count) {
     count,
     routes: count / componentsPerRoute,
     jsFiles: files.length,
+    source,
     files,
     chunked,
     coalesced,
@@ -510,6 +534,21 @@ function report(results, metadata) {
     const delta = vuePoint.chunked.brotli - sveltePoint.chunked.brotli;
     lines.push(
       `| ${vuePoint.count} | ${vuePoint.routes} | ${bytes(vuePoint.chunked.brotli)} | ${bytes(sveltePoint.chunked.brotli)} | ${delta >= 0 ? "+" : ""}${bytes(delta)} |`,
+    );
+  }
+
+  lines.push(
+    "",
+    "## Matched source scale",
+    "",
+    "| Components | Vue nonblank lines | Svelte nonblank lines | Vue source | Svelte source |",
+    "| ---: | ---: | ---: | ---: | ---: |",
+  );
+  for (let index = 0; index < vuePoints.length; index += 1) {
+    const vuePoint = vuePoints[index];
+    const sveltePoint = sveltePoints[index];
+    lines.push(
+      `| ${vuePoint.count} | ${vuePoint.source.nonblankLines.toLocaleString("en-US")} | ${sveltePoint.source.nonblankLines.toLocaleString("en-US")} | ${bytes(vuePoint.source.bytes)} | ${bytes(sveltePoint.source.bytes)} |`,
     );
   }
 

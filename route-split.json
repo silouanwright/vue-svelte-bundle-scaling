@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generatedAt": "2026-07-27T11:46:23.724Z",
+    "generatedAt": "2026-07-27T14:31:32.674Z",
     "node": "v22.19.0",
     "componentCounts": [
       0,
@@ -28,6 +28,11 @@
       "count": 0,
       "routes": 0,
       "jsFiles": 1,
+      "source": {
+        "files": 2,
+        "bytes": 592,
+        "nonblankLines": 23
+      },
       "files": [
         {
           "file": "assets/index-Cve1X1nX.js",
@@ -52,6 +57,11 @@
       "count": 0,
       "routes": 0,
       "jsFiles": 1,
+      "source": {
+        "files": 2,
+        "bytes": 518,
+        "nonblankLines": 20
+      },
       "files": [
         {
           "file": "assets/index-A4kKSmDy.js",
@@ -76,6 +86,11 @@
       "count": 8,
       "routes": 1,
       "jsFiles": 2,
+      "source": {
+        "files": 11,
+        "bytes": 5217,
+        "nonblankLines": 165
+      },
       "files": [
         {
           "file": "assets/Route0-CyYCc7I6.js",
@@ -106,6 +121,11 @@
       "count": 8,
       "routes": 1,
       "jsFiles": 2,
+      "source": {
+        "files": 11,
+        "bytes": 4603,
+        "nonblankLines": 135
+      },
       "files": [
         {
           "file": "assets/Route0-BWU-2BRA.js",
@@ -136,6 +156,11 @@
       "count": 16,
       "routes": 2,
       "jsFiles": 3,
+      "source": {
+        "files": 20,
+        "bytes": 9883,
+        "nonblankLines": 307
+      },
       "files": [
         {
           "file": "assets/Route0-BbB_5H4Q.js",
@@ -172,6 +197,11 @@
       "count": 16,
       "routes": 2,
       "jsFiles": 4,
+      "source": {
+        "files": 20,
+        "bytes": 8729,
+        "nonblankLines": 250
+      },
       "files": [
         {
           "file": "assets/Route0-CAePl1lD.js",
@@ -214,6 +244,11 @@
       "count": 32,
       "routes": 4,
       "jsFiles": 5,
+      "source": {
+        "files": 38,
+        "bytes": 19233,
+        "nonblankLines": 591
+      },
       "files": [
         {
           "file": "assets/Route0-YG1Cf7H_.js",
@@ -262,6 +297,11 @@
       "count": 32,
       "routes": 4,
       "jsFiles": 6,
+      "source": {
+        "files": 38,
+        "bytes": 16999,
+        "nonblankLines": 480
+      },
       "files": [
         {
           "file": "assets/Route0-C7e6gJZk.js",
@@ -316,6 +356,11 @@
       "count": 64,
       "routes": 8,
       "jsFiles": 9,
+      "source": {
+        "files": 74,
+        "bytes": 37933,
+        "nonblankLines": 1159
+      },
       "files": [
         {
           "file": "assets/Route0-DnQyBtqh.js",
@@ -388,6 +433,11 @@
       "count": 64,
       "routes": 8,
       "jsFiles": 10,
+      "source": {
+        "files": 74,
+        "bytes": 33539,
+        "nonblankLines": 940
+      },
       "files": [
         {
           "file": "assets/Route0-B3--sb1o.js",
@@ -466,6 +516,11 @@
       "count": 128,
       "routes": 16,
       "jsFiles": 17,
+      "source": {
+        "files": 146,
+        "bytes": 75521,
+        "nonblankLines": 2295
+      },
       "files": [
         {
           "file": "assets/Route0-D_YWr7KR.js",
@@ -586,6 +641,11 @@
       "count": 128,
       "routes": 16,
       "jsFiles": 18,
+      "source": {
+        "files": 146,
+        "bytes": 66807,
+        "nonblankLines": 1860
+      },
       "files": [
         {
           "file": "assets/Route0-D8oIMPIH.js",
@@ -712,6 +772,11 @@
       "count": 256,
       "routes": 32,
       "jsFiles": 33,
+      "source": {
+        "files": 290,
+        "bytes": 151121,
+        "nonblankLines": 4567
+      },
       "files": [
         {
           "file": "assets/Route0-DrHpdJ72.js",
@@ -928,6 +993,11 @@
       "count": 256,
       "routes": 32,
       "jsFiles": 34,
+      "source": {
+        "files": 290,
+        "bytes": 133767,
+        "nonblankLines": 3700
+      },
       "files": [
         {
           "file": "assets/Route0-DG4Nwx_P.js",
@@ -1150,6 +1220,11 @@
       "count": 512,
       "routes": 64,
       "jsFiles": 65,
+      "source": {
+        "files": 578,
+        "bytes": 302321,
+        "nonblankLines": 9111
+      },
       "files": [
         {
           "file": "assets/Route0-HcT_jTTK.js",
@@ -1558,6 +1633,11 @@
       "count": 512,
       "routes": 64,
       "jsFiles": 66,
+      "source": {
+        "files": 578,
+        "bytes": 267687,
+        "nonblankLines": 7380
+      },
       "files": [
         {
           "file": "assets/Route0-CKblPT1X.js",

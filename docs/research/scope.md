@@ -26,12 +26,14 @@ Allowed inputs:
 - files committed to this repository;
 - the exact commit-pinned upstream files named by the benchmark scripts;
 - primary framework and build-tool documentation used to interpret results.
+- public framework and advocacy claims used only to establish the premise being
+  tested, not as benchmark evidence.
 
 Excluded inputs:
 
 - unpinned framework examples or benchmark implementations;
 - unpublished application code used as a substitute specimen;
-- community claims without a reproducible artifact or primary source.
+- community or marketing claims used as evidence for a benchmark conclusion.
 
 Out-of-scope fallback rule:
 

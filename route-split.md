@@ -1,6 +1,6 @@
 # Heterogeneous Route-Split Bundle Results
 
-Generated: 2026-07-27T11:46:23.724Z
+Generated: 2026-07-27T14:31:32.674Z
 
 - Vue: 3.5.40
 - Svelte: 5.56.8
@@ -22,6 +22,19 @@ Generated: 2026-07-27T11:46:23.724Z
 | 128 | 16 | 46,947 B | 41,356 B | +5,591 B |
 | 256 | 32 | 70,350 B | 68,158 B | +2,192 B |
 | 512 | 64 | 117,145 B | 121,690 B | -4,545 B |
+
+## Matched source scale
+
+| Components | Vue nonblank lines | Svelte nonblank lines | Vue source | Svelte source |
+| ---: | ---: | ---: | ---: | ---: |
+| 0 | 23 | 20 | 592 B | 518 B |
+| 8 | 165 | 135 | 5,217 B | 4,603 B |
+| 16 | 307 | 250 | 9,883 B | 8,729 B |
+| 32 | 591 | 480 | 19,233 B | 16,999 B |
+| 64 | 1,159 | 940 | 37,933 B | 33,539 B |
+| 128 | 2,295 | 1,860 | 75,521 B | 66,807 B |
+| 256 | 4,567 | 3,700 | 151,121 B | 133,767 B |
+| 512 | 9,111 | 7,380 | 302,321 B | 267,687 B |
 
 ## Crossover summary
 

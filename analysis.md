@@ -114,9 +114,9 @@ The modern controlled lane proves why the distinction matters. Multiplying
 isolated compressed costs predicts neither framework’s actual whole-bundle
 curve once hundreds of definitions are minified and compressed together.
 
-## 4. Route boundaries can make raw amortization a transfer advantage
+## 4. Vue can become smaller as route-loaded components accumulate
 
-The generated route-split lane introduces eight component families:
+The primary scaling workload introduces eight kinds of component behavior:
 counters, disclosures, tabs, task trackers, search panels, settings forms,
 pagination controls, and notifications. Each lazy route contains one of each.
 Every emitted JavaScript response is compressed independently.
@@ -129,9 +129,26 @@ Every emitted JavaScript response is compressed independently.
 | 512 | 64 | 117,145 B | 121,690 B | −4,545 B |
 
 Linear interpolation between the sampled builds places the crossover near 241
-components for gzip and 339 for Brotli.
+compact component definitions for gzip and 339 for Brotli in this workload.
 
-![Route-split Brotli transfer](docs/images/route-split-brotli.svg)
+![Svelte uses fewer source lines in the matched fixture, while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
+
+The chart positions each framework by its own nonblank source-line count.
+Piecewise-linear interpolation gives an imperfect estimate of the two curves’
+source-size crossover: approximately 2,120 lines and 45.1 kB transferred in
+this fixture. This is intentionally a different question from the
+matched-workload crossover: equal source-line counts do not represent exactly
+equal functionality because Svelte expresses this fixture more tersely.
+
+For legibility, the chart begins with the 64-definition sample: 940 Svelte
+lines and 1,159 Vue lines. The complete reports retain the empty-shell and
+8–32-definition measurements.
+
+At each substantial matched sample, Svelte uses about 19% fewer nonblank source
+lines. The same-behavior Brotli crossover remains near 339 compact definitions,
+which correspond to approximately 6,000 Vue lines or 4,900 Svelte lines. The
+ordinary source-size chart makes the scale easier to imagine; the matched
+benchmark establishes the controlled framework comparison.
 
 Those numbers belong to this generated workload. The important result is
 mechanical: Vue’s amortization was not limited to uncompressed output. It
@@ -165,7 +182,9 @@ This comparison is independently maintained and behavior-matched, but it is a
 deliberately small performance app. It answers the small-complete-application
 question, not the scaling question.
 
-The hand-authored fixture provides a different check. Its framework-neutral
+The second small application provides a different check. Its components were
+written individually rather than produced by the scaling generator, which is
+what “hand-authored” means in the raw report filenames. Its framework-neutral
 specification defines eight product routes, 24 independently designed leaf
 components, seven lazy boundaries, shared application state shapes, and a
 browser-tested behavior contract.
@@ -176,8 +195,6 @@ browser-tested behavior contract.
 | 2 | 9 | 26,247 B | 17,110 B | +9,137 B |
 | 4 | 17 | 28,853 B | 20,712 B | +8,141 B |
 | 8 | 33 | 33,353 B | 25,749 B | +7,604 B |
-
-![Hand-authored application Brotli transfer](docs/images/hand-authored-brotli.svg)
 
 Svelte remains smaller initially and across a cold traversal of every route.
 At the full eight-route point:
@@ -192,7 +209,7 @@ application. Chunk allocation is bundler-dependent, so those route increments
 should not be mistaken for framework-free component output; they do show why
 the complete gap narrows.
 
-The hand-authored application also passes a useful realism check. Its
+The individually written application also passes a useful realism check. Its
 per-response Brotli totals are 36.0% of raw JavaScript for Vue and 36.9% for
 Svelte—close to the one-component ratios and far from the clone-heavy Todo
 lane’s 4.2% and 2.8%. Coalescing every route lowers those ratios to 33.0% and
@@ -230,8 +247,9 @@ A publication using these results can say:
 >
 > When I introduced eight component families and compressed lazy route chunks
 > as separate responses, Vue eventually became smaller in gzip and Brotli.
-> A separate hand-authored 33-component application did not cross, although
-> most of its lazy route increments favored Vue and the complete gap narrowed.
+> A separate, individually written 33-component application did not cross,
+> although most of its lazy route increments favored Vue and the complete gap
+> narrowed.
 > The evidence therefore supports Svelte as the likely size winner for widgets
 > and small applications, and Vue as the likely smaller framework layer for
 > medium-to-large applications with many distinct, independently transferred
