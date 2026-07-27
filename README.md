@@ -53,7 +53,7 @@ substantially less code as more components were added. He concluded that Svelte
 provided a compelling advantage for isolated components, but that its
 generated-code cost could become a disadvantage for medium-to-large
 applications. This is also clearly documented in the Vue FAQ:
-[https://vuejs.org/about/faq#is-vue-lightweight](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
+[https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
 
 The example application was TodoMVC—a tiny application. Even at that scale, the
 benchmarks show that Vue is already generating less component-specific code
