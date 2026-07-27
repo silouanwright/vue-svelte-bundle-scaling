@@ -366,7 +366,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
     bottom: 408,
     maximum: 700_000,
   };
-  const stageX = [156, 470, 752];
+  const stageX = [156, 454, 752];
   const y = (value) =>
     Number(
       (
@@ -385,6 +385,12 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   const plots = ["vue", "svelte"]
     .map((framework) => {
       const color = colors[framework];
+      const controlY = Number(
+        (
+          2 * y(stages[1][framework]) -
+          (y(stages[0][framework]) + y(stages[2][framework])) / 2
+        ).toFixed(2),
+      );
       const circles = stages
         .map(
           (stage, index) =>
@@ -394,8 +400,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
         )
         .join("");
       return `
-  <path d="M ${stageX[0]} ${y(stages[0][framework])} C ${stageX[0] + 105} ${y(stages[0][framework])}, ${stageX[1] - 105} ${y(stages[1][framework])}, ${stageX[1]} ${y(stages[1][framework])}" fill="none" stroke="${color}" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
-  <path d="M ${stageX[1]} ${y(stages[1][framework])} C ${stageX[1] + 90} ${y(stages[1][framework])}, ${stageX[2] - 90} ${y(stages[2][framework])}, ${stageX[2]} ${y(stages[2][framework])}" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" />
+  <path d="M ${stageX[0]} ${y(stages[0][framework])} Q ${stageX[1]} ${controlY}, ${stageX[2]} ${y(stages[2][framework])}" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" />
   ${circles}`;
     })
     .join("");
@@ -410,7 +415,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
   <title id="title">Measured transfer from a small app to a medium-size app</title>
-  <desc id="description">Svelte is slightly smaller for the small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. The dashed curve changes applications; the solid curve adds the second cumulative OpenSlides route.</desc>
+  <desc id="description">Svelte is slightly smaller for the small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the three measured states for each framework.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -443,7 +448,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   <text x="${stageX[2] - 10}" y="${y(stages[2].vue) + 5}" text-anchor="end" class="value">${(stages[2].vue / 1000).toFixed(3)}</text>
   <text x="${stageX[2] - 10}" y="${y(stages[2].svelte) - 10}" text-anchor="end" class="value">${(stages[2].svelte / 1000).toFixed(3)}</text>
   ${stageLabels}
-  <text x="440" y="492" text-anchor="middle" class="detail">Dashed: different application · solid: second OpenSlides route · values in kB</text>
+  <text x="440" y="492" text-anchor="middle" class="detail">Three measured production states · values in kB</text>
 </svg>
 `.replace(/^[ \t]+$/gm, "");
 }

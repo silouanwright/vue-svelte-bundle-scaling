@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-labelledby="title description">
   <title id="title">Measured transfer from a small app to a medium-size app</title>
-  <desc id="description">Svelte is slightly smaller for the small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. The dashed curve changes applications; the solid curve adds the second cumulative OpenSlides route.</desc>
+  <desc id="description">Svelte is slightly smaller for the small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the three measured states for each framework.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -40,27 +40,25 @@
   <line x1="92" y1="88" x2="92" y2="408" class="axis" />
   <line x1="92" y1="408" x2="830" y2="408" class="axis" />
 
-  <path d="M 156 393.64 C 261 393.64, 365 266.43, 470 266.43" fill="none" stroke="#238a62" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
-  <path d="M 470 266.43 C 560 266.43, 662 230.14, 752 230.14" fill="none" stroke="#238a62" stroke-width="4" stroke-linecap="round" />
-  <circle cx="156" cy="393.64" r="6" fill="#238a62" /><circle cx="470" cy="266.43" r="6" fill="#238a62" /><circle cx="752" cy="230.14" r="6" fill="#238a62" />
-  <path d="M 156 394.03 C 261 394.03, 365 219.16, 470 219.16" fill="none" stroke="#d93600" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
-  <path d="M 470 219.16 C 560 219.16, 662 107.74, 752 107.74" fill="none" stroke="#d93600" stroke-width="4" stroke-linecap="round" />
-  <rect x="151" y="389.03" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 156 394.03)" /><rect x="465" y="214.16" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 470 219.16)" /><rect x="747" y="102.74" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 752 107.74)" />
+  <path d="M 156 393.64 Q 454 220.97, 752 230.14" fill="none" stroke="#238a62" stroke-width="4" stroke-linecap="round" />
+  <circle cx="156" cy="393.64" r="6" fill="#238a62" /><circle cx="454" cy="266.43" r="6" fill="#238a62" /><circle cx="752" cy="230.14" r="6" fill="#238a62" />
+  <path d="M 156 394.03 Q 454 187.44, 752 107.74" fill="none" stroke="#d93600" stroke-width="4" stroke-linecap="round" />
+  <rect x="151" y="389.03" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 156 394.03)" /><rect x="449" y="214.16" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 454 219.16)" /><rect x="747" y="102.74" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 752 107.74)" />
   <text x="146" y="379.64" text-anchor="end" class="value">31.423</text>
   <text x="166" y="414.03" class="value">30.555</text>
-  <text x="460" y="256.43" text-anchor="end" class="value">309.676</text>
-  <text x="480" y="209.16" class="value">413.089</text>
+  <text x="444" y="256.43" text-anchor="end" class="value">309.676</text>
+  <text x="464" y="209.16" class="value">413.089</text>
   <text x="742" y="235.14" text-anchor="end" class="value">389.076</text>
   <text x="742" y="97.74" text-anchor="end" class="value">656.812</text>
 
   <text x="156" y="430" text-anchor="middle" class="label">Small app</text>
   <text x="156" y="449" text-anchor="middle" class="detail">Weather Front</text>
   <text x="156" y="467" text-anchor="middle" class="detail">Cold initial load</text>
-  <text x="470" y="430" text-anchor="middle" class="label">Medium-size app</text>
-  <text x="470" y="449" text-anchor="middle" class="detail">OpenSlides · one route</text>
-  <text x="470" y="467" text-anchor="middle" class="detail">Dashboard</text>
+  <text x="454" y="430" text-anchor="middle" class="label">Medium-size app</text>
+  <text x="454" y="449" text-anchor="middle" class="detail">OpenSlides · one route</text>
+  <text x="454" y="467" text-anchor="middle" class="detail">Dashboard</text>
   <text x="752" y="430" text-anchor="middle" class="label">Medium-size app</text>
   <text x="752" y="449" text-anchor="middle" class="detail">OpenSlides · two routes</text>
   <text x="752" y="467" text-anchor="middle" class="detail">Dashboard + editor</text>
-  <text x="440" y="492" text-anchor="middle" class="detail">Dashed: different application · solid: second OpenSlides route · values in kB</text>
+  <text x="440" y="492" text-anchor="middle" class="detail">Three measured production states · values in kB</text>
 </svg>

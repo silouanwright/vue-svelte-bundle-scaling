@@ -10,9 +10,9 @@
 
 ![Svelte is slightly smaller for the small Weather Front application, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
 
-*Weather Front is a separate application, so its connection to OpenSlides is
-dashed. The solid segment adds the OpenSlides editor to its dashboard. These
-are measured production states, not a universal crossover threshold.*
+*Weather Front is a separate application. The middle and final markers are
+cumulative OpenSlides route states. Each curve passes through the three
+measured production states; it is not a universal crossover threshold.*
 
 Here, “small” and “medium-sized” describe product scope rather than universal
 line-count thresholds. Weather Front has one user-facing screen, 8–9 component
