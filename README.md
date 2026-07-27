@@ -65,7 +65,7 @@ than Svelte.
 
 Yes.
 
-We put together this updated example to build on and expand Evan You’s original
+I put together this updated example to build on and expand Evan You’s original
 comparison five years later, using a current toolchain and broader benchmarks.
 
 ## Updated packages for the 2026 benchmark
