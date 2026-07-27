@@ -98,10 +98,8 @@ replication separately preserves Evan You’s original sources.
 - Generated scaling workloads and independently authored application controls
 - Default and app-informed trimmed production profiles
 
-That is the overview. To reproduce the results, jump to
+Reproduction commands begin at
 [`Run the benchmarks`](#run-the-benchmarks).
-
-If you want the case studies and technical evidence, read on.
 
 ## OpenSlides: the primary 2026 case study
 
@@ -164,11 +162,10 @@ implementations request two Shiki asset sets after the editor opens. These are
 real application costs, but they are not pure measurements of framework
 runtime bytes.
 
-That distinction matters. OpenSlides proves that a medium-sized Vue
-application can be smaller than its behavior-matched Svelte counterpart. It
-also shows that the result survives matched route splitting. It does not
-establish a universal route number, component count, or source-line threshold
-at which every application will cross.
+OpenSlides proves that a medium-sized Vue application can be smaller than its
+behavior-matched Svelte counterpart and that the result survives matched route
+splitting. It does not establish a universal route number, component count, or
+source-line threshold at which every application will cross.
 
 The two implementations are behavior-matched, not line-for-line translations.
 Nine shared Playwright workflows—18 passing cases across the two
