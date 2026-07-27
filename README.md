@@ -7,45 +7,10 @@ five complementary workloads.
 
 ## TL;DR
 
-Svelte’s compiler does not make framework cost disappear. It changes where
-that cost lives. Svelte starts with a much smaller runtime bill; Vue pays more
-up front and can then add less code as the application grows.
-
-The current measurements show both sides:
-
-- Svelte was **7.6–10.5 kB smaller with Brotli** in every
-  [complete small application](analysis.md#5-two-complete-small-applications-still-favor-svelte)
-  measured here.
-- Vue emitted **15% less Brotli component code** for the
-  [original TodoMVC specimen](original-specimen.md) and crossed from larger to
-  smaller raw JavaScript near 272–326 generated definitions.
-- In the [heterogeneous route-split workload](route-split.md), Vue crossed
-  after transport compression near **241 definitions with gzip** and **339
-  with Brotli**. At 512 definitions, Vue transferred **4,545 B less Brotli
-  JavaScript**.
-- The [hand-authored 33-definition application](hand-authored.md) had not
-  crossed, but every Vue lazy feature chunk was smaller after Brotli and the
-  complete gap narrowed as routes were added.
-
-The practical conclusion is stronger than “it depends”:
-
-> Svelte is the likely bundle-size winner for widgets and small applications.
-> For medium-to-large applications with many distinct features and
-> independently transferred routes, these results support Vue as the likely
-> smaller framework layer.
-
-That is a probability about an application shape, not a universal component
-count. “Smaller” here means the sum of the JavaScript responses transferred
-while visiting the measured feature graph once, not necessarily the first
-route. Component complexity, shared dependencies, chunk boundaries,
-minification, and compression move the boundary. The benchmark nevertheless
-disproves the stronger implication often attached to Svelte’s compiler pitch:
-**not shipping one large fixed runtime does not mean a Svelte application will
-remain smaller as it grows.**
-
-All dependencies, upstream specimens, upstream source-file digests,
-compression settings, measurements, and normalized result hashes are pinned
-or committed. Two consecutive complete runs produced identical result hashes.
+Svelte is the likely bundle-size winner for widgets and small applications.
+For medium-to-large applications with many distinct features and independently
+transferred routes, these results support Vue as the likely smaller framework
+layer.
 
 ## Why this benchmark exists
 

@@ -10,6 +10,10 @@
 - The route-split result is an existence proof, not a universal component-count threshold.
 - Together, the route-split crossover and the smaller Vue lazy chunks in the hand-authored fixture support a practical inference: medium-to-large products with heterogeneous, independently transferred features are increasingly likely to amortize Vue's runtime and may be smaller than equivalent Svelte applications.
 - Svelte's “framework disappears” language accurately emphasizes its lack of a large fixed runtime, but it does not establish a permanently smaller application. Svelte 5's own documentation describes runtime-determined reactivity.
+- Vercel now makes the whole-application comparison explicitly, claiming Svelte produces smaller JavaScript bundles than Vue and that this causes faster page loads. The current benchmark refutes that as a universal claim, supplies a medium/large counterexample, and confirms it for the small specimens tested.
+- Several third-party comparisons publish precise Vue-versus-Svelte ratios—10× smaller, 2× smaller, and 2.5× faster—but do not provide a current, reproducible, equivalent workload that supports generalizing those figures.
+- A separate 2026 TodoMVC benchmark independently emphasizes baseline plus growth slope and shows Svelte 5's larger shared runtime and improved scaling relative to Svelte 4. Its multi-component curve is a linear simulation, so it corroborates the architectural model rather than replacing the complete-build and route-response measurements here.
+- In that independent benchmark's gzip data, Svelte 5 has a 13,798 B runtime plus 1,946 B of selected TodoMVC output, while Vue 3 has a 24,699 B runtime plus 1,619 B of selected output. Its additive model therefore predicts a Vue crossover near 34 TodoMVC-sized components. This is useful corroboration of the slope, but it repeats the isolated-compressed-cost assumption that the current whole-build benchmark demonstrates is non-additive.
 
 ## Hand-Authored Lane
 
