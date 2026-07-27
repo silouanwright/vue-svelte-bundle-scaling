@@ -9,27 +9,6 @@
 
 ![Svelte is smaller for the Weather Front and terminal applications, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
 
-*Weather Front and Terminal are separate small applications. The third and
-fourth markers are cumulative OpenSlides route states. Each curve passes
-through the four measured production states. The shaded area marks the
-interval between the last measured small app and the first measured
-medium-sized app. A crossover can occur anywhere in that interval depending
-on the application; the curves are an illustration, not a universal
-threshold.*
-
-That is the argument of this repository. Svelte starts smaller. Vue grows more
-slowly. The exact crossover varies by application, but a smaller framework
-baseline does not guarantee a smaller substantial application.
-
-Here, “small” and “medium-sized” describe product scope rather than universal
-line-count thresholds. The normalized Weather Front implementations each have
-six component files and 532–584 source lines.
-OpenSlides has a dashboard, editor, presentation flow, persistence, search,
-settings, and autoplay; its matched implementations contain 27 Vue components
-across 8,771 source lines and 99 Svelte components across 18,762 source lines.
-Frameworks organize code differently, so those counts provide context rather
-than a one-to-one measure of application size.
-
 ## Why this benchmark exists
 
 In paraphrase, Svelte advocates argue the following:
@@ -87,6 +66,10 @@ Yes. Weather Front and the independent terminal app establish the small end
 honestly: Svelte wins both. OpenSlides adds what Evan You’s projection did not
 measure directly: a medium-sized application in which Vue becomes
 substantially smaller after real routes load.
+
+Svelte starts smaller. Vue grows more slowly. The exact crossover varies by
+application, but a smaller framework baseline does not guarantee a smaller
+substantial application.
 
 ## Updated packages for the 2026 benchmark
 
