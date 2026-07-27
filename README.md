@@ -60,13 +60,9 @@ larger shared baseline.
 
 ## Is this still true in 2026?
 
-Yes. The default Vue build crosses near 237 definitions with gzip and 338 with
-Brotli. Disabling its unused Options API moves those points to roughly 171 and
-243.
-
-The current Svelte implementation is idiomatic Svelte 5 and follows
-[Svelte’s documented best
-practices](https://svelte.dev/docs/svelte/best-practices).
+Yes. We put together this updated example to build on and expand Evan You’s
+original comparison five years later, using a current toolchain and broader
+benchmarks.
 
 ## Updated packages for the 2026 benchmark
 
@@ -76,6 +72,10 @@ practices](https://svelte.dev/docs/svelte/best-practices).
 - `@vitejs/plugin-vue` 6.0.8
 - `@sveltejs/vite-plugin-svelte` 7.2.0
 - Node.js 22.19.0
+
+The current Svelte implementation is idiomatic Svelte 5 and follows
+[Svelte’s documented best
+practices](https://svelte.dev/docs/svelte/best-practices).
 
 ## New statistics for the 2026 benchmark
 
