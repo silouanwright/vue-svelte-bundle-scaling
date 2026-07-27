@@ -1,13 +1,18 @@
-# Vue–Svelte Bundle Scaling, Revisited
+# Vue–Svelte Size Analysis, Revisited for 2026
 
 ## TL;DR
 
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
   widgets, and small initial routes.
-- Vue is likely to be smaller for medium-to-large applications, especially when
-  users load many routes.
+- Vue’s framework-and-component layer is likely to be smaller in medium-to-large
+  applications, especially when users load many routes.
 
 ![Svelte uses fewer source lines in the matched fixture, while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
+
+*The chart plots each framework against its own source-line count, so its
+estimated 1.6k-line intersection is not an equal-functionality threshold. The
+matched-functionality Brotli benchmark crosses near 243 matched feature
+definitions.*
 
 ## Why this benchmark exists
 
@@ -48,7 +53,7 @@ In paraphrase, Svelte advocates argue the following:
 In this context, amortization means paying a larger shared framework cost once,
 then offsetting it by generating less code for each additional component.
 
-In 2021, Vue creator Evan You responded to these claims with
+In 2021, Vue creator Evan You responded to this underlying claim with
 [benchmarks](https://github.com/yyx990803/vue-svelte-size-analysis)
 showing that while Svelte had a dramatically smaller framework baseline, Vue
 followed this model. He concluded that Svelte provided a compelling advantage
