@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-labelledby="title description">
-  <title id="title">Route-split application simulation at two sizes</title>
+  <title id="title">Route-split application simulation at two measured sizes</title>
   <desc id="description">Complete production bundles from the generated route-split application simulation. Svelte is smaller at eight component definitions. Vue is smaller at 512 component definitions after its larger shared runtime is amortized.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
@@ -15,15 +15,15 @@
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="880" height="500" fill="#ffffff" />
-  <text x="42" y="62" class="title">Route-split application simulation at two sizes</text>
-  <text x="42" y="86" class="subtitle">Svelte wins small; Vue wins after its larger runtime is amortized.</text>
+  <text x="42" y="62" class="title">Route-split application simulation at two measured sizes</text>
+  <text x="42" y="86" class="subtitle">Composition-only profile · complete production transfer</text>
   <rect x="650" y="27" width="15" height="15" rx="2" fill="#238a62" />
   <text x="674" y="40" class="legend">Vue 3.5</text>
   <rect x="760" y="27" width="15" height="15" rx="2" fill="#d93600" />
   <text x="784" y="40" class="legend">Svelte 5</text>
 
-  <text x="76" y="120" class="panel-title">Small simulation</text>
-  <text x="76" y="141" class="panel-note">1 route · 8 component definitions · Brotli transfer</text>
+  <text x="76" y="120" class="panel-title">1 route</text>
+  <text x="76" y="141" class="panel-note">8 component definitions</text>
 
     <line x1="76" y1="404" x2="426" y2="404" class="grid" />
     <text x="66" y="409" text-anchor="end" class="tick">0</text>
@@ -44,10 +44,10 @@
     <text x="220" y="183.95" text-anchor="middle" class="value">22.5 kB</text>
     <rect x="254" y="253.39" width="56" height="150.61" rx="3" fill="#d93600" />
     <text x="282" y="245.39" text-anchor="middle" class="value">16.0 kB</text>
-    <text x="251" y="427" text-anchor="middle" class="category">Complete application</text>
+    <text x="251" y="427" text-anchor="middle" class="category">Svelte smaller by 6.5 kB</text>
 
-  <text x="520" y="120" class="panel-title">Large simulation</text>
-  <text x="520" y="141" class="panel-note">64 routes · 512 component definitions · Brotli transfer</text>
+  <text x="520" y="120" class="panel-title">64 routes</text>
+  <text x="520" y="141" class="panel-note">512 component definitions</text>
 
     <line x1="520" y1="404" x2="830" y2="404" class="grid" />
     <text x="510" y="409" text-anchor="end" class="tick">0</text>
@@ -64,6 +64,6 @@
     <text x="644" y="188.01" text-anchor="middle" class="value">114.6 kB</text>
     <rect x="678" y="182.8" width="56" height="221.2" rx="3" fill="#d93600" />
     <text x="706" y="174.8" text-anchor="middle" class="value">121.8 kB</text>
-    <text x="675" y="427" text-anchor="middle" class="category">Complete application</text>
-  <text x="440" y="478" text-anchor="middle" class="subtitle">Each panel uses its own y-axis; framework runtime and every visited route response are included.</text>
+    <text x="675" y="427" text-anchor="middle" class="category">Vue smaller by 7.3 kB</text>
+  <text x="440" y="478" text-anchor="middle" class="subtitle">Brotli after visiting every included route · each panel uses its own y-axis</text>
 </svg>

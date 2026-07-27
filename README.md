@@ -11,9 +11,8 @@
 ![In the route-split application simulation, Svelte starts smaller while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
 
 *This is the route-split application simulation: a generated, browser-runnable
-benchmark with eight interactive component families per lazy route. It is not
-TodoMVC or the separately authored product-shaped application. The chart plots
-each framework against its own source-line count; its estimated 1.6k-line
+benchmark with eight interactive component families per lazy route. The chart
+plots each framework against its own source-line count; its estimated 1.6k-line
 intersection is illustrative, while the matched-functionality Brotli result
 crosses near 243 component definitions.*
 
@@ -96,6 +95,11 @@ response loaded during a complete traversal.
 *Each panel uses its own y-axis. These are two measured builds, not a claim that
 every application crosses at the same point. The opening chart shows the
 intermediate builds and estimated crossover.*
+
+Both charts use the Composition-only production profile: Vue’s unused Options
+API is disabled and Svelte’s version disclosure is disabled. With both
+frameworks on their official plugin defaults, Vue still becomes smaller at 64
+routes—by 4.498 kB instead of 7.279 kB.
 
 ## Updated packages for the 2026 benchmark
 
