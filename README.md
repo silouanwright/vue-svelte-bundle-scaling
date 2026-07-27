@@ -5,20 +5,108 @@ This repository reproduces Evan You’s 2021
 with Vue 3.5, Svelte 5, and Vite 8, then tests the architectural claim under
 five complementary workloads.
 
-The short result is not “Vue is always smaller” or “Svelte is always smaller.”
-It is more useful:
+## TL;DR
 
-> Svelte’s smaller runtime gives it a substantial advantage in the small
-> complete applications tested here. Vue still emits less raw client code per
-> component in the controlled workloads. That lower growth can repay Vue’s
-> larger baseline, and it can survive gzip and Brotli when diverse components
-> are distributed across independently compressed route chunks. The crossover
-> depends on the application and its chunk graph, not a universal component
-> count.
+Svelte’s compiler does not make framework cost disappear. It changes where
+that cost lives. Svelte starts with a much smaller runtime bill; Vue pays more
+up front and can then add less code as the application grows.
+
+The current measurements show both sides:
+
+- Svelte was **7.6–10.5 kB smaller with Brotli** in every
+  [complete small application](analysis.md#5-two-complete-small-applications-still-favor-svelte)
+  measured here.
+- Vue emitted **15% less Brotli component code** for the
+  [original TodoMVC specimen](original-specimen.md) and crossed from larger to
+  smaller raw JavaScript near 272–326 generated definitions.
+- In the [heterogeneous route-split workload](route-split.md), Vue crossed
+  after transport compression near **241 definitions with gzip** and **339
+  with Brotli**. At 512 definitions, Vue transferred **4,545 B less Brotli
+  JavaScript**.
+- The [hand-authored 33-definition application](hand-authored.md) had not
+  crossed, but every Vue lazy feature chunk was smaller after Brotli and the
+  complete gap narrowed as routes were added.
+
+The practical conclusion is stronger than “it depends”:
+
+> Svelte is the likely bundle-size winner for widgets and small applications.
+> For medium-to-large applications with many distinct features and
+> independently transferred routes, these results support Vue as the likely
+> smaller framework layer.
+
+That is a probability about an application shape, not a universal component
+count. “Smaller” here means the sum of the JavaScript responses transferred
+while visiting the measured feature graph once, not necessarily the first
+route. Component complexity, shared dependencies, chunk boundaries,
+minification, and compression move the boundary. The benchmark nevertheless
+disproves the stronger implication often attached to Svelte’s compiler pitch:
+**not shipping one large fixed runtime does not mean a Svelte application will
+remain smaller as it grows.**
 
 All dependencies, upstream specimens, upstream source-file digests,
 compression settings, measurements, and normalized result hashes are pinned
 or committed. Two consecutive complete runs produced identical result hashes.
+
+## Why this benchmark exists
+
+Svelte’s size story is one of the most memorable pitches in frontend
+development. Rich Harris introduced Svelte by asking what would happen if the
+framework did not run in the browser:
+
+> “You’d pay no upfront cost of shipping a hefty runtime.”
+>
+> — [Rich Harris, “Frameworks without the framework”](https://svelte.dev/blog/frameworks-without-the-framework)
+
+The current Svelte team preserves the connection between compilation and size:
+
+> “Svelte apps are small and fast.”
+>
+> — [The Svelte team, “Svelte 5 is alive”](https://svelte.dev/blog/svelte-5-is-alive)
+
+Vercel, Svelte’s corporate backer, states the idea even more literally:
+
+> “The framework itself largely disappears before the browser loads a page.”
+>
+> — [Vercel, “What is Svelte?”](https://vercel.com/i/what-is-svelte)
+
+And a widely read Svelte comparison made the scaling claim explicit:
+
+> “The scale at which Svelte's advantages disappear is actually unrealistically
+> high for just about any application.”
+>
+> — [Josh Collinsworth, “Introducing Svelte”](https://joshcollinsworth.com/blog/introducing-svelte-comparing-with-react-vue)
+
+Taken together, these statements combine a real advantage with an unjustified
+leap. Svelte avoids Vue’s large fixed starting cost, so it predictably wins at
+the small end. It does not follow that compiler-generated applications remain
+smaller at the medium or large end. The final quote also summarized Svelte
+3-era evidence; testing the current architecture is the point of this
+repository.
+
+The literal “framework disappears” description is not accurate for Svelte 5.
+Its official migration guide says that
+[“reactivity is determined at runtime rather than compile time”](https://svelte.dev/docs/svelte/v5-migration-guide).
+Svelte 5 combines compiler output with shared signal-based runtime machinery,
+just at a different balance from Vue.
+
+Vue’s own size claim is the direct counterargument:
+
+> “While Vue has a heavier baseline size, it generates less code per
+> component.”
+>
+> — [Vue FAQ, “Is Vue lightweight?”](https://vuejs.org/about/faq#is-vue-lightweight)
+
+The architectural model under test is simple:
+
+```text
+Vue application    = larger shared baseline + lower marginal component cost
+Svelte application = smaller shared baseline + higher marginal component cost
+```
+
+If Vue’s marginal cost remains lower, it eventually repays the baseline. The
+open questions are whether that difference survives a modern compiler,
+whole-application minification, gzip and Brotli, heterogeneous feature code,
+and real route boundaries. This repository measures each question separately.
 
 ## Results at a glance
 
@@ -39,9 +127,11 @@ smaller initial entry kept its complete total ahead at 33 definitions.
 
 ## What these benchmarks establish
 
-**They do not establish that Vue is generally smaller in full-scale web
-applications.** No framework can claim that from a generic component-count
-benchmark. They establish the following:
+The results establish the amortization mechanism and support a practical
+inference: **as an application accumulates many distinct, independently
+transferred features, Vue becomes increasingly likely to erase Svelte’s
+initial advantage and become smaller overall.** They do not provide one
+crossover boundary for every codebase.
 
 1. **Svelte starts substantially smaller.** It won every complete
    small-application comparison in this repository. For the hand-authored
@@ -75,14 +165,16 @@ The benchmark therefore rules out two universal slogans:
 The positive Vue takeaway is nevertheless clear: its runtime cost is
 amortizable in both raw code and compressed transfer. Choosing Vue means
 accepting a higher starting point, not accepting a permanently larger
-application. Svelte’s headline size advantage is strongest at the small end
-and must be remeasured as the real feature and chunk graph develops.
+application. For a medium-to-large product with heterogeneous feature code and
+many lazy responses, these results make Vue the stronger default size
+prediction. Svelte’s headline size advantage is strongest at the small end and
+must be remeasured as the real feature and chunk graph develops.
 
 | Application being considered | What this evidence supports |
 | --- | --- |
 | Widget or very small client application | Svelte is likely to begin with a meaningful bundle-size advantage. |
 | Application near the complete specimens tested here | Svelte was smaller overall in both matched applications. |
-| Large, heterogeneous, heavily route-split application | There is no predetermined winner; the generated workload proves that Vue can become smaller after gzip and Brotli. |
+| Medium-to-large, heterogeneous, heavily route-split application | Vue is increasingly likely to amortize its runtime and become smaller; the generated workload demonstrates the crossover after gzip and Brotli. |
 | Existing production product with routers, stores, editors, grids, and UI libraries | This repository cannot predict the result. Build the same representative product slice in both frameworks and measure its actual response graph. |
 
 The central lesson is not that compiler work disappears. Compilation changes

@@ -8,6 +8,8 @@
 - Repeating one component shape hundreds of times gives Svelte's generated patterns an extreme compression advantage and cannot model a normal product.
 - When eight component families are divided into independently compressed lazy routes, Vue's amortization becomes a gzip and Brotli transfer-size advantage in the sampled range.
 - The route-split result is an existence proof, not a universal component-count threshold.
+- Together, the route-split crossover and the smaller Vue lazy chunks in the hand-authored fixture support a practical inference: medium-to-large products with heterogeneous, independently transferred features are increasingly likely to amortize Vue's runtime and may be smaller than equivalent Svelte applications.
+- Svelte's “framework disappears” language accurately emphasizes its lack of a large fixed runtime, but it does not establish a permanently smaller application. Svelte 5's own documentation describes runtime-determined reactivity.
 
 ## Hand-Authored Lane
 

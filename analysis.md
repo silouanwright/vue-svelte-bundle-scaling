@@ -222,23 +222,27 @@ different balances.
 A publication using these results can say:
 
 > Svelte’s small-runtime advantage is real in small complete applications.
-> Vue’s lower generated client-code growth is also real in the workloads I
-> measured. The old claim that Vue necessarily crosses after 13 or 19
-> components does not survive as a current empirical threshold. Complete
-> clone-heavy bundles remained smaller with Svelte after gzip and Brotli, even
-> when Vue became smaller in raw JavaScript.
+> Vue’s lower generated client-code growth is also real. The old 13- or
+> 19-component estimates do not survive as current empirical thresholds:
+> compression and chunking move the boundary. Complete clone-heavy bundles
+> remained smaller with Svelte after gzip and Brotli, even when Vue became
+> smaller in raw JavaScript.
 >
 > When I introduced eight component families and compressed lazy route chunks
 > as separate responses, Vue eventually became smaller in gzip and Brotli.
 > A separate hand-authored 33-component application did not cross, although
 > most of its lazy route increments favored Vue and the complete gap narrowed.
-> Svelte’s smaller runtime therefore does not guarantee the smaller substantial
-> application, and Vue’s amortization does not guarantee a crossover at any
-> universal component count.
+> The evidence therefore supports Svelte as the likely size winner for widgets
+> and small applications, and Vue as the likely smaller framework layer for
+> medium-to-large applications with many distinct, independently transferred
+> features. That is an application-shape prediction, not a universal component
+> count.
 
-That is a stronger argument than repeating the historical threshold. It
-acknowledges Svelte’s measured advantage where it exists and demonstrates the
-specific conditions under which Vue’s architectural tradeoff pays off.
+That is a stronger argument than either “Svelte compiles away the framework”
+or a recycled historical threshold. It acknowledges Svelte’s measured
+advantage where it exists, demonstrates that Vue’s runtime is genuinely
+amortizable after transport compression, and states the product shape in which
+that tradeoff is likely to pay off.
 
 ## Decision-grade testing for a real product
 
