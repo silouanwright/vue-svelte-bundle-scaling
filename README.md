@@ -47,10 +47,9 @@ In 2021, Vue creator Evan You responded to these claims with
 [benchmarks](https://github.com/yyx990803/vue-svelte-size-analysis/blob/7bb60ff681a3f5016e8af26084e72100cd37a876/README.md#analysis)
 showing that while Svelte had a dramatically smaller framework baseline, Vue
 was designed around amortization: Vue paid more upfront but generated
-substantially less component code. Given enough components and application
-code, that lower marginal cost could repay the larger baseline. He concluded
-that Svelte provided a compelling advantage for isolated components, but that
-its generated-code cost could become a disadvantage for medium-to-large
+substantially less code as more components were added. He concluded that Svelte
+provided a compelling advantage for isolated components, but that its
+generated-code cost could become a disadvantage for medium-to-large
 applications. This is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
 
