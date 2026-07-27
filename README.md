@@ -17,6 +17,19 @@ through the four measured production states. The dashed vertical line marks
 their interpolated crossover; it is an approximation between these
 applications, not a universal threshold.*
 
+The Brotli chart answers the practical network question: how many bytes does
+the user download? The same four measurements before transfer compression
+answer a complementary question: how much production output did each build
+emit?
+
+![Svelte emits less uncompressed production output for Weather Front and Terminal, while Vue emits substantially less for OpenSlides](docs/images/real-applications-raw.svg)
+
+*At the final OpenSlides state, Vue emits 1.810 MB and Svelte emits 3.216 MB
+before compression—a 1.406 MB difference. Svelte actually compresses that
+output slightly more efficiently: its Brotli result is 20.4% of raw output,
+versus 21.5% for Vue. Vue still transfers 267.736 kB less. The reversal is
+therefore present in the emitted production output, not created by Brotli.*
+
 Here, “small” and “medium-sized” describe product scope rather than universal
 line-count thresholds. The normalized Weather Front implementations each have
 six component files and 532–584 source lines.

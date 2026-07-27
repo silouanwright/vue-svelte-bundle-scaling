@@ -333,15 +333,23 @@ function realApplicationsChart(
   weatherResults,
   terminalResults,
   openslidesResults,
+  {
+    sizeKey,
+    maximum,
+    ticks,
+    title,
+    subtitle,
+    description,
+  },
 ) {
   const weather = Object.fromEntries(
     weatherResults.map((result) => [
       result.framework,
-      result.complete.brotli,
+      result.complete[sizeKey],
     ]),
   );
   const terminal = Object.fromEntries(
-    terminalResults.map((result) => [result.framework, result.brotli]),
+    terminalResults.map((result) => [result.framework, result[sizeKey]]),
   );
   const openslides = Object.fromEntries(
     openslidesResults.map((result) => [result.framework, result]),
@@ -365,15 +373,15 @@ function realApplicationsChart(
       label: "Medium-size app",
       detail: "OpenSlides · one route",
       condition: "Dashboard",
-      vue: openslides.vue.journey.dashboard.brotli,
-      svelte: openslides.svelte.journey.dashboard.brotli,
+      vue: openslides.vue.journey.dashboard[sizeKey],
+      svelte: openslides.svelte.journey.dashboard[sizeKey],
     },
     {
       label: "Medium-size app",
       detail: "OpenSlides · two routes",
       condition: "Dashboard + editor",
-      vue: openslides.vue.journey.editor.brotli,
-      svelte: openslides.svelte.journey.editor.brotli,
+      vue: openslides.vue.journey.editor[sizeKey],
+      svelte: openslides.svelte.journey.editor[sizeKey],
     },
   ];
   const chart = {
@@ -381,7 +389,7 @@ function realApplicationsChart(
     right: 830,
     top: 88,
     bottom: 390,
-    maximum: 700_000,
+    maximum,
   };
   const stageX = [138, 326, 526, 748];
   const y = (value) =>
@@ -463,12 +471,11 @@ function realApplicationsChart(
   }
   const crossoverT = (crossoverLow + crossoverHigh) / 2;
   const crossoverX = valueOnSegment("vue", 1, crossoverT).x;
-  const ticks = [0, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000];
   const grid = ticks
     .map(
       (value) => `
   <line x1="${chart.left}" y1="${y(value)}" x2="${chart.right}" y2="${y(value)}" class="grid" />
-  <text x="${chart.left - 14}" y="${y(value) + 5}" text-anchor="end" class="tick">${value / 1000} kB</text>`,
+  <text x="${chart.left - 14}" y="${y(value) + 5}" text-anchor="end" class="tick">${(value / 1000).toLocaleString("en-US")} kB</text>`,
     )
     .join("");
   const plots = ["vue", "svelte"]
@@ -502,10 +509,12 @@ function realApplicationsChart(
   <text x="${stageX[index]}" y="455" text-anchor="middle" class="detail">${stage.condition}</text>`,
     )
     .join("");
+  const formatSize = (value) =>
+    `${Math.floor(value / 1000).toLocaleString("en-US")} kB`;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
-  <title id="title">Measured transfer from a small app to a medium-size app</title>
-  <desc id="description">Svelte is smaller for the controlled Weather Front and independently authored terminal applications. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured states for each framework.</desc>
+  <title id="title">${title}</title>
+  <desc id="description">${description}</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -520,8 +529,8 @@ function realApplicationsChart(
     .crossover { font-size: 12px; font-weight: 700; fill: #4a5560; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
-  <text x="42" y="38" class="title">From a small app to a medium-sized app (kB)</text>
-  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · four measured production states</text>
+  <text x="42" y="38" class="title">${title}</text>
+  <text x="42" y="61" class="subtitle">${subtitle}</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="${colors.vue}" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="${colors.vue}" />
   <text x="718" y="35" class="legend">Vue</text>
@@ -535,14 +544,14 @@ function realApplicationsChart(
   <text x="${crossoverX + 10}" y="${chart.top + 17}" class="crossover">Approx. crossover</text>
   <text x="${crossoverX + 10}" y="${chart.top + 34}" class="detail">Vue becomes smaller</text>
   ${plots}
-  <text x="${stageX[0] - 10}" y="${y(stages[0].svelte) - 14}" text-anchor="end" class="value">${Math.floor(stages[0].svelte / 1000)} kB</text>
-  <text x="${stageX[0] + 10}" y="${y(stages[0].vue) + 14}" class="value">${Math.floor(stages[0].vue / 1000)} kB</text>
-  <text x="${stageX[1] - 10}" y="${y(stages[1].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[1].svelte / 1000)} kB</text>
-  <text x="${stageX[1] - 10}" y="${y(stages[1].vue) + 18}" text-anchor="end" class="value">${Math.floor(stages[1].vue / 1000)} kB</text>
-  <text x="${stageX[2] - 10}" y="${y(stages[2].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[2].svelte / 1000)} kB</text>
-  <text x="${stageX[2] + 10}" y="${y(stages[2].vue) + 22}" class="value">${Math.floor(stages[2].vue / 1000)} kB</text>
-  <text x="${stageX[3] - 10}" y="${y(stages[3].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[3].svelte / 1000)} kB</text>
-  <text x="${stageX[3] + 10}" y="${y(stages[3].vue) + 22}" class="value">${Math.floor(stages[3].vue / 1000)} kB</text>
+  <text x="${stageX[0] - 10}" y="${y(stages[0].svelte) - 14}" text-anchor="end" class="value">${formatSize(stages[0].svelte)}</text>
+  <text x="${stageX[0] + 10}" y="${y(stages[0].vue) + 14}" class="value">${formatSize(stages[0].vue)}</text>
+  <text x="${stageX[1] - 10}" y="${y(stages[1].svelte) - 12}" text-anchor="end" class="value">${formatSize(stages[1].svelte)}</text>
+  <text x="${stageX[1] - 10}" y="${y(stages[1].vue) + 18}" text-anchor="end" class="value">${formatSize(stages[1].vue)}</text>
+  <text x="${stageX[2] - 10}" y="${y(stages[2].svelte) - 12}" text-anchor="end" class="value">${formatSize(stages[2].svelte)}</text>
+  <text x="${stageX[2] + 10}" y="${y(stages[2].vue) + 22}" class="value">${formatSize(stages[2].vue)}</text>
+  <text x="${stageX[3] - 10}" y="${y(stages[3].svelte) - 12}" text-anchor="end" class="value">${formatSize(stages[3].svelte)}</text>
+  <text x="${stageX[3] + 10}" y="${y(stages[3].vue) + 22}" class="value">${formatSize(stages[3].vue)}</text>
   ${stageLabels}
 </svg>
 `.replace(/^[ \t]+$/gm, "");
@@ -676,7 +685,52 @@ fs.writeFileSync(
     weatherStaged.results,
     terminalControl.results,
     openslides.results,
+    {
+      sizeKey: "brotli",
+      maximum: 700_000,
+      ticks: [
+        0,
+        100_000,
+        200_000,
+        300_000,
+        400_000,
+        500_000,
+        600_000,
+      ],
+      title: "From a small app to a medium-sized app (kB)",
+      subtitle:
+        "Vue versus Svelte · cumulative Brotli transfer · four measured production states",
+      description:
+        "Svelte is smaller for the controlled Weather Front and independently authored terminal applications. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured Brotli transfer states for each framework.",
+    },
   ),
 );
 
-console.log("Generated 4 deterministic SVG charts");
+fs.writeFileSync(
+  path.join(outputDir, "real-applications-raw.svg"),
+  realApplicationsChart(
+    weatherStaged.results,
+    terminalControl.results,
+    openslides.results,
+    {
+      sizeKey: "raw",
+      maximum: 3_500_000,
+      ticks: [
+        0,
+        500_000,
+        1_000_000,
+        1_500_000,
+        2_000_000,
+        2_500_000,
+        3_000_000,
+      ],
+      title: "Production output before compression (kB)",
+      subtitle:
+        "Vue versus Svelte · cumulative uncompressed production bytes · four measured states",
+      description:
+        "Before transfer compression, Svelte emits less production output for the Weather Front and terminal applications. Vue emits less after the OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured uncompressed production states for each framework.",
+    },
+  ),
+);
+
+console.log("Generated 5 deterministic SVG charts");
