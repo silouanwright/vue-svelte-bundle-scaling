@@ -100,31 +100,48 @@ The extended interpretation and limitations live in
 [`analysis.md`](analysis.md). The exact workloads, controls, and transfer model
 live in [`METHODOLOGY.md`](METHODOLOGY.md).
 
-## Updated TodoMVC results
+## The same application, small and large
 
-Recompiling Evan You’s exact 2021 TodoMVC specimen with the pinned 2026
-toolchain preserves the original tradeoff: Vue emits less component-specific
-code, while Svelte keeps the smaller complete one-component bundle because its
-shared framework baseline is smaller.
+The clearest practical comparison is the same complete application fixture at
+different sizes. With one route and eight matched features, Svelte is smaller.
+After the fixture expands to 64 routes and 512 matched features, Vue is smaller.
+Both measurements include the framework runtime and every route response a user
+would load while traversing the application.
 
-| Output | Vue 3.5 | Svelte 5 | Smaller result |
+| Complete application transfer | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| Generated component code, minified | 3.802 kB | 5.213 kB | Vue by 1.411 kB |
-| Generated component code, gzip | 1.484 kB | 1.762 kB | Vue by 0.278 kB |
-| Generated component code, Brotli | 1.306 kB | 1.500 kB | Vue by 0.194 kB |
-| Tiny application, CSR, minified | 66.160 kB | 41.203 kB | Svelte by 24.957 kB |
-| Tiny application, CSR, gzip | 25.764 kB | 15.919 kB | Svelte by 9.845 kB |
-| Tiny application, CSR, Brotli | 23.445 kB | 14.407 kB | Svelte by 9.038 kB |
-| Tiny application, hydration, Brotli | 25.078 kB | 14.587 kB | Svelte by 10.491 kB |
+| 1 route, 8 matched features | 22.463 kB | 15.954 kB | Svelte by 6.509 kB |
+| 64 routes, 512 matched features | 114.570 kB | 121.849 kB | Vue by 7.279 kB |
 
-![Vue emits less component-specific code while Svelte’s complete one-component TodoMVC bundle remains smaller](docs/images/todomvc-2026-results.svg)
+![Svelte produces the smaller complete application at eight matched features, while Vue produces the smaller complete application at 512 matched features](docs/images/small-large-complete-bundles.svg)
 
-*The left panel isolates the code generated for the TodoMVC component; it
-excludes the shared framework runtime. The right panel adds that runtime and
-shows the complete tiny application. Svelte wins this starting point. Vue’s
-smaller generated output is the advantage that the larger scaling benchmarks
-test as application code accumulates. Exact build details are in
-[`original-specimen.md`](original-specimen.md).*
+*Each panel uses its own y-axis. These are two measured builds, not a claim that
+every application crosses at the same point. The opening chart shows the
+intermediate builds and estimated crossover.*
+
+<details>
+<summary>How the updated TodoMVC compiler comparison explains the crossover</summary>
+
+Evan You’s original analysis isolated the component-specific code from the
+shared framework runtime. Recompiling the same TodoMVC specimen with the pinned
+2026 toolchain reproduces that mechanism:
+
+| TodoMVC component output, runtime excluded | Vue 3.5 | Svelte 5 |
+| --- | ---: | ---: |
+| Minified | 3.802 kB | 5.213 kB |
+| gzip | 1.484 kB | 1.762 kB |
+| Brotli | 1.306 kB | 1.500 kB |
+
+Vue generates less code for this component, but its larger runtime means that
+Svelte still produces the smaller complete one-component application: 14.407
+kB rather than 23.445 kB after Brotli compression. The component-only
+measurement explains why Vue’s total grows more slowly; it is not itself a
+complete application bundle.
+
+Exact build details are in
+[`original-specimen.md`](original-specimen.md).
+
+</details>
 
 ## Run the benchmarks
 

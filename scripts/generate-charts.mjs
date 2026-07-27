@@ -209,6 +209,7 @@ function groupedBarPanel({
   categories,
   maximum,
   ticks,
+  barWidth: requestedBarWidth,
 }) {
   const chartTop = panelY + 52;
   const chartBottom = panelY + panelHeight - 52;
@@ -216,7 +217,8 @@ function groupedBarPanel({
   const y = (value) =>
     Number((chartBottom - (value / maximum) * chartHeight).toFixed(2));
   const groupWidth = panelWidth / categories.length;
-  const barWidth = Math.min(34, groupWidth * 0.26);
+  const barWidth =
+    requestedBarWidth ?? Math.min(34, groupWidth * 0.26);
 
   const grid = ticks
     .map(
@@ -255,58 +257,51 @@ function groupedBarPanel({
   ${bars}`;
 }
 
-function todoMvcResultsChart(componentResults, appResults) {
-  const component = Object.fromEntries(
-    componentResults.map((item) => [item.framework, item.componentOnly]),
-  );
-  const applications = Object.fromEntries(
-    appResults.map((item) => [`${item.framework}-${item.lane}`, item]),
-  );
-  const componentPanel = groupedBarPanel({
+function smallLargeComparisonChart(results) {
+  const result = (framework, count) =>
+    results.find(
+      (item) => item.framework === framework && item.count === count,
+    ).chunked.brotli;
+  const smallPanel = groupedBarPanel({
     x: 76,
     y: 116,
     width: 350,
     height: 340,
-    title: "One component’s generated code",
-    note: "Framework runtime excluded",
-    maximum: 6000,
-    ticks: [0, 2000, 4000, 6000],
+    title: "Small version",
+    note: "1 route · 8 matched features · Brotli transfer",
+    maximum: 25_000,
+    ticks: [0, 5_000, 10_000, 15_000, 20_000, 25_000],
+    barWidth: 56,
     categories: [
-      { label: "Minified", vue: component.vue.raw, svelte: component.svelte.raw },
-      { label: "Gzip", vue: component.vue.gzip, svelte: component.svelte.gzip },
       {
-        label: "Brotli",
-        vue: component.vue.brotli,
-        svelte: component.svelte.brotli,
+        label: "Complete application",
+        vue: result("vue", 8),
+        svelte: result("svelte", 8),
       },
     ],
   });
-  const applicationPanel = groupedBarPanel({
+  const largePanel = groupedBarPanel({
     x: 520,
     y: 116,
     width: 310,
     height: 340,
-    title: "Tiny one-component application",
-    note: "Framework runtime included · Brotli",
-    maximum: 30_000,
-    ticks: [0, 10_000, 20_000, 30_000],
+    title: "Large version",
+    note: "64 routes · 512 matched features · Brotli transfer",
+    maximum: 130_000,
+    ticks: [0, 40_000, 80_000, 120_000],
+    barWidth: 56,
     categories: [
       {
-        label: "CSR",
-        vue: applications["vue-csr"].brotli,
-        svelte: applications["svelte-csr"].brotli,
-      },
-      {
-        label: "Hydration",
-        vue: applications["vue-hydrate"].brotli,
-        svelte: applications["svelte-hydrate"].brotli,
+        label: "Complete application",
+        vue: result("vue", 512),
+        svelte: result("svelte", 512),
       },
     ],
   });
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
-  <title id="title">TodoMVC in 2026: the bundle-size tradeoff remains</title>
-  <desc id="description">Vue emits less component-specific code than Svelte in the current TodoMVC specimen. Svelte's complete one-component CSR and hydration bundles remain smaller because its shared framework baseline is smaller.</desc>
+  <title id="title">The same application fixture at two sizes</title>
+  <desc id="description">Complete production bundles from the matched route-loaded fixture. Svelte is smaller at eight matched features. Vue is smaller at 512 matched features after its larger shared runtime is amortized.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -321,15 +316,15 @@ function todoMvcResultsChart(componentResults, appResults) {
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
-  <text x="42" y="62" class="title">TodoMVC in 2026: the tradeoff remains</text>
-  <text x="42" y="86" class="subtitle">Vue starts larger but adds less code as the application grows.</text>
+  <text x="42" y="62" class="title">The same application fixture at two sizes</text>
+  <text x="42" y="86" class="subtitle">Svelte wins small; Vue wins after its larger runtime is amortized.</text>
   <rect x="650" y="27" width="15" height="15" rx="2" fill="${colors.vue}" />
   <text x="674" y="40" class="legend">Vue 3.5</text>
   <rect x="760" y="27" width="15" height="15" rx="2" fill="${colors.svelte}" />
   <text x="784" y="40" class="legend">Svelte 5</text>
-  ${componentPanel}
-  ${applicationPanel}
-  <text x="440" y="478" text-anchor="middle" class="subtitle">Exact 2021 TodoMVC source specimen compiled with the pinned 2026 toolchain.</text>
+  ${smallPanel}
+  ${largePanel}
+  <text x="440" y="478" text-anchor="middle" class="subtitle">Each panel uses its own y-axis; framework runtime and every visited route response are included.</text>
 </svg>
 `.replace(/^[ \t]+$/gm, "");
 }
@@ -442,15 +437,9 @@ fs.writeFileSync(
   }),
 );
 
-const originalSpecimen = JSON.parse(
-  fs.readFileSync(path.join(root, "original-specimen.json"), "utf8"),
-);
 fs.writeFileSync(
-  path.join(outputDir, "todomvc-2026-results.svg"),
-  todoMvcResultsChart(
-    originalSpecimen.componentResults,
-    originalSpecimen.appResults,
-  ),
+  path.join(outputDir, "small-large-complete-bundles.svg"),
+  smallLargeComparisonChart(routeSplit.results),
 );
 
 console.log("Generated 3 deterministic SVG charts");
