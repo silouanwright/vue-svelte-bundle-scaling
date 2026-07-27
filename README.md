@@ -11,7 +11,7 @@
 
 ## Why this benchmark exists
 
-In paraphrase, Svelte advocates argue:
+In paraphrase, Svelte advocates argue the following:
 
 - “Svelte avoids the upfront cost of a large framework runtime by compiling
   components into tiny standalone modules.” ([Svelte:
