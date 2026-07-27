@@ -184,107 +184,26 @@ application it replaces.
 The complete requested-file inventory and reproduction command are in
 [`results/openslides.md`](results/openslides.md).
 
-## Small-app evidence: Weather Front
+## Small-app controls
 
-Alicia Sykes independently built the same weather application in Vue, Svelte,
-and eleven other frontend stacks. The implementations share the same
-interface, assets, requirements, and Playwright behavior tests.
+The two small-app points in the lead chart are working applications, and both
+favor Svelte:
 
-Weather Front is a small but credible application: one principal screen,
-asynchronous data, search, persistence, and loading and error states. It is
-well beyond Hello World, but it is not a medium-sized product application.
-
-For the lead graph, I reimplemented its core product surface as a controlled
-Vue 3.5/Svelte 5 comparison. Both versions use plain Vite, matched component
-responsibilities, byte-identical model code and CSS, and the same Playwright
-behavior assertions:
-
-| Controlled Weather Front transfer | Vue 3.5 | Svelte 5 | Smaller result |
+| Brotli transfer | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| gzip | 26.353 kB | 18.005 kB | Svelte by 8.348 kB |
-| Brotli | 24.003 kB | 16.138 kB | Svelte by 7.865 kB |
+| Weather Front | 24.003 kB | 16.138 kB | Svelte by 7.865 kB |
+| Terminal | 86.265 kB | 77.671 kB | Svelte by 8.594 kB |
 
-Svelte wins this fairer small-application comparison by roughly one-third.
-That makes it the useful counterweight to OpenSlides rather than a point chosen
-to minimize Svelte’s advantage.
+Weather Front uses matched Vue and Svelte implementations of the same product
+surface. Terminal reproduces an
+[independent comparison](https://github.com/naufalafif/realworld-js-framework-comparison/tree/2c338de860222deba6b842260cfbec6609c272bd).
+Together they establish the left side of the chart: Svelte starts smaller.
 
-As an external check, the unmodified upstream project also favors Svelte,
-although it compares Vue/Vite with Svelte 4/SvelteKit:
-
-| Upstream Weather Front transfer | Vue | Svelte | Smaller result |
-| --- | ---: | ---: | --- |
-| gzip | 35.281 kB | 34.693 kB | Svelte by 0.588 kB |
-| Brotli | 31.423 kB | 30.555 kB | Svelte by 0.868 kB |
-
-The two measurements demonstrate why exact numbers depend on the application
-and toolchain even when the broader size curve remains useful.
-
-### Independent terminal-app control
-
-An [independent current comparison](https://github.com/naufalafif/realworld-js-framework-comparison/tree/2c338de860222deba6b842260cfbec6609c272bd)
-reports a terminal application at 99.6 KiB for Vue and 87.4 KiB for Svelte. I
-reproduced it with the source pinned at the linked commit. For the lead graph,
-I disabled Vue’s unused Options API and production diagnostics:
-
-| Terminal app transfer | Vue 3.5 | Svelte 5 | Smaller result |
-| --- | ---: | ---: | --- |
-| gzip | 102.054 kB | 92.765 kB | Svelte by 9.289 kB |
-| Brotli | 86.265 kB | 77.671 kB | Svelte by 8.594 kB |
-
-This is a valid complete-production-transfer point, so it belongs in a graph
-of complete transfer. It also needs context: a vendor split showed that 76.088
-kB gzip / 63.215 kB Brotli of both builds is byte-identical xterm code. The
-terminal therefore corroborates Svelte’s small-app advantage; it does not show
-Svelte remaining smaller after accumulating 100 kB of framework-generated
-application code or establish a universal crossover near 100 kB.
-
-The complete measurement is recorded in
-[`results/terminal-control.json`](results/terminal-control.json).
-The detailed reproduction, source audit, and diagnostic split are in the
-[`independent comparison audit`](docs/ai-research/20260727-realworld-comparison-audit/findings.md).
-
-The complete measurements are in
-[`results/weather-upstream.md`](results/weather-upstream.md) and
-[`results/weather-staged.md`](results/weather-staged.md). The source application is
-[`lissy93/framework-benchmarks`](https://github.com/lissy93/framework-benchmarks).
-
-## Controlled application-scaling simulation
-
-The route-split application simulation is a generated, browser-runnable
-stress test. It is not presented as a real 64-route product. Its purpose is to
-hold the feature families constant while repeatedly adding independently
-loaded application code.
-
-With one route and eight component definitions, Svelte is smaller. After the
-simulation expands to 64 generated route chunks and 512 component definitions,
-Vue is smaller. Both measurements include the framework runtime and every
-route response loaded during a complete traversal.
-
-| Complete application transfer | Vue 3.5 | Svelte 5 | Smaller result |
-| --- | ---: | ---: | --- |
-| 1 route, 8 component definitions | 22.463 kB | 15.954 kB | Svelte by 6.509 kB |
-| 64 routes, 512 component definitions | 114.570 kB | 121.849 kB | Vue by 7.279 kB |
-
-![Svelte produces the smaller route-split application simulation at eight component definitions, while Vue produces the smaller simulation at 512 component definitions](docs/images/small-large-complete-bundles.svg)
-
-*Each panel uses its own y-axis. These are two measured builds, not a claim that
-real applications contain 64 routes or cross at the same point. The
-[complete scaling chart](docs/images/route-split-brotli.svg) shows the
-intermediate builds and estimated crossover.*
-
-Both charts use the Composition-only production profile: Vue’s unused Options
-API is disabled and Svelte’s version disclosure is disabled. With both
-frameworks on their official plugin defaults, Vue still becomes smaller at 64
-routes—by 4.498 kB instead of 7.279 kB.
-
-All committed reports and JSON artifacts are indexed in
-[`results/`](results/README.md).
-
-The historical reproduction lives in
-[`results/original-specimen.md`](results/original-specimen.md). The extended
-interpretation and limitations live in
-[`docs/analysis.md`](docs/analysis.md). The exact workloads, controls,
-and transfer model live in [`METHODOLOGY.md`](METHODOLOGY.md).
+Synthetic scaling tests, the historical TodoMVC reproduction, complete
+small-app measurements, and every machine-readable artifact are indexed in
+[`results/`](results/README.md). Interpretation and limitations live in
+[`docs/analysis.md`](docs/analysis.md); the transfer model is documented in
+[`METHODOLOGY.md`](METHODOLOGY.md).
 
 ## Run the benchmarks
 
