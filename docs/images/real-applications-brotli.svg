@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-labelledby="title description">
-  <title id="title">Measured transfer from Weather Front through route-split OpenSlides</title>
-  <desc id="description">Svelte is slightly smaller for the separate Weather Front application. Vue is smaller after the OpenSlides dashboard route loads and extends its lead after the editor route loads. The dashed segment changes applications; the solid segment adds the second cumulative OpenSlides route.</desc>
+  <title id="title">Measured transfer from a small application to a medium-sized application</title>
+  <desc id="description">Svelte is slightly smaller for the small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. The dashed curve changes applications; the solid curve adds the second cumulative OpenSlides route.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -14,7 +14,7 @@
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="880" height="500" fill="#ffffff" />
-  <text x="42" y="38" class="title">From a small app to route-split OpenSlides</text>
+  <text x="42" y="38" class="title">From a small app to a medium-sized app</text>
   <text x="42" y="61" class="subtitle">Cumulative Brotli transfer · measured production responses</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="#238a62" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="#238a62" />
@@ -40,11 +40,11 @@
   <line x1="92" y1="88" x2="92" y2="408" class="axis" />
   <line x1="92" y1="408" x2="830" y2="408" class="axis" />
 
-  <line x1="156" y1="393.64" x2="470" y2="266.43" stroke="#238a62" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
-  <line x1="470" y1="266.43" x2="752" y2="230.14" stroke="#238a62" stroke-width="4" stroke-linecap="round" />
+  <path d="M 156 393.64 C 261 393.64, 365 266.43, 470 266.43" fill="none" stroke="#238a62" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
+  <path d="M 470 266.43 C 560 266.43, 662 230.14, 752 230.14" fill="none" stroke="#238a62" stroke-width="4" stroke-linecap="round" />
   <circle cx="156" cy="393.64" r="6" fill="#238a62" /><circle cx="470" cy="266.43" r="6" fill="#238a62" /><circle cx="752" cy="230.14" r="6" fill="#238a62" />
-  <line x1="156" y1="394.03" x2="470" y2="219.16" stroke="#d93600" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
-  <line x1="470" y1="219.16" x2="752" y2="107.74" stroke="#d93600" stroke-width="4" stroke-linecap="round" />
+  <path d="M 156 394.03 C 261 394.03, 365 219.16, 470 219.16" fill="none" stroke="#d93600" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
+  <path d="M 470 219.16 C 560 219.16, 662 107.74, 752 107.74" fill="none" stroke="#d93600" stroke-width="4" stroke-linecap="round" />
   <rect x="151" y="389.03" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 156 394.03)" /><rect x="465" y="214.16" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 470 219.16)" /><rect x="747" y="102.74" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 752 107.74)" />
   <text x="146" y="379.64" text-anchor="end" class="value">31.423</text>
   <text x="166" y="414.03" class="value">30.555</text>
@@ -53,11 +53,11 @@
   <text x="742" y="235.14" text-anchor="end" class="value">389.076</text>
   <text x="742" y="97.74" text-anchor="end" class="value">656.812</text>
 
-  <text x="156" y="437" text-anchor="middle" class="label">Weather Front</text>
-  <text x="156" y="456" text-anchor="middle" class="detail">separate small app</text>
-  <text x="470" y="437" text-anchor="middle" class="label">OpenSlides dashboard</text>
-  <text x="470" y="456" text-anchor="middle" class="detail">one route loaded</text>
-  <text x="752" y="437" text-anchor="middle" class="label">OpenSlides editor</text>
-  <text x="752" y="456" text-anchor="middle" class="detail">two routes loaded</text>
+  <text x="156" y="437" text-anchor="middle" class="label">Small application</text>
+  <text x="156" y="456" text-anchor="middle" class="detail">Weather Front · cold initial load</text>
+  <text x="470" y="437" text-anchor="middle" class="label">Medium-sized application</text>
+  <text x="470" y="456" text-anchor="middle" class="detail">OpenSlides · dashboard route loaded</text>
+  <text x="752" y="437" text-anchor="middle" class="label">Medium-sized application</text>
+  <text x="752" y="456" text-anchor="middle" class="detail">OpenSlides · dashboard + editor loaded</text>
   <text x="440" y="482" text-anchor="middle" class="detail">Dashed: different application · solid: second OpenSlides route · values in kB</text>
 </svg>

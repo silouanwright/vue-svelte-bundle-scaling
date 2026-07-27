@@ -338,20 +338,20 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   );
   const stages = [
     {
-      label: "Weather Front",
-      detail: "separate small app",
+      label: "Small application",
+      detail: "Weather Front · cold initial load",
       vue: weather.vue,
       svelte: weather.svelte,
     },
     {
-      label: "OpenSlides dashboard",
-      detail: "one route loaded",
+      label: "Medium-sized application",
+      detail: "OpenSlides · dashboard route loaded",
       vue: openslides.vue.journey.dashboard.brotli,
       svelte: openslides.svelte.journey.dashboard.brotli,
     },
     {
-      label: "OpenSlides editor",
-      detail: "two routes loaded",
+      label: "Medium-sized application",
+      detail: "OpenSlides · dashboard + editor loaded",
       vue: openslides.vue.journey.editor.brotli,
       svelte: openslides.svelte.journey.editor.brotli,
     },
@@ -391,8 +391,8 @@ function realApplicationsChart(weatherResults, openslidesResults) {
         )
         .join("");
       return `
-  <line x1="${stageX[0]}" y1="${y(stages[0][framework])}" x2="${stageX[1]}" y2="${y(stages[1][framework])}" stroke="${color}" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
-  <line x1="${stageX[1]}" y1="${y(stages[1][framework])}" x2="${stageX[2]}" y2="${y(stages[2][framework])}" stroke="${color}" stroke-width="4" stroke-linecap="round" />
+  <path d="M ${stageX[0]} ${y(stages[0][framework])} C ${stageX[0] + 105} ${y(stages[0][framework])}, ${stageX[1] - 105} ${y(stages[1][framework])}, ${stageX[1]} ${y(stages[1][framework])}" fill="none" stroke="${color}" stroke-width="3" stroke-dasharray="7 7" stroke-linecap="round" />
+  <path d="M ${stageX[1]} ${y(stages[1][framework])} C ${stageX[1] + 90} ${y(stages[1][framework])}, ${stageX[2] - 90} ${y(stages[2][framework])}, ${stageX[2]} ${y(stages[2][framework])}" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" />
   ${circles}`;
     })
     .join("");
@@ -405,8 +405,8 @@ function realApplicationsChart(weatherResults, openslidesResults) {
     .join("");
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
-  <title id="title">Measured transfer from Weather Front through route-split OpenSlides</title>
-  <desc id="description">Svelte is slightly smaller for the separate Weather Front application. Vue is smaller after the OpenSlides dashboard route loads and extends its lead after the editor route loads. The dashed segment changes applications; the solid segment adds the second cumulative OpenSlides route.</desc>
+  <title id="title">Measured transfer from a small application to a medium-sized application</title>
+  <desc id="description">Svelte is slightly smaller for the small Weather Front application. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. The dashed curve changes applications; the solid curve adds the second cumulative OpenSlides route.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -420,7 +420,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
-  <text x="42" y="38" class="title">From a small app to route-split OpenSlides</text>
+  <text x="42" y="38" class="title">From a small app to a medium-sized app</text>
   <text x="42" y="61" class="subtitle">Cumulative Brotli transfer · measured production responses</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="${colors.vue}" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="${colors.vue}" />

@@ -12,8 +12,16 @@
 
 *Weather Front is a separate application, so its connection to OpenSlides is
 dashed. The solid segment adds the OpenSlides editor to its dashboard. These
-are measured production states, not a universal growth curve or crossover
-threshold.*
+are measured production states, not a universal crossover threshold.*
+
+Here, “small” and “medium-sized” describe product scope rather than universal
+line-count thresholds. Weather Front has one user-facing screen, 8–9 component
+files, and 754–896 source lines across its Vue and Svelte versions.
+OpenSlides has a dashboard, editor, presentation flow, persistence, search,
+settings, and autoplay; its matched implementations contain 27 Vue components
+across 8,771 source lines and 99 Svelte components across 18,762 source lines.
+Frameworks organize code differently, so those counts provide context rather
+than a one-to-one measure of application size.
 
 ## Why this benchmark exists
 
