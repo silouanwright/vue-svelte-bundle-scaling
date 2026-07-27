@@ -340,7 +340,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
     {
       label: "Small app",
       detail: "Weather Front",
-      condition: "Single screen loaded",
+      condition: "Entire app",
       vue: weather.vue,
       svelte: weather.svelte,
     },

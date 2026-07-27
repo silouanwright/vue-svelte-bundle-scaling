@@ -53,7 +53,7 @@
 
   <text x="156" y="430" text-anchor="middle" class="label">Small app</text>
   <text x="156" y="449" text-anchor="middle" class="detail">Weather Front</text>
-  <text x="156" y="467" text-anchor="middle" class="detail">Single screen loaded</text>
+  <text x="156" y="467" text-anchor="middle" class="detail">Entire app</text>
   <text x="454" y="430" text-anchor="middle" class="label">Medium-size app</text>
   <text x="454" y="449" text-anchor="middle" class="detail">OpenSlides · one route</text>
   <text x="454" y="467" text-anchor="middle" class="detail">Dashboard</text>
