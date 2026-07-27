@@ -399,11 +399,6 @@ function realApplicationsChart(
         (value / chart.maximum) * (chart.bottom - chart.top)
       ).toFixed(2),
     );
-  const cubicValue = (start, control1, control2, end, t) =>
-    (1 - t) ** 3 * start +
-    3 * (1 - t) ** 2 * t * control1 +
-    3 * (1 - t) * t ** 2 * control2 +
-    t ** 3 * end;
   const segment = (framework, index) => {
     const previousIndex = Math.max(0, index - 1);
     const nextIndex = index + 1;
@@ -437,40 +432,9 @@ function realApplicationsChart(
       end,
     };
   };
-  const valueOnSegment = (framework, index, t) => {
-    const curve = segment(framework, index);
-    return {
-      x: cubicValue(
-        curve.start.x,
-        curve.control1.x,
-        curve.control2.x,
-        curve.end.x,
-        t,
-      ),
-      y: cubicValue(
-        curve.start.y,
-        curve.control1.y,
-        curve.control2.y,
-        curve.end.y,
-        t,
-      ),
-    };
-  };
-  let crossoverLow = 0;
-  let crossoverHigh = 1;
-  for (let iteration = 0; iteration < 60; iteration += 1) {
-    const midpoint = (crossoverLow + crossoverHigh) / 2;
-    const difference =
-      valueOnSegment("vue", 1, midpoint).y -
-      valueOnSegment("svelte", 1, midpoint).y;
-    if (difference < 0) {
-      crossoverLow = midpoint;
-    } else {
-      crossoverHigh = midpoint;
-    }
-  }
-  const crossoverT = (crossoverLow + crossoverHigh) / 2;
-  const crossoverX = valueOnSegment("vue", 1, crossoverT).x;
+  const crossoverStart = stageX[1];
+  const crossoverEnd = stageX[2];
+  const crossoverMidpoint = (crossoverStart + crossoverEnd) / 2;
   const grid = ticks
     .map(
       (value) => `
@@ -537,12 +501,15 @@ function realApplicationsChart(
   <line x1="770" y1="30" x2="806" y2="30" stroke="${colors.svelte}" stroke-width="4" />
   <rect x="783" y="25" width="10" height="10" rx="1" fill="${colors.svelte}" transform="rotate(45 788 30)" />
   <text x="816" y="35" class="legend">Svelte</text>
+  <rect x="${crossoverStart}" y="${chart.top}" width="${crossoverEnd - crossoverStart}" height="${chart.bottom - chart.top}" fill="#f2f5f7" />
   ${grid}
   <line x1="${chart.left}" y1="${chart.top}" x2="${chart.left}" y2="${chart.bottom}" class="axis" />
   <line x1="${chart.left}" y1="${chart.bottom}" x2="${chart.right}" y2="${chart.bottom}" class="axis" />
-  <line x1="${crossoverX}" y1="${chart.top}" x2="${crossoverX}" y2="${chart.bottom}" stroke="#7b8794" stroke-width="1.5" stroke-dasharray="5 5" />
-  <text x="${crossoverX + 10}" y="${chart.top + 17}" class="crossover">Approx. crossover</text>
-  <text x="${crossoverX + 10}" y="${chart.top + 34}" class="detail">Vue becomes smaller</text>
+  <line x1="${crossoverStart + 14}" y1="${chart.top + 50}" x2="${crossoverEnd - 14}" y2="${chart.top + 50}" stroke="#7b8794" stroke-width="1.5" />
+  <line x1="${crossoverStart + 14}" y1="${chart.top + 44}" x2="${crossoverStart + 14}" y2="${chart.top + 56}" stroke="#7b8794" stroke-width="1.5" />
+  <line x1="${crossoverEnd - 14}" y1="${chart.top + 44}" x2="${crossoverEnd - 14}" y2="${chart.top + 56}" stroke="#7b8794" stroke-width="1.5" />
+  <text x="${crossoverMidpoint}" y="${chart.top + 19}" text-anchor="middle" class="crossover">Possible crossover interval</text>
+  <text x="${crossoverMidpoint}" y="${chart.top + 37}" text-anchor="middle" class="detail">Exact point varies by application</text>
   ${plots}
   <text x="${stageX[0] - 10}" y="${y(stages[0].svelte) - 14}" text-anchor="end" class="value">${formatSize(stages[0].svelte)}</text>
   <text x="${stageX[0] + 10}" y="${y(stages[0].vue) + 14}" class="value">${formatSize(stages[0].vue)}</text>

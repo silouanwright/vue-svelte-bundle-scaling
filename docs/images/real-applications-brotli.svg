@@ -23,6 +23,7 @@
   <line x1="770" y1="30" x2="806" y2="30" stroke="#d93600" stroke-width="4" />
   <rect x="783" y="25" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 788 30)" />
   <text x="816" y="35" class="legend">Svelte</text>
+  <rect x="326" y="88" width="200" height="302" fill="#f2f5f7" />
 
   <line x1="92" y1="390" x2="830" y2="390" class="grid" />
   <text x="78" y="395" text-anchor="end" class="tick">0 kB</text>
@@ -40,9 +41,11 @@
   <text x="78" y="136.14" text-anchor="end" class="tick">600 kB</text>
   <line x1="92" y1="88" x2="92" y2="390" class="axis" />
   <line x1="92" y1="390" x2="830" y2="390" class="axis" />
-  <line x1="351.1652797081836" y1="88" x2="351.1652797081836" y2="390" stroke="#7b8794" stroke-width="1.5" stroke-dasharray="5 5" />
-  <text x="361.1652797081836" y="105" class="crossover">Approx. crossover</text>
-  <text x="361.1652797081836" y="122" class="detail">Vue becomes smaller</text>
+  <line x1="340" y1="138" x2="512" y2="138" stroke="#7b8794" stroke-width="1.5" />
+  <line x1="340" y1="132" x2="340" y2="144" stroke="#7b8794" stroke-width="1.5" />
+  <line x1="512" y1="132" x2="512" y2="144" stroke="#7b8794" stroke-width="1.5" />
+  <text x="426" y="107" text-anchor="middle" class="crossover">Possible crossover interval</text>
+  <text x="426" y="125" text-anchor="middle" class="detail">Exact point varies by application</text>
 
   <path d="M 138 379.64 C 169.33 375.16, 261.33 373.32, 326 352.78 C 390.67 332.24, 455.67 278.17, 526 256.4 C 596.33 234.63, 711.00 227.85, 748 222.14" fill="none" stroke="#238a62" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
   <circle cx="138" cy="379.64" r="6" fill="#238a62" /><circle cx="326" cy="352.78" r="6" fill="#238a62" /><circle cx="526" cy="256.4" r="6" fill="#238a62" /><circle cx="748" cy="222.14" r="6" fill="#238a62" />

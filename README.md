@@ -13,9 +13,11 @@
 
 *Weather Front and Terminal are separate small applications. The third and
 fourth markers are cumulative OpenSlides route states. Each curve passes
-through the four measured production states. The dashed vertical line marks
-their interpolated crossover; it is an approximation between these
-applications, not a universal threshold.*
+through the four measured production states. The shaded area marks the
+interval between the last measured small app and the first measured
+medium-sized app. A crossover can occur anywhere in that interval depending
+on the application; the curves are an illustration, not a universal
+threshold.*
 
 The Brotli chart answers the practical network question: how many bytes does
 the user download? The same four measurements before transfer compression
