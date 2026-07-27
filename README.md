@@ -51,12 +51,8 @@ its generated-code cost could become a disadvantage for medium-to-large
 applications. This is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
 
-Evan’s specimen was TodoMVC, a tiny application rather than a large product.
-Even at that scale, Vue was already generating less component-specific code
-than Svelte. That does not mean the complete Vue bundle was smaller—Svelte’s
-much smaller runtime still kept its total ahead. It means Vue’s amortization
-had already begun: every additional component could continue paying down its
-larger shared baseline.
+The example application was TodoMVC—a tiny application. Even at that scale,
+Vue was already generating less component-specific code than Svelte.
 
 ## Is this still true in 2026?
 
