@@ -182,6 +182,22 @@ although it compares Vue/Vite with Svelte 4/SvelteKit:
 The two measurements demonstrate why exact numbers depend on the application
 and toolchain even when the broader size curve remains useful.
 
+### Independent terminal-app control
+
+An [independent current comparison](https://github.com/naufalafif/realworld-js-framework-comparison/tree/2c338de860222deba6b842260cfbec6609c272bd)
+reports a terminal application at 99.6 KiB for Vue and 87.4 KiB for Svelte. I
+reproduced the result, but a vendor split showed that 76.088 kB gzip of both
+builds is byte-identical xterm code.
+The default framework-plus-application layer is 25.566 kB for Vue and
+13.131 kB for Svelte; disabling Vue’s unused Options API reduces Vue to
+22.331 kB.
+
+This is legitimate additional evidence for Svelte’s small-application
+advantage. It is not evidence that Svelte remains smaller after accumulating
+100 kB of framework-generated application code. The detailed reproduction,
+source audit, and Brotli measurements are in the
+[`independent comparison audit`](docs/ai-research/20260727-realworld-comparison-audit/findings.md).
+
 The complete measurements are in
 [`weather-upstream.md`](weather-upstream.md) and
 [`weather-staged.md`](weather-staged.md). The source application is
