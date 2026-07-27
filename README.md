@@ -3,11 +3,9 @@
 ## TL;DR
 
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
-  widgets, and small initial routes.
-- Vue can become smaller as an application grows. Svelte is 7.865 kB smaller
-  in Weather Front and 8.594 kB smaller in an independent terminal app. After
-  loading the dashboard and editor in route-split OpenSlides, Vue is 267.736
-  kB smaller.
+  widgets, and small applications.
+- Vue is likely to become smaller for medium-to-large applications as its
+  shared runtime is amortized across more components, features, and routes.
 
 ![Svelte is smaller for the Weather Front and terminal applications, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
 
@@ -19,18 +17,9 @@ medium-sized app. A crossover can occur anywhere in that interval depending
 on the application; the curves are an illustration, not a universal
 threshold.*
 
-The Brotli chart answers the practical network question: how many bytes does
-the user download? The same four measurements before transfer compression
-answer a complementary question: how much production output did each build
-emit?
-
-![Svelte emits less uncompressed production output for Weather Front and Terminal, while Vue emits substantially less for OpenSlides](docs/images/real-applications-raw.svg)
-
-*At the final OpenSlides state, Vue emits 1.810 MB and Svelte emits 3.216 MB
-before compression—a 1.406 MB difference. Svelte actually compresses that
-output slightly more efficiently: its Brotli result is 20.4% of raw output,
-versus 21.5% for Vue. Vue still transfers 267.736 kB less. The reversal is
-therefore present in the emitted production output, not created by Brotli.*
+That is the argument of this repository. Svelte starts smaller. Vue grows more
+slowly. The exact crossover varies by application, but a smaller framework
+baseline does not guarantee a smaller substantial application.
 
 Here, “small” and “medium-sized” describe product scope rather than universal
 line-count thresholds. The normalized Weather Front implementations each have
@@ -77,8 +66,9 @@ In paraphrase, Svelte advocates argue the following:
 
 ## Vue amortization
 
-In this context, amortization means paying a larger shared framework cost once,
-then offsetting it by generating less code for each additional component.
+Vue pays more upfront for its shared runtime. If each additional Vue component
+contributes less generated code than its Svelte counterpart, enough components
+eventually repay that initial difference. That is amortization.
 
 In 2021, Vue creator Evan You responded to this underlying claim with
 [benchmarks](https://github.com/yyx990803/vue-svelte-size-analysis)
@@ -98,9 +88,39 @@ honestly: Svelte wins both. OpenSlides adds what Evan You’s projection did not
 measure directly: a medium-sized application in which Vue becomes
 substantially smaller after real routes load.
 
+## Updated packages for the 2026 benchmark
+
+- Vue 3.5.40
+- Svelte 5.56.8
+- Vite 8.1.5
+- `@vitejs/plugin-vue` 6.0.8
+- `@sveltejs/vite-plugin-svelte` 7.2.0
+- Node.js 22.19.0
+
+The newly authored Svelte fixtures use idiomatic Svelte 5 and follow
+[Svelte’s documented best
+practices](https://svelte.dev/docs/svelte/best-practices). The historical
+replication separately preserves Evan You’s original sources.
+
+## New statistics for the 2026 benchmark
+
+- Component-only output and complete production bundles
+- Raw, gzip, and Brotli sizes
+- CSR, hydration, and SSR output
+- Initial-route, lazy-route, and complete-traversal transfer
+- Marginal bytes per component and estimated crossover points
+- Generated scaling workloads and independently authored application controls
+- Default and app-informed trimmed production profiles
+
+That is the overview. To reproduce the results, jump to
+[`Run the benchmarks`](#run-the-benchmarks).
+
+If you want the case studies and technical evidence, read on.
+
 ## OpenSlides: the primary 2026 case study
 
-I ported the frontend of
+Evan You projected the crossover from one TodoMVC component. To measure the
+same principle in a substantial application, I ported the frontend of
 [`codewiththiha/OpenSlides`](https://github.com/codewiththiha/OpenSlides), an
 MIT-licensed desktop application for building animated code presentations,
 from Svelte 5 to Vue 3. The source is pinned at commit
@@ -136,6 +156,21 @@ Vue is smaller at both user-visible stages:
 Route splitting therefore does not rescue the universal bundle-size claim.
 Neither implementation charges the dashboard user for the editor route, yet
 Vue is already smaller when that first route becomes usable.
+
+### Compression does not create Vue’s lead
+
+The Brotli chart answers the practical network question: how many bytes does
+the user download? The same four measurements before transfer compression
+answer a complementary question: how much production output did each build
+emit?
+
+![Svelte emits less uncompressed production output for Weather Front and Terminal, while Vue emits substantially less for OpenSlides](docs/images/real-applications-raw.svg)
+
+*At the final OpenSlides state, Vue emits 1.810 MB and Svelte emits 3.216 MB
+before compression—a 1.406 MB difference. Svelte actually compresses that
+output slightly more efficiently: its Brotli result is 20.4% of raw output,
+versus 21.5% for Vue. Vue still transfers 267.736 kB less. The reversal is
+therefore present in the emitted production output, not created by Brotli.*
 
 The cold journey includes every production JavaScript, CSS, worker, language,
 theme, and Shiki Wasm asset actually requested at each stage. Both
@@ -254,30 +289,6 @@ Both charts use the Composition-only production profile: Vue’s unused Options
 API is disabled and Svelte’s version disclosure is disabled. With both
 frameworks on their official plugin defaults, Vue still becomes smaller at 64
 routes—by 4.498 kB instead of 7.279 kB.
-
-## Updated packages for the 2026 benchmark
-
-- Vue 3.5.40
-- Svelte 5.56.8
-- Vite 8.1.5
-- `@vitejs/plugin-vue` 6.0.8
-- `@sveltejs/vite-plugin-svelte` 7.2.0
-- Node.js 22.19.0
-
-The newly authored Svelte fixtures use idiomatic Svelte 5 and follow
-[Svelte’s documented best
-practices](https://svelte.dev/docs/svelte/best-practices). The historical
-replication separately preserves Evan You’s original sources.
-
-## New statistics for the 2026 benchmark
-
-- Component-only output and complete production bundles
-- Raw, gzip, and Brotli sizes
-- CSR, hydration, and SSR output
-- Initial-route, lazy-route, and complete-traversal transfer
-- Marginal bytes per component and estimated crossover points
-- Generated scaling workloads and independently authored application controls
-- Default and app-informed trimmed production profiles
 
 The historical reproduction lives in
 [`original-specimen.md`](original-specimen.md). The extended interpretation and
