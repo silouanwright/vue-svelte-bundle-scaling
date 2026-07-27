@@ -160,23 +160,6 @@ test code are development-only dependencies and never enter a measured bundle.
 | [`results-lock.json`](results-lock.json) | Cross-platform normalized SHA-256 hashes for generated JSON |
 | [`docs/research/source-ledger.md`](docs/research/source-ledger.md) | Primary-source and provenance ledger |
 
-## Provenance
-
-- Evan You’s [original analysis and source
-  specimen](https://github.com/yyx990803/vue-svelte-size-analysis/tree/7bb60ff681a3f5016e8af26084e72100cd37a876)
-  are pinned at commit `7bb60ff681a3f5016e8af26084e72100cd37a876`.
-- The matched Vue and Svelte applications come from
-  [`js-framework-benchmark`](https://github.com/krausest/js-framework-benchmark/tree/6bd71fcab935b7e4c627b7c394a86633fcd8feea)
-  at commit `6bd71fcab935b7e4c627b7c394a86633fcd8feea`,
-  under Apache-2.0.
-- Framework and tool versions are exact, not semver ranges.
-- Generated JSON records SHA-256 digests for every downloaded source file.
-- Mutable web claims link to dated Wayback snapshots; GitHub evidence links to
-  exact commits. The [source ledger](docs/research/source-ledger.md) preserves
-  both the live and immutable locations.
-- Generated work directories are deleted by default. Set
-  `KEEP_BENCH_WORK=1` for the controlled lane when inspecting compiler output.
-
 ## License
 
 The benchmark harness and original fixtures in this repository are available
