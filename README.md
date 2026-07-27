@@ -78,34 +78,25 @@ cross at the source size or component count measured here.
 ## Why this benchmark exists
 
 Svelte’s bundle-size advantage is not a claim invented for this rebuttal.
-According to Svelte advocates, the argument is approximately as follows. These
-are linked paraphrases, not verbatim quotations:
-
-- [“Svelte avoids the upfront cost of a large framework runtime by compiling
-  components into tiny standalone
-  modules.”](https://web.archive.org/web/20260727134238/https://svelte.dev/blog/frameworks-without-the-framework)
-
-- [“Moving more framework work into the compiler is what makes Svelte
-  applications small and
-  fast.”](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive)
-
-- [“The framework largely disappears before the browser loads the page, so
-  users receive mostly application
-  code.”](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte)
-
-- [“Svelte produces a smaller JavaScript payload than Vue because Vue sends
-  more framework logic to the
-  browser.”](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte#how-svelte-compares-with-other-frameworks)
-
-The surrounding comparisons turn that architectural pitch into numerical
-claims:
-
-- [“Equivalent Svelte bundles are roughly half the size of Vue bundles, and
-  the absolute gap remains as applications
-  grow.”](https://web.archive.org/web/20260727134421/https://www.pkgpulse.com/guides/vue-3-vs-svelte-5-2026#bundle-size)
-
-- [“A small Vue build can be about ten times larger than its Svelte
-  equivalent.”](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size)
+In paraphrase, Svelte advocates argue that [“Svelte avoids the upfront cost of
+a large framework runtime by compiling components into tiny standalone
+modules,”](https://web.archive.org/web/20260727134238/https://svelte.dev/blog/frameworks-without-the-framework)
+that [“moving more framework work into the compiler is what makes Svelte
+applications small and
+fast,”](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive)
+and that [“the framework largely disappears before the browser loads the page,
+so users receive mostly application
+code.”](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte)
+From there, the comparison with Vue becomes explicit: [“Svelte produces a
+smaller JavaScript payload than Vue because Vue sends more framework logic to
+the
+browser.”](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte#how-svelte-compares-with-other-frameworks)
+Broader comparisons go further, claiming that [“equivalent Svelte bundles are
+roughly half the size of Vue bundles, and the absolute gap remains as
+applications
+grow,”](https://web.archive.org/web/20260727134421/https://www.pkgpulse.com/guides/vue-3-vs-svelte-5-2026#bundle-size)
+and even that [“a small Vue build can be about ten times larger than its Svelte
+equivalent.”](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size)
 
 Those are substantive, testable claims. Framework choice involves much more
 than bundle size or benchmark milliseconds, and this repository does not claim
