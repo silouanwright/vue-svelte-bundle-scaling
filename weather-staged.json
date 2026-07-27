@@ -1,0 +1,60 @@
+{
+  "metadata": {
+    "generatedAt": "2026-07-27T18:16:24.644Z",
+    "node": "v22.19.0",
+    "versions": {
+      "vue": "3.5.40",
+      "svelte": "5.56.8",
+      "vite": "8.1.5"
+    },
+    "profile": "Vue Composition-only and Svelte version disclosure disabled",
+    "measurement": "Every emitted JavaScript and CSS response counted once",
+    "compression": "gzip level 9 and Brotli quality 11, applied per response"
+  },
+  "results": [
+    {
+      "framework": "vue",
+      "files": [
+        {
+          "file": "assets/index-Dlrnpe18.js",
+          "raw": 64728,
+          "gzip": 25255,
+          "brotli": 23103
+        },
+        {
+          "file": "assets/index-DwsMDthW.css",
+          "raw": 2652,
+          "gzip": 1098,
+          "brotli": 900
+        }
+      ],
+      "complete": {
+        "raw": 67380,
+        "gzip": 26353,
+        "brotli": 24003
+      }
+    },
+    {
+      "framework": "svelte",
+      "files": [
+        {
+          "file": "assets/index-DwsMDthW.css",
+          "raw": 2652,
+          "gzip": 1098,
+          "brotli": 900
+        },
+        {
+          "file": "assets/index-MkCG2G4W.js",
+          "raw": 43134,
+          "gzip": 16907,
+          "brotli": 15238
+        }
+      ],
+      "complete": {
+        "raw": 45786,
+        "gzip": 18005,
+        "brotli": 16138
+      }
+    }
+  ]
+}

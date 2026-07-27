@@ -66,7 +66,7 @@ measured complete application containing 19 components.
 The architectural tradeoff is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
 
-## A small real application is already near parity
+## A small real application supplies a reality check
 
 Alicia Sykes built the same weather application in Vue, Svelte, and eleven
 other frontend stacks specifically to compare them. The implementations share
@@ -107,6 +107,24 @@ Vue/Vite with Svelte 4/SvelteKit, so the result is preserved separately from
 this repository’s normalized Vue 3/Svelte 5 lanes. The complete per-response
 measurement and reproduction command are in
 [`weather-upstream.md`](weather-upstream.md).
+
+I then rebuilt the same core product surface with current, matched boundaries:
+Vue 3.5 and Svelte 5 use plain Vite, import byte-identical business logic and
+CSS, expose the same component boundaries, and pass the same Playwright
+behavior contract.
+
+| Normalized core Weather application | Vue | Svelte | Smaller result |
+| --- | ---: | ---: | --- |
+| gzip | 26.353 kB | 18.005 kB | Svelte by 8.348 kB |
+| Brotli | 24.003 kB | 16.138 kB | Svelte by 7.865 kB |
+
+The normalized result is less favorable to Vue than the upstream near-tie.
+That matters: the near-tie was partly a consequence of comparing a plain Vue
+SPA with a SvelteKit application, not evidence that this small product had
+nearly repaid Vue’s runtime. The complete current-toolchain result and
+reproduction command are in [`weather-staged.md`](weather-staged.md); the
+shared contract is in
+[`tests/weather-staged-parity.spec.mjs`](tests/weather-staged-parity.spec.mjs).
 
 ## Is this still true in 2026?
 
@@ -203,6 +221,8 @@ npm run benchmark:route-split
 npm run benchmark:matched-app
 npm run benchmark:hand-authored
 npm run benchmark:optimization-sensitivity
+npm run benchmark:weather-upstream
+npm run benchmark:weather-staged
 ```
 
 Generate the committed charts:
@@ -216,6 +236,7 @@ Run the small product-shaped application’s behavior contract:
 ```bash
 npx playwright install chromium
 npm test
+npm run test:weather-parity
 ```
 
 Playwright opens both complete fixtures and performs the same interactions so

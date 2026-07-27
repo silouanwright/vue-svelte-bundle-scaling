@@ -22,6 +22,12 @@
     },
     "hand-authored-trimmed.json": {
       "sha256": "54d4c1fcf5af84b28b857c9beb3a972982f63576d0cbdb164e3bf7ded7515ba7"
+    },
+    "weather-upstream.json": {
+      "sha256": "9d8555577983a144b335b7910306f3cf27f6e538f62e99a0c19b7eb8f9e8347e"
+    },
+    "weather-staged.json": {
+      "sha256": "b4c656e192f63c8705d4f9baaa239615b70c13199c3ce89253dafb6a9df0180b"
     }
   }
 }

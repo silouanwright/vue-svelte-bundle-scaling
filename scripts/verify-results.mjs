@@ -14,6 +14,8 @@ const resultFiles = [
   "hand-authored.json",
   "route-split-trimmed.json",
   "hand-authored-trimmed.json",
+  "weather-upstream.json",
+  "weather-staged.json",
 ];
 const sizeKeys = ["raw", "gzip", "brotli"];
 
@@ -127,6 +129,9 @@ function validateResults(file, data, packageJson) {
         `${context}:initial`,
       );
       assert(result.coalesced.raw === result.complete.raw, `${context}: coalesced raw differs`);
+    } else if (file === "weather-staged.json") {
+      validateSizeObject(result.complete, `${context}:complete`);
+      assertSizesEqual(sumFiles(result.files), result.complete, `${context}:complete`);
     } else {
       validateSizeObject(result, context);
       assertSizesEqual(sumFiles(result.files), result, context);

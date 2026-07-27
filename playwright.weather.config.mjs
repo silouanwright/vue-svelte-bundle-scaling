@@ -2,7 +2,7 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
-  testMatch: "hand-authored-parity.spec.mjs",
+  testMatch: "weather-staged-parity.spec.mjs",
   timeout: 30_000,
   retries: 0,
   workers: 1,
@@ -14,14 +14,14 @@ export default defineConfig({
   webServer: [
     {
       command:
-        "npm exec vite -- fixtures/hand-authored/vue --config fixtures/hand-authored/vue/vite.config.js --host 127.0.0.1 --port 4274",
-      port: 4274,
+        "npm exec vite -- fixtures/weather-staged/vue --config fixtures/weather-staged/vue/vite.config.js --host 127.0.0.1 --port 4374",
+      port: 4374,
       reuseExistingServer: false,
     },
     {
       command:
-        "npm exec vite -- fixtures/hand-authored/svelte --config fixtures/hand-authored/svelte/vite.config.js --host 127.0.0.1 --port 4275",
-      port: 4275,
+        "npm exec vite -- fixtures/weather-staged/svelte --config fixtures/weather-staged/svelte/vite.config.js --host 127.0.0.1 --port 4375",
+      port: 4375,
       reuseExistingServer: false,
     },
   ],
