@@ -4,9 +4,9 @@
 
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
   widgets, and small initial routes.
-- Vue’s larger runtime can be repaid as an application grows. In this
-  repository’s route-split application simulation, Vue becomes smaller after
-  enough lazy routes are loaded.
+- In this repository’s route-split application simulation, Vue becomes the
+  smaller complete transfer as the application grows; at 64 routes, Vue is
+  7.279 kB smaller.
 
 ![In the route-split application simulation, Svelte starts smaller while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
 
@@ -59,63 +59,26 @@ then offsetting it by generating less code for each additional component.
 In 2021, Vue creator Evan You responded to this underlying claim with
 [benchmarks](https://github.com/yyx990803/vue-svelte-size-analysis)
 showing that while Svelte had a dramatically smaller framework baseline, Vue
-generated substantially less component-specific code. He concluded that
-Svelte provided a compelling advantage for isolated components, but that its
-generated-code cost could become a disadvantage for medium-to-large
-applications. This is also clearly documented in the Vue FAQ:
-[https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
+generated substantially less component-specific code for one TodoMVC
+component. He then calculated that roughly 19 TodoMVC-sized components could
+repay Vue’s larger runtime. That was a model of a larger application, not a
+measured complete application containing 19 components.
 
-Evan’s specimen was one TodoMVC component. Vue generated less
-component-specific code for it, but Svelte still had the smaller complete
-application after its runtime was included. Evan then used those measurements
-to estimate when Vue’s larger shared runtime could be repaid; he did not build
-a larger TodoMVC application and measure a complete-bundle crossover.
+The architectural tradeoff is also clearly documented in the Vue FAQ:
+[https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
 
 ## Is this still true in 2026?
 
-Yes. Vue still generates less component-specific code in the historical
-specimen, and the route-split application simulation demonstrates the
-amortization mechanism in complete, independently compressed production
-bundles.
-
-I put together this updated study to build on and expand Evan You’s original
-comparison five years later, using a current toolchain and broader benchmarks.
-
-## Updated packages for the 2026 benchmark
-
-- Vue 3.5.40
-- Svelte 5.56.8
-- Vite 8.1.5
-- `@vitejs/plugin-vue` 6.0.8
-- `@sveltejs/vite-plugin-svelte` 7.2.0
-- Node.js 22.19.0
-
-The newly authored Svelte fixtures use idiomatic Svelte 5 and follow
-[Svelte’s documented best
-practices](https://svelte.dev/docs/svelte/best-practices). The historical
-TodoMVC lane deliberately preserves Evan You’s legacy Svelte source.
-
-## New statistics for the 2026 benchmark
-
-- Component-only output and complete production bundles
-- Raw, gzip, and Brotli sizes
-- CSR, hydration, and SSR output
-- Initial-route, lazy-route, and complete-traversal transfer
-- Marginal bytes per component and estimated crossover points
-- Generated scaling workloads and independently authored application controls
-- Default and app-informed trimmed production profiles
-
-The extended interpretation and limitations live in
-[`analysis.md`](analysis.md). The exact workloads, controls, and transfer model
-live in [`METHODOLOGY.md`](METHODOLOGY.md).
+Yes. The route-split application simulation measures the missing
+complete-application crossover with Vue 3.5, Svelte 5, production minification,
+lazy routes, and independently compressed responses.
 
 ## Route-split application simulation
 
 The route-split application simulation is a generated, browser-runnable
-benchmark—not TodoMVC and not a production product. Its application shell
-lazily loads routes. Each route contains one counter, disclosure, tabs panel,
-task tracker, search panel, settings form, pagination control, and notification
-panel.
+benchmark. It is the central application in this study. Its shell lazily loads
+routes, each containing one counter, disclosure, tabs panel, task tracker,
+search panel, settings form, pagination control, and notification panel.
 
 The clearest comparison is the same simulation at two sizes. With one route
 and eight component definitions, Svelte is smaller. After the
@@ -134,29 +97,34 @@ response loaded during a complete traversal.
 every application crosses at the same point. The opening chart shows the
 intermediate builds and estimated crossover.*
 
-<details>
-<summary>How the historical TodoMVC measurement explains the mechanism</summary>
+## Updated packages for the 2026 benchmark
 
-Evan You’s original analysis isolated the component-specific code from the
-shared framework runtime. Recompiling the same TodoMVC specimen with the pinned
-2026 toolchain reproduces that mechanism:
+- Vue 3.5.40
+- Svelte 5.56.8
+- Vite 8.1.5
+- `@vitejs/plugin-vue` 6.0.8
+- `@sveltejs/vite-plugin-svelte` 7.2.0
+- Node.js 22.19.0
 
-| TodoMVC component output, runtime excluded | Vue 3.5 | Svelte 5 |
-| --- | ---: | ---: |
-| Minified | 3.802 kB | 5.213 kB |
-| gzip | 1.484 kB | 1.762 kB |
-| Brotli | 1.306 kB | 1.500 kB |
+The newly authored Svelte fixtures use idiomatic Svelte 5 and follow
+[Svelte’s documented best
+practices](https://svelte.dev/docs/svelte/best-practices). The historical
+replication separately preserves Evan You’s original sources.
 
-Vue generates less code for this component, but its larger runtime means that
-Svelte still produces the smaller complete one-component application: 14.407
-kB rather than 23.445 kB after Brotli compression. The component-only
-measurement explains why Vue’s total grows more slowly; it is not itself a
-complete application bundle.
+## New statistics for the 2026 benchmark
 
-Exact build details are in
-[`original-specimen.md`](original-specimen.md).
+- Component-only output and complete production bundles
+- Raw, gzip, and Brotli sizes
+- CSR, hydration, and SSR output
+- Initial-route, lazy-route, and complete-traversal transfer
+- Marginal bytes per component and estimated crossover points
+- Generated scaling workloads and independently authored application controls
+- Default and app-informed trimmed production profiles
 
-</details>
+The historical reproduction lives in
+[`original-specimen.md`](original-specimen.md). The extended interpretation and
+limitations live in [`analysis.md`](analysis.md). The exact workloads, controls,
+and transfer model live in [`METHODOLOGY.md`](METHODOLOGY.md).
 
 ## Run the benchmarks
 
