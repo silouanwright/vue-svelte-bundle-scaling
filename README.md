@@ -3,7 +3,7 @@
 This repository reproduces Evan You’s 2021
 [`vue-svelte-size-analysis`](https://github.com/yyx990803/vue-svelte-size-analysis)
 with Vue 3.5, Svelte 5, and Vite 8, then tests the architectural claim under
-four progressively more realistic workloads.
+five complementary workloads.
 
 The short result is not “Vue is always smaller” or “Svelte is always smaller.”
 It is more useful:
@@ -36,6 +36,59 @@ are equally important: current Svelte remains decisively smaller in the small
 complete applications measured here. In the hand-authored application, all
 seven lazy route chunks were smaller with Vue after Brotli, yet Svelte's
 smaller initial entry kept its complete total ahead at 33 definitions.
+
+## What these benchmarks establish
+
+**They do not establish that Vue is generally smaller in full-scale web
+applications.** No framework can claim that from a generic component-count
+benchmark. They establish the following:
+
+1. **Svelte starts substantially smaller.** It won every complete
+   small-application comparison in this repository. For the hand-authored
+   application, Svelte’s initial JavaScript was 8,400 B smaller with Brotli.
+2. **Vue can add less code as an application grows.** All seven lazy feature
+   routes in the hand-authored application were 32–201 B smaller with Vue after
+   Brotli. The application did not grow far enough to repay Vue’s larger
+   initial entry, but the direction of the marginal cost was consistent.
+3. **Compression invalidates simple per-component arithmetic.** Vue became
+   smaller in raw client JavaScript in the controlled workload, while Svelte
+   remained smaller after gzip and Brotli because hundreds of similar
+   compiler-generated patterns compressed exceptionally well.
+4. **Chunk boundaries can reverse the compressed result.** In the
+   heterogeneous route-split workload, each lazy response had its own
+   compression dictionary. Vue crossed from larger to smaller near 241
+   generated definitions with gzip and 339 with Brotli. This proves that Vue’s
+   amortization can become a real transfer-size advantage—not that every
+   application will cross at those counts.
+5. **Bundle size and runtime performance are different questions.** These
+   measurements say how much JavaScript was emitted and transferred. They do
+   not establish which framework renders faster, uses less memory, or produces
+   the more responsive application.
+
+The benchmark therefore rules out two universal slogans:
+
+- Svelte’s smaller runtime does **not** guarantee the smaller substantial
+  application.
+- Vue’s smaller marginal output does **not** guarantee that a particular
+  application will ever repay its runtime baseline.
+
+The positive Vue takeaway is nevertheless clear: its runtime cost is
+amortizable in both raw code and compressed transfer. Choosing Vue means
+accepting a higher starting point, not accepting a permanently larger
+application. Svelte’s headline size advantage is strongest at the small end
+and must be remeasured as the real feature and chunk graph develops.
+
+| Application being considered | What this evidence supports |
+| --- | --- |
+| Widget or very small client application | Svelte is likely to begin with a meaningful bundle-size advantage. |
+| Application near the complete specimens tested here | Svelte was smaller overall in both matched applications. |
+| Large, heterogeneous, heavily route-split application | There is no predetermined winner; the generated workload proves that Vue can become smaller after gzip and Brotli. |
+| Existing production product with routers, stores, editors, grids, and UI libraries | This repository cannot predict the result. Build the same representative product slice in both frameworks and measure its actual response graph. |
+
+The central lesson is not that compiler work disappears. Compilation changes
+where framework code lives and how its cost grows. The browser ultimately
+receives a set of minified, independently compressed responses, and that set is
+the application-level quantity that must be compared.
 
 ![Brotli transfer for the generated route-split workload](docs/images/route-split-brotli.svg)
 
