@@ -63,9 +63,9 @@ The architectural tradeoff is also clearly documented in the Vue FAQ:
 ## Is Vue amortization still visible in 2026?
 
 Yes. Weather Front and the independent terminal app establish the small end
-honestly: Svelte wins both. OpenSlides adds what Evan You’s projection did not
-measure directly: a medium-sized application in which Vue becomes
-substantially smaller after real routes load.
+honestly: Svelte wins both. OpenSlides supplies what Evan You could only
+hypothesize from TodoMVC: an actual, working medium-sized application that
+concretely shows Vue becoming substantially smaller.
 
 Svelte starts smaller. Vue grows more slowly. The exact crossover varies by
 application, but a smaller framework baseline does not guarantee a smaller
