@@ -41,13 +41,13 @@ In paraphrase, Svelte advocates argue:
 ## The creator of Vue responds
 
 In 2021, Vue creator Evan You responded to these claims with a
-[TodoMVC comparison](https://github.com/yyx990803/vue-svelte-size-analysis/blob/7bb60ff681a3f5016e8af26084e72100cd37a876/README.md#analysis).
-He showed that while Svelte had a dramatically smaller framework baseline, Vue
+[comparison](https://github.com/yyx990803/vue-svelte-size-analysis/blob/7bb60ff681a3f5016e8af26084e72100cd37a876/README.md#analysis)
+showing that while Svelte had a dramatically smaller framework baseline, Vue
 generated substantially less component code. He concluded that Svelte provided
 a compelling advantage for isolated components, but that its generated-code
-cost could become a disadvantage for medium-to-large applications.
-[Vue’s FAQ spells out the same
-argument](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
+cost could become a disadvantage for medium-to-large applications. This is
+also clearly documented in the Vue FAQ:
+[https://vuejs.org/about/faq#is-vue-lightweight](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
 
 ## What this 2026 benchmark adds
 
