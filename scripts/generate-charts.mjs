@@ -340,7 +340,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
     {
       label: "Small app",
       detail: "Weather Front",
-      condition: "Cold initial load",
+      condition: "Single screen loaded",
       vue: weather.vue,
       svelte: weather.svelte,
     },
@@ -430,7 +430,7 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
   <text x="42" y="38" class="title">From a small app to a medium-sized app (kB)</text>
-  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · measured production responses</text>
+  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · three measured production states</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="${colors.vue}" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="${colors.vue}" />
   <text x="718" y="35" class="legend">Vue</text>
@@ -448,7 +448,6 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   <text x="${stageX[2] - 10}" y="${y(stages[2].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[2].svelte / 1000)} kB</text>
   <text x="${stageX[2] + 10}" y="${y(stages[2].vue) + 22}" class="value">${Math.floor(stages[2].vue / 1000)} kB</text>
   ${stageLabels}
-  <text x="440" y="492" text-anchor="middle" class="detail">Three measured production states</text>
 </svg>
 `.replace(/^[ \t]+$/gm, "");
 }
