@@ -38,31 +38,16 @@ In paraphrase, Svelte advocates argue:
   *Svelte vs.
   Vue*](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size))
 
-## Evan You identified the mechanism in 2021
+## The creator of Vue responds
 
-This is not a new argument. In 2021, Vue creator Evan You published
-[`vue-svelte-size-analysis`](https://github.com/yyx990803/vue-svelte-size-analysis/blob/7bb60ff681a3f5016e8af26084e72100cd37a876/README.md#analysis),
-which measured functionally equivalent TodoMVC components with Vue 3.1 and
-Svelte 3.38.
-
-His result exposed the part that Hello World comparisons conceal:
-
-- Svelte had a dramatically smaller framework baseline.
-- Vue generated substantially less component code.
-- In his additive model, Vue repaid its larger baseline at approximately 19
-  TodoMVC-sized client components, or 13 with SSR and hydration.
-
-Evan concluded that Svelte retained a compelling advantage for isolated
-components, while its generated-code cost could become a disadvantage in
-medium-to-large applications. [Vue’s current FAQ continues to make the same
-architectural
-argument](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight):
-Vue pays a heavier baseline and generates less code per component, so a real
-Vue application may end up lighter.
-
-The core insight and the original experiment are Evan’s. This repository
-updates and extends that work; it does not claim to have discovered the
-amortization argument.
+In 2021, Vue creator Evan You responded to these claims with a
+[TodoMVC comparison](https://github.com/yyx990803/vue-svelte-size-analysis/blob/7bb60ff681a3f5016e8af26084e72100cd37a876/README.md#analysis).
+He showed that while Svelte had a dramatically smaller framework baseline, Vue
+generated substantially less component code. He concluded that Svelte provided
+a compelling advantage for isolated components, but that its generated-code
+cost could become a disadvantage for medium-to-large applications.
+[Vue’s FAQ spells out the same
+argument](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
 
 ## What this 2026 benchmark adds
 
