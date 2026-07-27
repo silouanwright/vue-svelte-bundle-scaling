@@ -181,10 +181,9 @@ application it replaces.
 The complete requested-file inventory and reproduction command are in
 [`results/openslides.md`](results/openslides.md).
 
-## Small-app controls
+## Svelte wins in small applications
 
-The two small-app points in the lead chart are working applications, and both
-favor Svelte:
+Svelte wins both small applications measured in the lead chart:
 
 | Brotli transfer | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
