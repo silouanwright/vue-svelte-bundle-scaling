@@ -43,22 +43,25 @@ In paraphrase, Svelte advocates argue:
 In 2021, Vue creator Evan You responded to these claims with a
 [comparison](https://github.com/yyx990803/vue-svelte-size-analysis/blob/7bb60ff681a3f5016e8af26084e72100cd37a876/README.md#analysis)
 showing that while Svelte had a dramatically smaller framework baseline, Vue
-generated substantially less component code. He concluded that Svelte provided
-a compelling advantage for isolated components, but that its generated-code
-cost could become a disadvantage for medium-to-large applications.
+was designed around amortization: Vue paid more upfront but generated
+substantially less component code. Given enough components and application
+code, that lower marginal cost could repay the larger baseline. He concluded
+that Svelte provided a compelling advantage for isolated components, but that
+its generated-code cost could become a disadvantage for medium-to-large
+applications.
 
 This is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
 
 ## Is this still true in 2026?
 
-Yes. Vue is designed around amortization, which means it is likely to become
-smaller than Svelte in medium-to-large applications, especially when users
-load many routes.
+Yes. We put together this updated example to build on and expand Evan You’s
+original comparison five years later, using a current toolchain and broader
+benchmarks.
 
 ## What this new 2026 benchmark adds
 
-This repository updates Evan You’s comparison with the current toolchain:
+**New packages:**
 
 - Vue 3.5.40
 - Svelte 5.56.8
@@ -67,8 +70,19 @@ This repository updates Evan You’s comparison with the current toolchain:
 - `@sveltejs/vite-plugin-svelte` 7.2.0
 - Node.js 22.19.0
 
-That is all we wanted to communicate. If the TL;DR and chart answered your
-question, you can stop reading here. If you want the nitty-gritty, read on.
+**New statistics:**
+
+- Component-only output and complete production bundles
+- Raw, gzip, and Brotli sizes
+- CSR, hydration, and SSR output
+- Initial-route, lazy-route, and complete-traversal transfer
+- Marginal bytes per component and estimated crossover points
+- Generated scaling workloads and independently authored application controls
+
+That is the overview, and if that is all you came for, that is all you need to
+read. To run the benchmarks yourself, see [Reproduce it](#reproduce-it).
+Everything below gets into a more technical discussion of the workloads,
+results, and limitations. If you want that detail, read on.
 
 ## The nitty-gritty
 
