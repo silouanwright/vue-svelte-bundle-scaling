@@ -14,12 +14,14 @@
 In paraphrase, Svelte advocates argue the following:
 
 - “Svelte avoids the upfront cost of a large framework runtime by compiling
-  components into tiny standalone modules.” — Rich Harris, Svelte,
+  components into tiny standalone modules.” — Rich Harris, Svelte creator, now
+  at Vercel,
   ([*Frameworks without the
   framework*](https://web.archive.org/web/20260727134238/https://svelte.dev/blog/frameworks-without-the-framework))
 - “Svelte began as an experiment in making JavaScript bundles as small and fast
   as possible, based on the belief that compiler magic could remove the need to
-  worry about shipping too much JavaScript.” — Rich Harris, Svelte,
+  worry about shipping too much JavaScript.” — Rich Harris, Svelte creator, now
+  at Vercel,
   ([*The Undefined: Vue vs. Svelte with Evan You and Rich Harris*,
   19:10](https://web.archive.org/web/20260727160325/https://undefined.fm/radio/vue-vs-svelte-with-evan-you-and-rich-harris))
 - “Moving more framework work into the compiler is what makes Svelte
