@@ -199,6 +199,136 @@ function lineChart({
 `.replace(/^[ \t]+$/gm, "");
 }
 
+function groupedBarPanel({
+  x: panelX,
+  y: panelY,
+  width: panelWidth,
+  height: panelHeight,
+  title,
+  categories,
+  maximum,
+  ticks,
+}) {
+  const chartTop = panelY + 34;
+  const chartBottom = panelY + panelHeight - 52;
+  const chartHeight = chartBottom - chartTop;
+  const y = (value) =>
+    Number((chartBottom - (value / maximum) * chartHeight).toFixed(2));
+  const groupWidth = panelWidth / categories.length;
+  const barWidth = Math.min(34, groupWidth * 0.26);
+
+  const grid = ticks
+    .map(
+      (value) => `
+    <line x1="${panelX}" y1="${y(value)}" x2="${panelX + panelWidth}" y2="${y(value)}" class="grid" />
+    <text x="${panelX - 10}" y="${y(value) + 5}" text-anchor="end" class="tick">${escapeXml(value === 0 ? "0" : `${value / 1000} kB`)}</text>`,
+    )
+    .join("");
+
+  const bars = categories
+    .map((category, index) => {
+      const center = panelX + groupWidth * (index + 0.5);
+      const frameworkBars = ["vue", "svelte"]
+        .map((framework, frameworkIndex) => {
+          const value = category[framework];
+          const barX =
+            center +
+            (frameworkIndex === 0 ? -barWidth - 3 : 3);
+          const barY = y(value);
+          return `
+    <rect x="${barX}" y="${barY}" width="${barWidth}" height="${chartBottom - barY}" rx="3" fill="${colors[framework]}" />
+    <text x="${barX + barWidth / 2}" y="${barY - 8}" text-anchor="middle" class="value">${(value / 1000).toFixed(value < 2000 ? 2 : 1)} kB</text>`;
+        })
+        .join("");
+      return `${frameworkBars}
+    <text x="${center}" y="${chartBottom + 23}" text-anchor="middle" class="category">${escapeXml(category.label)}</text>`;
+    })
+    .join("");
+
+  return `
+  <text x="${panelX}" y="${panelY + 4}" class="panel-title">${escapeXml(title)}</text>
+  ${grid}
+  <line x1="${panelX}" y1="${chartTop}" x2="${panelX}" y2="${chartBottom}" class="axis" />
+  <line x1="${panelX}" y1="${chartBottom}" x2="${panelX + panelWidth}" y2="${chartBottom}" class="axis" />
+  ${bars}`;
+}
+
+function todoMvcResultsChart(componentResults, appResults) {
+  const component = Object.fromEntries(
+    componentResults.map((item) => [item.framework, item.componentOnly]),
+  );
+  const applications = Object.fromEntries(
+    appResults.map((item) => [`${item.framework}-${item.lane}`, item]),
+  );
+  const componentPanel = groupedBarPanel({
+    x: 76,
+    y: 92,
+    width: 350,
+    height: 340,
+    title: "Component-only output",
+    maximum: 6000,
+    ticks: [0, 2000, 4000, 6000],
+    categories: [
+      { label: "Minified", vue: component.vue.raw, svelte: component.svelte.raw },
+      { label: "Gzip", vue: component.vue.gzip, svelte: component.svelte.gzip },
+      {
+        label: "Brotli",
+        vue: component.vue.brotli,
+        svelte: component.svelte.brotli,
+      },
+    ],
+  });
+  const applicationPanel = groupedBarPanel({
+    x: 520,
+    y: 92,
+    width: 310,
+    height: 340,
+    title: "Complete bundle (Brotli)",
+    maximum: 30_000,
+    ticks: [0, 10_000, 20_000, 30_000],
+    categories: [
+      {
+        label: "CSR",
+        vue: applications["vue-csr"].brotli,
+        svelte: applications["svelte-csr"].brotli,
+      },
+      {
+        label: "Hydration",
+        vue: applications["vue-hydrate"].brotli,
+        svelte: applications["svelte-hydrate"].brotli,
+      },
+    ],
+  });
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
+  <title id="title">TodoMVC in 2026: the bundle-size tradeoff remains</title>
+  <desc id="description">Vue emits less component-specific code than Svelte in the current TodoMVC specimen. Svelte's complete one-component CSR and hydration bundles remain smaller because its shared framework baseline is smaller.</desc>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .title { font-size: 23px; font-weight: 700; }
+    .subtitle { font-size: 14px; fill: #4a5560; }
+    .panel-title { font-size: 16px; font-weight: 700; }
+    .axis { stroke: #44515e; stroke-width: 1.5; }
+    .grid { stroke: #dce2e7; stroke-width: 1; }
+    .tick { font-size: 12px; }
+    .category { font-size: 13px; font-weight: 600; }
+    .value { font-size: 11px; font-weight: 650; }
+    .legend { font-size: 14px; font-weight: 650; }
+  </style>
+  <rect width="${width}" height="${height}" fill="#ffffff" />
+  <text x="42" y="38" class="title">TodoMVC in 2026: the tradeoff remains</text>
+  <text x="42" y="62" class="subtitle">Vue emits less component code; Svelte’s one-component app remains smaller.</text>
+  <rect x="650" y="27" width="15" height="15" rx="2" fill="${colors.vue}" />
+  <text x="674" y="40" class="legend">Vue 3.5</text>
+  <rect x="760" y="27" width="15" height="15" rx="2" fill="${colors.svelte}" />
+  <text x="784" y="40" class="legend">Svelte 5</text>
+  ${componentPanel}
+  ${applicationPanel}
+  <text x="440" y="478" text-anchor="middle" class="subtitle">Exact 2021 TodoMVC source specimen compiled with the pinned 2026 toolchain.</text>
+</svg>
+`.replace(/^[ \t]+$/gm, "");
+}
+
 const routeSplit = JSON.parse(
   fs.readFileSync(path.join(root, "route-split-trimmed.json"), "utf8"),
 );
@@ -307,4 +437,15 @@ fs.writeFileSync(
   }),
 );
 
-console.log("Generated 2 deterministic SVG charts");
+const originalSpecimen = JSON.parse(
+  fs.readFileSync(path.join(root, "original-specimen.json"), "utf8"),
+);
+fs.writeFileSync(
+  path.join(outputDir, "todomvc-2026-results.svg"),
+  todoMvcResultsChart(
+    originalSpecimen.componentResults,
+    originalSpecimen.appResults,
+  ),
+);
+
+console.log("Generated 3 deterministic SVG charts");

@@ -100,6 +100,29 @@ The extended interpretation and limitations live in
 [`analysis.md`](analysis.md). The exact workloads, controls, and transfer model
 live in [`METHODOLOGY.md`](METHODOLOGY.md).
 
+## Updated TodoMVC results
+
+Recompiling Evan You’s exact 2021 TodoMVC specimen with the pinned 2026
+toolchain preserves the original tradeoff: Vue emits less component-specific
+code, while Svelte keeps the smaller complete one-component bundle because its
+shared framework baseline is smaller.
+
+| Output | Vue 3.5 | Svelte 5 | Smaller result |
+| --- | ---: | ---: | --- |
+| Component only, minified | 3.802 kB | 5.213 kB | Vue by 1.411 kB |
+| Component only, gzip | 1.484 kB | 1.762 kB | Vue by 0.278 kB |
+| Component only, Brotli | 1.306 kB | 1.500 kB | Vue by 0.194 kB |
+| Complete CSR bundle, minified | 66.160 kB | 41.203 kB | Svelte by 24.957 kB |
+| Complete CSR bundle, gzip | 25.764 kB | 15.919 kB | Svelte by 9.845 kB |
+| Complete CSR bundle, Brotli | 23.445 kB | 14.407 kB | Svelte by 9.038 kB |
+| Complete hydration bundle, Brotli | 25.078 kB | 14.587 kB | Svelte by 10.491 kB |
+
+![Vue emits less component-specific code while Svelte’s complete one-component TodoMVC bundle remains smaller](docs/images/todomvc-2026-results.svg)
+
+*The component-only rows exclude shared module bindings. Complete bundles
+include the framework runtime and application component together. Exact build
+details are in [`original-specimen.md`](original-specimen.md).*
+
 ## Run the benchmarks
 
 Requirements:
