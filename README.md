@@ -101,7 +101,7 @@ replication separately preserves Evan You’s original sources.
 Reproduction commands begin at
 [`Run the benchmarks`](#run-the-benchmarks).
 
-## OpenSlides: the primary 2026 case study
+## Vue wins in a medium-sized application
 
 Evan You projected the crossover from one TodoMVC component. To measure the
 same principle in a substantial application, I ported the frontend of
