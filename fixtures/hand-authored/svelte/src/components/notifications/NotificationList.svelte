@@ -1,6 +1,6 @@
 <script>
   import { notifications as initial } from "@shared/catalog.js";
-  let notices = $state(initial.map((item) => ({ ...item })));
+  let notices = $state.raw(initial.map((item) => ({ ...item })));
   let unreadOnly = $state(false);
   let visible = $derived(unreadOnly ? notices.filter((item) => !item.read) : notices);
   function dismiss(id) { notices = notices.filter((item) => item.id !== id); }

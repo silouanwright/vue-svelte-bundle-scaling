@@ -39,6 +39,19 @@ All builds target ES2022, use Vite’s Oxc production minifier, omit source maps
 and disable Vite’s own display-only compressed-size calculation. This harness
 reads the emitted JavaScript bytes itself.
 
+The primary reports use the official plugin defaults. The generated
+route-split and hand-authored lanes also have an app-informed trimmed profile:
+
+- Vue sets `features.optionsAPI` to `false`, because those fixtures exclusively
+  use Composition API and `<script setup>`;
+- Svelte sets `compilerOptions.discloseVersion` to `false`.
+
+These are supported production settings, not source transformations or
+hand-deleted runtime code. The historical specimen and externally maintained
+matched application remain on defaults because preserving their source and
+compatibility assumptions is more important than applying an app-specific
+trim.
+
 ## Size definitions
 
 For each emitted `.js` or `.mjs` file:
@@ -186,7 +199,8 @@ controls reproduce every real chunk graph.
 
 ## Reproducibility and integrity
 
-`npm run benchmark:all` regenerates all five JSON and Markdown reports.
+`npm run benchmark:all` regenerates all five primary lanes plus the two trimmed
+profile JSON and Markdown reports.
 Temporary build roots are cleared before use and removed after successful runs.
 Upstream inputs are commit-pinned, and their downloaded bytes are recorded with
 SHA-256 digests in the generated JSON.
@@ -198,7 +212,7 @@ SHA-256 digests in the generated JSON.
 - validates initial/static-import totals in the hand-authored lane;
 - validates coalesced/raw invariants;
 - checks recorded build versions against `package.json`;
-- computes canonical SHA-256 hashes for all five JSON documents.
+- computes canonical SHA-256 hashes for all seven JSON documents.
 
 Canonicalization sorts object keys and omits only environmental metadata:
 generation timestamp, reported Node version, and operating-system platform.

@@ -200,7 +200,7 @@ function lineChart({
 }
 
 const routeSplit = JSON.parse(
-  fs.readFileSync(path.join(root, "route-split.json"), "utf8"),
+  fs.readFileSync(path.join(root, "route-split-trimmed.json"), "utf8"),
 );
 const componentCounts = routeSplit.metadata.componentCounts;
 const vueSourceLines = componentCounts.map(
@@ -242,7 +242,7 @@ fs.writeFileSync(
   lineChart({
     title: "Vue eventually becomes smaller than Svelte",
     description:
-      "Total JavaScript transferred after visiting every route, with each response compressed independently using Brotli. Each line connects separately measured production builds at 64, 128, 256, and 512 matched feature definitions. Vue's transferred JavaScript grows more slowly, so the measured gap closes and reverses by the largest build. Only the precise crossover location is estimated.",
+      "Composition-only production profile. Total JavaScript transferred after visiting every route, with each response compressed independently using Brotli. Each line connects separately measured production builds at 64, 128, 256, and 512 matched feature definitions. Vue's transferred JavaScript grows more slowly, so the measured gap closes and reverses by the largest build. Only the precise crossover location is estimated.",
     xLabel: "Nonblank source lines",
     yLabel: "JavaScript transferred after all routes (Brotli)",
     xValues: [0, 2000, 4000, 6000, 8000, 10_000],

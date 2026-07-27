@@ -6,16 +6,22 @@
       "sha256": "5ebc5e7a3f1dffed0b902157896e82777c6049358b9230f07b88a02e4e4d1931"
     },
     "results.json": {
-      "sha256": "9bfe31c86fb429935ec4b97b347f11c5a6172d8dc95f656d372650df42eb59a9"
+      "sha256": "d619ed8c422770ed853dc3ec630b578d83fa0c808e92adf941fcbbec3a28b88b"
     },
     "route-split.json": {
-      "sha256": "69fb18ce6c59254cea8be3ace038e2680a5db685d7a765cc8edbfa28a5575e4c"
+      "sha256": "0ac34d067994274bd92810c7b127c20e2305bde6c9e711faf4afcacf4787953c"
     },
     "matched-app.json": {
       "sha256": "002e6dac1246e3f26043eded7b4e20c271cff777010e5abfe5801d7dd7bfc01f"
     },
     "hand-authored.json": {
-      "sha256": "4ace354a1ba470217a4088712c7357836977bb0243b38f1a05125e8cb3f2dc95"
+      "sha256": "918a8a02652a33dfb5c047b74da8cdd6381fc54935a9d2c05599df8ca5bb1288"
+    },
+    "route-split-trimmed.json": {
+      "sha256": "cfb1e78d43916821b7653bcb54fc23a70a0ef0b97834ca26131a22c10ac6bb36"
+    },
+    "hand-authored-trimmed.json": {
+      "sha256": "54d4c1fcf5af84b28b857c9beb3a972982f63576d0cbdb164e3bf7ded7515ba7"
     }
   }
 }

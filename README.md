@@ -60,9 +60,23 @@ larger shared baseline.
 
 ## Is this still true in 2026?
 
-Yes. We put together this updated example to build on and expand Evan You’s
-original comparison five years later, using a current toolchain and broader
-benchmarks.
+Yes. It remains true with Vue’s default Options API compatibility enabled: in
+the route-loaded fixture, Vue becomes smaller near 237 compact definitions
+with gzip and 338 with Brotli.
+
+Options API is not deprecated—Vue describes both API styles as fully capable.
+But Vue
+[recommends Composition API with Single-File Components for full
+applications](https://vuejs.org/guide/introduction.html#which-to-choose).
+The opening graph therefore uses the more representative production profile
+for this fixture: its Vue source is entirely Composition API and `<script
+setup>`, so the unused Options API is disabled. That moves the measured
+crossovers earlier, to approximately 171 definitions with gzip and 243 with
+Brotli. Disabling Options API does not create Vue’s amortization advantage; it
+makes an advantage that already exists arrive sooner.
+
+We put together this updated example to build on and expand Evan You’s original
+comparison five years later, using a current toolchain and broader benchmarks.
 
 ## Updated packages for the 2026 benchmark
 
@@ -81,6 +95,7 @@ benchmarks.
 - Initial-route, lazy-route, and complete-traversal transfer
 - Marginal bytes per component and estimated crossover points
 - Generated scaling workloads and independently authored application controls
+- Default and app-informed trimmed production profiles
 
 That is the overview, and if that is all you came for, that is all you need to
 read. To run the benchmarks yourself, see [Reproduce it](#reproduce-it).
@@ -109,7 +124,7 @@ routes. These are deliberate scaling tests, not claims that one TodoMVC
 application contains hundreds of components.
 
 The independently authored control is an eight-route, 33-component
-product-shaped application. Svelte remains 7,604 B smaller across a complete
+product-shaped application. Svelte remains 7,437 B smaller across a complete
 cold traversal, but every lazy feature file is smaller with Vue after Brotli.
 That result shows the same distinction in a small application: Vue’s marginal
 amortization benefit is already visible even though the complete application
@@ -143,10 +158,10 @@ browsers actually receive production JavaScript.
 | Workload | What is held constant | Result |
 | --- | --- | --- |
 | Original 2021 TodoMVC source | Same historical component source, current compilers | Vue component-only output was 1,306 B Brotli; Svelte was 1,500 B. Complete Svelte bundles were still 9–10 kB smaller. |
-| Controlled scaling | 0–640 distinct generated definitions, complete production builds | Vue crossed in raw client JavaScript near 272–326 components, depending on lane and component shape. No compressed crossover appeared through 640 near-clones. |
-| Route-split scaling stress test | Eight different UI behaviors per independently compressed lazy response | Vue crossed in this generated workload near 241 compact definitions with gzip and 339 with Brotli. |
+| Controlled scaling | 0–640 distinct generated definitions, complete production builds | Vue crossed in raw client JavaScript near 323–419 components, depending on lane and component shape. No compressed crossover appeared through 640 near-clones. |
+| Route-split scaling stress test | Eight different UI behaviors per independently compressed lazy response | With framework defaults, Vue crossed near 237 compact definitions with gzip and 338 with Brotli. The Composition-only production profile crossed near 171 and 243. |
 | Independently maintained matched app | Keyed `js-framework-benchmark` implementations | Svelte was 9,919 B smaller with Brotli. |
-| Small product-shaped app | Same 8-route, 33-component behavior contract | Svelte was 7,604 B smaller for a complete cold traversal and 8,400 B smaller initially. The complete gap narrowed as routes were added. |
+| Small product-shaped app | Same 8-route, 33-component behavior contract | Svelte was 7,437 B smaller for a complete cold traversal and 8,284 B smaller initially. The complete gap narrowed as routes were added. |
 
 The route-split scaling row is the crossover shown in the opening chart. The
 final two rows are the control against overstating it: Svelte remains
@@ -154,6 +169,52 @@ decisively smaller in the complete small applications measured here. In the
 33-component product-shaped application, every lazy feature file was smaller
 with Vue after Brotli, but those savings had not yet repaid Vue’s larger
 starting point.
+
+## Were the Svelte fixtures optimized?
+
+The current-source fixtures were audited against
+[Svelte’s official best
+practices](https://svelte.dev/docs/svelte/best-practices). They use Svelte 5
+runes, `$derived` for computed state, current event attributes, keyed changing
+lists, and the current direct form for dynamic components. All 33
+hand-authored Svelte components compile without a Svelte warning, and both
+framework implementations must pass the same browser behavior contract.
+
+The audit found one real defect in Vue’s favor: a no-op `watch` with no Svelte
+equivalent. It was removed. It also replaced six Svelte `class:` directives
+with the currently recommended object-valued `class` form. That Svelte change
+did not make the output smaller; it added 114 B of Brotli to the complete
+hand-authored application. It remains because the canonical fixture should
+model current documented source, not whichever syntax happens to win a
+particular measurement.
+
+A separate trimmed-production profile tests the supported configuration
+choices available once an application knows what it does not use:
+
+- Vue disables its unused Options API through the
+  [official `optionsAPI` compile-time
+  feature](https://vuejs.org/api/compile-time-flags.html#__vue_options_api__).
+- Svelte disables browser-visible version disclosure through its
+  [`discloseVersion` compiler
+  option](https://svelte.dev/docs/svelte/svelte-compiler#CompileOptions).
+
+No application behavior is removed. The same source and production pipeline
+are otherwise retained.
+
+| Measurement | Official plugin defaults | Trimmed production profile |
+| --- | ---: | ---: |
+| Route-loaded gzip crossover | ≈ 237 definitions | ≈ 171 definitions |
+| Route-loaded Brotli crossover | ≈ 338 definitions | ≈ 243 definitions |
+| Vue advantage at 512 definitions, Brotli | 4,498 B | 7,279 B |
+| Svelte advantage in the complete 33-definition app, Brotli | 7,437 B | 5,861 B |
+
+The configuration sensitivity therefore strengthens rather than creates the
+amortization result. It also closes off a misleading comparison: “optimized
+Svelte” should not be measured against Vue’s compatibility-oriented defaults
+when the Vue application exclusively uses Composition API. The complete
+reports are in
+[`route-split-trimmed.md`](route-split-trimmed.md) and
+[`hand-authored-trimmed.md`](hand-authored-trimmed.md).
 
 ## What these benchmarks establish
 
@@ -165,10 +226,10 @@ boundary for every codebase.
 
 1. **Svelte starts substantially smaller.** It won every complete
    small-application comparison in this repository. For the small
-   product-shaped application, Svelte’s initial JavaScript was 8,400 B smaller
+   product-shaped application, Svelte’s initial JavaScript was 8,284 B smaller
    with Brotli.
 2. **Vue can add less code as an application grows.** All seven lazy feature
-   routes in the small product-shaped application were 32–201 B smaller with
+   routes in the small product-shaped application were 39–213 B smaller with
    Vue after Brotli. The application did not grow far enough to repay Vue’s
    larger initial entry, but the direction of the marginal cost was consistent.
 3. **Compression invalidates simple per-component arithmetic.** Vue became
@@ -177,8 +238,9 @@ boundary for every codebase.
    compiler-generated patterns compressed exceptionally well.
 4. **Chunk boundaries can reverse the compressed result.** In the route-split
    scaling workload, each lazy response had its own compression dictionary.
-   Vue crossed from larger to smaller near 241 compact definitions with gzip
-   and 339 with Brotli. This proves that Vue’s amortization can become a real
+   With default compatibility settings, Vue crossed from larger to smaller
+   near 237 compact definitions with gzip and 338 with Brotli. This proves that
+   Vue’s amortization can become a real
    transfer-size advantage, not that every application will cross at those
    counts.
 5. **Bundle size and runtime performance are different questions.** These
@@ -350,6 +412,7 @@ npm run benchmark
 npm run benchmark:route-split
 npm run benchmark:matched-app
 npm run benchmark:hand-authored
+npm run benchmark:optimization-sensitivity
 ```
 
 Generate the committed charts:
@@ -381,6 +444,8 @@ test code are development-only dependencies and never enter a measured bundle.
 | [`route-split.json`](route-split.json) / [`route-split.md`](route-split.md) | Generated route-split scaling curve |
 | [`matched-app.json`](matched-app.json) / [`matched-app.md`](matched-app.md) | Commit-pinned external matched application |
 | [`hand-authored.json`](hand-authored.json) / [`hand-authored.md`](hand-authored.md) | Independently authored 8-route application |
+| [`route-split-trimmed.json`](route-split-trimmed.json) / [`route-split-trimmed.md`](route-split-trimmed.md) | Route-split sensitivity with unused framework features disabled |
+| [`hand-authored-trimmed.json`](hand-authored-trimmed.json) / [`hand-authored-trimmed.md`](hand-authored-trimmed.md) | Hand-authored sensitivity with unused framework features disabled |
 | [`fixtures/hand-authored/SPEC.md`](fixtures/hand-authored/SPEC.md) | Framework-neutral behavior contract fixed before measurement |
 | [`tests/hand-authored-parity.spec.mjs`](tests/hand-authored-parity.spec.mjs) | Identical Playwright assertions against Vue and Svelte |
 | [`results-lock.json`](results-lock.json) | Cross-platform normalized SHA-256 hashes for generated JSON |

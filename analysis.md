@@ -66,10 +66,10 @@ distinct modules. It does not estimate a bundle by multiplying one component.
 For client rendering, Vue crossed from larger to smaller **raw minified
 JavaScript** near:
 
-- 272 counter definitions;
-- 279 Todo-style definitions.
+- 323 counter definitions;
+- 354 Todo-style definitions.
 
-The hydration-client raw crossovers appeared near 307 and 326 definitions.
+The hydration-client raw crossovers appeared near 366 and 419 definitions.
 This confirms the architectural mechanism: in these workloads, Vue’s larger
 client runtime is eventually repaid by smaller raw increments.
 
@@ -124,19 +124,22 @@ Every emitted JavaScript response is compressed independently.
 | Components | Routes | Vue Brotli | Svelte Brotli | Vue − Svelte |
 | ---: | ---: | ---: | ---: | ---: |
 | 0 | 0 | 21,837 B | 11,347 B | +10,490 B |
-| 128 | 16 | 46,947 B | 41,356 B | +5,591 B |
-| 256 | 32 | 70,350 B | 68,158 B | +2,192 B |
-| 512 | 64 | 117,145 B | 121,690 B | −4,545 B |
+| 128 | 16 | 46,882 B | 41,234 B | +5,648 B |
+| 256 | 32 | 70,154 B | 68,050 B | +2,104 B |
+| 512 | 64 | 117,254 B | 121,752 B | −4,498 B |
 
-Linear interpolation between the sampled builds places the crossover near 241
-compact component definitions for gzip and 339 for Brotli in this workload.
+Linear interpolation between the sampled default-profile builds places the
+crossover near 237 compact component definitions for gzip and 338 for Brotli
+in this workload.
 
 ![Svelte uses fewer source lines in the matched fixture, while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
 
-The chart positions each framework by its own nonblank source-line count.
-Piecewise-linear interpolation gives an imperfect estimate of the two curves’
-source-size crossover: approximately 2,120 lines and 45.1 kB transferred in
-this fixture. This is intentionally a different question from the
+The opening chart uses the Composition-only production profile: Vue’s unused
+Options API is disabled, and Svelte’s version disclosure is disabled. It
+positions each framework by its own nonblank source-line count. Piecewise-linear
+interpolation gives an imperfect estimate of the two curves’ source-size
+crossover: approximately 1,560 lines and 36.8 kB transferred in this fixture.
+This is intentionally a different question from the
 matched-workload crossover: equal source-line counts do not represent exactly
 equal functionality because Svelte expresses this fixture more tersely.
 
@@ -145,8 +148,9 @@ lines and 1,159 Vue lines. The complete reports retain the empty-shell and
 8–32-definition measurements.
 
 At each substantial matched sample, Svelte uses about 19% fewer nonblank source
-lines. The same-behavior Brotli crossover remains near 339 compact definitions,
-which correspond to approximately 6,000 Vue lines or 4,900 Svelte lines. The
+lines. In the Composition-only profile, the same-behavior Brotli crossover is
+near 243 compact definitions, which correspond to approximately 4,330 Vue
+lines or 3,510 Svelte lines. The
 ordinary source-size chart makes the scale easier to imagine; the matched
 benchmark establishes the controlled framework comparison.
 
@@ -156,9 +160,9 @@ survived network compression once route boundaries prevented all repeated
 compiler patterns from sharing a single global dictionary.
 
 The diagnostic makes that mechanism visible. At 512 components, the sum of
-independently compressed route responses was 117,145 B for Vue and 121,690 B
+independently compressed route responses was 117,254 B for Vue and 121,752 B
 for Svelte. When the same emitted files were artificially concatenated and
-compressed once, the totals became 28,964 B and 19,622 B respectively. Svelte
+compressed once, the totals became 29,059 B and 19,582 B respectively. Svelte
 benefited dramatically more from the global repetition.
 
 Neither number is “the true bundle size” without a delivery model. The first
@@ -193,26 +197,26 @@ browser-tested behavior contract.
 | ---: | ---: | ---: | ---: | ---: |
 | 1 | 5 | 23,560 B | 13,992 B | +9,568 B |
 | 2 | 9 | 26,247 B | 17,110 B | +9,137 B |
-| 4 | 17 | 28,853 B | 20,712 B | +8,141 B |
-| 8 | 33 | 33,353 B | 25,749 B | +7,604 B |
+| 4 | 17 | 28,853 B | 20,865 B | +7,988 B |
+| 8 | 33 | 33,280 B | 25,843 B | +7,437 B |
 
 Svelte remains smaller initially and across a cold traversal of every route.
 At the full eight-route point:
 
-- initial Brotli: Vue 25,568 B; Svelte 17,168 B;
-- complete Brotli: Vue 33,353 B; Svelte 25,749 B.
+- initial Brotli: Vue 25,565 B; Svelte 17,281 B;
+- complete Brotli: Vue 33,280 B; Svelte 25,843 B.
 
-The complete gap narrows by 1,964 B as the fixture grows from 5 to 33
+The complete gap narrows by 2,131 B as the fixture grows from 5 to 33
 definitions. All seven individual lazy route chunks are smaller in Vue after
-Brotli—by 32–201 B each—but the larger initial runtime is not repaid in this
+Brotli—by 39–213 B each—but the larger initial runtime is not repaid in this
 application. Chunk allocation is bundler-dependent, so those route increments
 should not be mistaken for framework-free component output; they do show why
 the complete gap narrows.
 
 The individually written application also passes a useful realism check. Its
-per-response Brotli totals are 36.0% of raw JavaScript for Vue and 36.9% for
+per-response Brotli totals are 35.9% of raw JavaScript for Vue and 36.8% for
 Svelte—close to the one-component ratios and far from the clone-heavy Todo
-lane’s 4.2% and 2.8%. Coalescing every route lowers those ratios to 33.0% and
+lane’s 4.2% and 2.8%. Coalescing every route lowers those ratios to 32.9% and
 32.8%, which quantifies the smaller, credible amount of repetition split
 across its route responses.
 
@@ -220,7 +224,27 @@ This is precisely the kind of negative result the study needs. The harness was
 not built to force a Vue crossover. It shows both the direction of marginal
 growth and the scale at which Svelte still wins.
 
-## 6. Svelte 5 changes the historical framing
+## 6. Supported production trimming moves the crossover earlier
+
+The primary reports use the official Vite plugin defaults. A second profile
+tests one supported, behavior-preserving production trim for each framework:
+Vue disables its unused Options API, while Svelte disables browser-visible
+version disclosure.
+
+| Measurement | Default | Trimmed |
+| --- | ---: | ---: |
+| Route-split gzip crossover | ≈ 237 definitions | ≈ 171 definitions |
+| Route-split Brotli crossover | ≈ 338 definitions | ≈ 243 definitions |
+| Complete 33-definition Vue − Svelte gap | +7,437 B | +5,861 B |
+
+The result is asymmetric because the optional surfaces are asymmetric. Vue’s
+compatibility-oriented default carries substantially more removable code than
+Svelte’s version marker. This sensitivity does not manufacture the
+amortization curve—the default profile already crosses—but it demonstrates
+that comparing a deliberately trimmed Svelte build to Vue’s default would be
+an avoidable configuration bias.
+
+## 7. Svelte 5 changes the historical framing
 
 It is no longer precise to describe modern Svelte as merely “the framework
 without a runtime.” Svelte 5 uses shared runtime machinery and signals while

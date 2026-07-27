@@ -12,6 +12,8 @@ const resultFiles = [
   "route-split.json",
   "matched-app.json",
   "hand-authored.json",
+  "route-split-trimmed.json",
+  "hand-authored-trimmed.json",
 ];
 const sizeKeys = ["raw", "gzip", "brotli"];
 
@@ -109,12 +111,12 @@ function validateResults(file, data, packageJson) {
     const context = `${file}:results[${index}]`;
     validateFileList(result.files, `${context}:files`);
 
-    if (file === "route-split.json") {
+    if (file.startsWith("route-split")) {
       validateSizeObject(result.chunked, `${context}:chunked`);
       validateSizeObject(result.coalesced, `${context}:coalesced`);
       assertSizesEqual(sumFiles(result.files), result.chunked, `${context}:chunked`);
       assert(result.coalesced.raw === result.chunked.raw, `${context}: coalesced raw differs`);
-    } else if (file === "hand-authored.json") {
+    } else if (file.startsWith("hand-authored")) {
       validateSizeObject(result.initial, `${context}:initial`);
       validateSizeObject(result.complete, `${context}:complete`);
       validateSizeObject(result.coalesced, `${context}:coalesced`);

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-labelledby="title description">
   <title id="title">Vue eventually becomes smaller than Svelte</title>
-  <desc id="description">Total JavaScript transferred after visiting every route, with each response compressed independently using Brotli. Each line connects separately measured production builds at 64, 128, 256, and 512 matched feature definitions. Vue's transferred JavaScript grows more slowly, so the measured gap closes and reverses by the largest build. Only the precise crossover location is estimated.</desc>
+  <desc id="description">Composition-only production profile. Total JavaScript transferred after visiting every route, with each response compressed independently using Brotli. Each line connects separately measured production builds at 64, 128, 256, and 512 matched feature definitions. Vue's transferred JavaScript grows more slowly, so the measured gap closes and reverses by the largest build. Only the precise crossover location is estimated.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -53,9 +53,9 @@
     <line x1="838" y1="430" x2="838" y2="437" class="axis" />
     <text x="838" y="457" text-anchor="middle" class="tick">10000</text>
 
-    <line x1="245.39" y1="72" x2="245.39" y2="430" class="marker" />
-    <text x="254.39" y="177" text-anchor="start" class="annotation annotation-emphasis">Crossover near 2.1k lines</text>
-  <polyline points="173.16,339.92 258.58,309.95 429.44,250.11 771.15,130.44" fill="none" stroke="#238a62" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" /><polyline points="156.69,358.76 225.87,324.25 364.24,255.71 640.98,118.82" fill="none" stroke="#d93600" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
+    <line x1="203.3" y1="72" x2="203.3" y2="430" class="marker" />
+    <text x="212.3" y="177" text-anchor="start" class="annotation annotation-emphasis">Crossover near 1.6k lines</text>
+  <polyline points="173.16,346.34 258.58,316.46 429.44,256.9 771.15,137.03" fill="none" stroke="#238a62" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" /><polyline points="156.69,358.89 225.87,324.61 364.24,255.97 640.98,118.41" fill="none" stroke="#d93600" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />
   <g transform="translate(450 292)">
     <rect width="367" height="94" rx="8" class="callout-box" />
     <g transform="translate(6 9) scale(0.1171875)" class="callout-icon">

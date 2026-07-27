@@ -23,6 +23,8 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const fixtureRoot = join(root, "fixtures", "hand-authored");
 const workRoot = join(root, ".work-hand-authored");
 const packageJson = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
+const trimmed = process.argv.includes("--trimmed");
+const profile = trimmed ? "trimmed" : "default";
 const routeCounts = [1, 2, 4, 8];
 const frameworks = ["vue", "svelte"];
 const routeNames = [
@@ -159,7 +161,16 @@ async function measure(framework, routeCount) {
     configFile: false,
     logLevel: "error",
     resolve: { alias: { "@shared": join(caseRoot, "shared") } },
-    plugins: framework === "vue" ? [vue()] : [svelte()],
+    plugins:
+      framework === "vue"
+        ? [vue(trimmed ? { features: { optionsAPI: false } } : {})]
+        : [
+            svelte(
+              trimmed
+                ? { compilerOptions: { discloseVersion: false } }
+                : {},
+            ),
+          ],
     build: {
       target: "es2022",
       minify: "oxc",
@@ -218,13 +229,14 @@ function bytes(value) {
 
 function report(results, metadata) {
   const lines = [
-    "# Hand-Authored Application Results",
+    `# Hand-Authored Application Results${trimmed ? " — Trimmed Production Profile" : ""}`,
     "",
     `Generated: ${metadata.generatedAt}`,
     "",
     `- Vue: ${metadata.versions.vue}`,
     `- Svelte: ${metadata.versions.svelte}`,
     `- Vite: ${metadata.versions.vite}`,
+    `- Framework profile: ${metadata.profile}`,
     "- Workload: eight feature routes, three independently authored leaf components per route",
     "- Compression: gzip level 9 and Brotli quality 11, applied to every JavaScript response independently",
     "",
@@ -315,12 +327,26 @@ const metadata = {
   routeCounts,
   routeNames,
   compression: { gzipLevel: 9, brotliQuality: 11 },
+  profile,
+  frameworkOptions: trimmed
+    ? {
+        vue: { optionsAPI: false },
+        svelte: { discloseVersion: false },
+      }
+    : {
+        vue: "official plugin defaults",
+        svelte: "official plugin defaults",
+      },
   versions: {
     vite: packageJson.dependencies.vite,
     vue: packageJson.dependencies.vue,
     svelte: packageJson.dependencies.svelte,
   },
 };
-await writeFile(join(root, "hand-authored.json"), `${JSON.stringify({ metadata, results }, null, 2)}\n`);
-await writeFile(join(root, "hand-authored.md"), report(results, metadata));
+const outputStem = trimmed ? "hand-authored-trimmed" : "hand-authored";
+await writeFile(
+  join(root, `${outputStem}.json`),
+  `${JSON.stringify({ metadata, results }, null, 2)}\n`,
+);
+await writeFile(join(root, `${outputStem}.md`), report(results, metadata));
 await rm(workRoot, { recursive: true, force: true });

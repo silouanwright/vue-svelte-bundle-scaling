@@ -39,8 +39,8 @@ jobs:
       - name: Test equivalent behavior
         run: npm test
 
-      - name: Reproduce hand-authored application
-        run: npm run benchmark:hand-authored
+      - name: Reproduce current-source application profiles
+        run: npm run benchmark:route-split && npm run benchmark:hand-authored && npm run benchmark:optimization-sensitivity
 
       - name: Verify normalized measurements
         run: npm run verify

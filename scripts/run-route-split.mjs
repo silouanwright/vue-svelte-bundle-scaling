@@ -17,6 +17,8 @@ const workRoot = join(benchmarkRoot, ".work-route-split");
 const packageJson = JSON.parse(
   await readFile(join(benchmarkRoot, "package.json"), "utf8"),
 );
+const trimmed = process.argv.includes("--trimmed");
+const profile = trimmed ? "trimmed" : "default";
 const componentCounts = [0, 8, 16, 32, 64, 128, 256, 512];
 const componentsPerRoute = 8;
 const frameworks = ["vue", "svelte"];
@@ -142,8 +144,8 @@ const label = computed(() => \`Page \${page.value} of \${total}\`);
   </article>
 </template>`,
     `<script setup>
-import { ref } from "vue";
-const notices = ref([
+import { shallowRef } from "vue";
+const notices = shallowRef([
   { id: ${seed * 10 + 1}, text: "Indexed ${seed} files", level: "success" },
   { id: ${seed * 10 + 2}, text: "Review item ${seed}", level: "warning" },
 ]);
@@ -245,7 +247,7 @@ function svelteComponent(family, index) {
   <button disabled={page === total} onclick={() => page++}>Next</button>
 </article>`,
     `<script>
-  let notices = $state([
+  let notices = $state.raw([
     { id: ${seed * 10 + 1}, text: "Indexed ${seed} files", level: "success" },
     { id: ${seed * 10 + 2}, text: "Review item ${seed}", level: "warning" },
   ]);
@@ -445,8 +447,15 @@ async function measureCase(framework, count) {
     logLevel: "error",
     plugins:
       framework === "vue"
-        ? [vue()]
-        : [svelte({ compilerOptions: { dev: false } })],
+        ? [vue(trimmed ? { features: { optionsAPI: false } } : {})]
+        : [
+            svelte({
+              compilerOptions: {
+                dev: false,
+                ...(trimmed ? { discloseVersion: false } : {}),
+              },
+            }),
+          ],
     build: {
       target: "es2022",
       minify: "oxc",
@@ -511,13 +520,14 @@ function report(results, metadata) {
   const vuePoints = results.filter((result) => result.framework === "vue");
   const sveltePoints = results.filter((result) => result.framework === "svelte");
   const lines = [
-    "# Heterogeneous Route-Split Bundle Results",
+    `# Heterogeneous Route-Split Bundle Results${trimmed ? " — Trimmed Production Profile" : ""}`,
     "",
     `Generated: ${metadata.generatedAt}`,
     "",
     `- Vue: ${metadata.versions.vue}`,
     `- Svelte: ${metadata.versions.svelte}`,
     `- Vite: ${metadata.versions.vite}`,
+    `- Framework profile: ${metadata.profile}`,
     `- Component families: ${metadata.componentFamilies}`,
     `- Components per lazy route: ${metadata.componentsPerRoute}`,
     "- Chunked sizes sum gzip/Brotli for each emitted JavaScript file",
@@ -598,6 +608,16 @@ async function main() {
     componentCounts,
     componentFamilies: componentsPerRoute,
     componentsPerRoute,
+    profile,
+    frameworkOptions: trimmed
+      ? {
+          vue: { optionsAPI: false },
+          svelte: { discloseVersion: false },
+        }
+      : {
+          vue: "official plugin defaults",
+          svelte: "official plugin defaults",
+        },
     versions: {
       vite: packageJson.dependencies.vite,
       vue: packageJson.dependencies.vue,
@@ -607,12 +627,13 @@ async function main() {
         packageJson.dependencies["@sveltejs/vite-plugin-svelte"],
     },
   };
+  const outputStem = trimmed ? "route-split-trimmed" : "route-split";
   await writeFile(
-    join(benchmarkRoot, "route-split.json"),
+    join(benchmarkRoot, `${outputStem}.json`),
     `${JSON.stringify({ metadata, results }, null, 2)}\n`,
   );
   await writeFile(
-    join(benchmarkRoot, "route-split.md"),
+    join(benchmarkRoot, `${outputStem}.md`),
     report(results, metadata),
   );
   await rm(workRoot, { recursive: true, force: true });

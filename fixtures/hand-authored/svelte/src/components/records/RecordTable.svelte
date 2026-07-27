@@ -27,7 +27,7 @@
     <thead><tr><th>Select</th><th><button onclick={() => sort("title")}>Title</button></th><th>Status</th><th><button onclick={() => sort("pages")}>Pages</button></th></tr></thead>
     <tbody>
       {#each rows as row (row.id)}
-        <tr class:selected={selected.has(row.id)}>
+        <tr class={{ selected: selected.has(row.id) }}>
           <td><input type="checkbox" checked={selected.has(row.id)} onchange={() => toggle(row.id)} /></td>
           <td>{row.title}</td><td>{row.status}</td><td>{row.pages}</td>
         </tr>

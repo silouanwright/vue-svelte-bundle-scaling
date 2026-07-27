@@ -1,7 +1,7 @@
 <script setup>
 import { notifications as initial } from "@shared/catalog.js";
-import { computed, ref } from "vue";
-const notices = ref(initial.map((item) => ({ ...item })));
+import { computed, ref, shallowRef } from "vue";
+const notices = shallowRef(initial.map((item) => ({ ...item })));
 const unreadOnly = ref(false);
 const visible = computed(() => unreadOnly.value ? notices.value.filter((item) => !item.read) : notices.value);
 function dismiss(id) { notices.value = notices.value.filter((item) => item.id !== id); }

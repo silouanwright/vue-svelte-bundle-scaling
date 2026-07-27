@@ -23,9 +23,18 @@
 
 - The framework-neutral specification was fixed before measurement.
 - Both complete implementations pass the same Playwright behavior contract.
-- At 33 definitions, Svelte remained 7,604 B smaller for a complete Brotli cold traversal and 8,400 B smaller initially.
-- The complete Brotli gap narrowed by 1,964 B from the 5-definition to the 33-definition build.
+- At 33 definitions, Svelte remained 7,437 B smaller for a complete Brotli cold traversal and 8,284 B smaller initially.
+- The complete Brotli gap narrowed by 2,131 B from the 5-definition to the 33-definition build.
 - All seven individual lazy route chunks were smaller in Vue after Brotli, but Vue's initial runtime baseline was not repaid in this application.
+
+## Fixture Optimization Audit
+
+- All 33 hand-authored Svelte components compile without Svelte compiler warnings and use the current rune, event, keyed-list, and dynamic-component models.
+- Six Svelte dynamic classes were converted to the current object-valued `class` recommendation. The change added 114 B Brotli to the complete 33-definition fixture rather than making Svelte smaller.
+- An unmatched, behavior-free Vue watcher was removed; the complete Vue result fell by 14 B Brotli.
+- The trimmed profile disables Vue's unused Options API and Svelte's version disclosure. The generated route-split Brotli crossover moves from approximately 338 definitions to 243.
+- At 512 route-split definitions, Vue's Brotli advantage grows from 4,498 B under defaults to 7,279 B under the trimmed profile.
+- In the complete hand-authored app, Svelte's Brotli advantage narrows from 7,437 B to 5,861 B under the trimmed profile.
 
 ## Reproducibility
 

@@ -30,7 +30,7 @@ jobs:
       - name: Check documentation
         run: npm run check:docs
 
-      - name: Rebuild all five result sets
+      - name: Rebuild all seven result artifacts
         run: npm run benchmark:all
 
       - name: Verify normalized result hashes

@@ -1,10 +1,9 @@
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 const props = defineProps({ body: { type: String, required: true } });
 const savedBody = ref(props.body);
 const revision = ref(1);
 const dirty = computed(() => props.body !== savedBody.value);
-watch(() => props.body, () => {}, { flush: "post" });
 function save() { savedBody.value = props.body; revision.value++; }
 </script>
 <template>

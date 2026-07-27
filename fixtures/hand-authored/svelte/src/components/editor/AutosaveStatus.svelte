@@ -7,7 +7,7 @@
 </script>
 <aside class="panel stack">
   <h3>Save status</h3>
-  <p class:muted={!dirty}>{dirty ? "Unsaved changes" : "All changes saved"}</p>
+  <p class={{ muted: !dirty }}>{dirty ? "Unsaved changes" : "All changes saved"}</p>
   <button disabled={!dirty} onclick={save}>Save revision</button>
   <output>Revision {revision}</output>
 </aside>

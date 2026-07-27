@@ -76,7 +76,7 @@ function svelteCounter(index) {
   let isEven = $derived(count % 2 === 0);
 </script>
 
-<section data-workload="${index}" class:even={isEven}>
+<section data-workload="${index}" class={{ even: isEven }}>
   <h2>Counter ${index}</h2>
   <button type="button" onclick={() => count--}>Decrease</button>
   <output>{count} / {doubled}</output>
@@ -257,7 +257,7 @@ function svelteTodo(index) {
   {#if visibleTodos.length}
     <ul>
       {#each visibleTodos as todo (todo.id)}
-        <li class:completed={todo.done}>
+        <li class={{ completed: todo.done }}>
           <label>
             <input bind:checked={todo.done} type="checkbox" />
             <span>{todo.title}</span>

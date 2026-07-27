@@ -8,8 +8,13 @@ The standalone repository contains five benchmark lanes:
 4. a commit-pinned independently maintained matched application;
 5. a framework-neutral, hand-authored eight-route application.
 
+The two current-source application lanes also publish symmetric trimmed
+production profiles: unused Vue Options API support is disabled, and Svelte
+version disclosure is disabled. The opening chart uses this Composition-only
+profile; the default-compatible result remains published alongside it.
+
 Both hand-authored implementations pass the same browser behavior contract.
-Two consecutive complete benchmark runs matched the normalized result lock.
+The result lock covers all seven JSON artifacts.
 Publication-facing claims and limitations are in `README.md`,
 `METHODOLOGY.md`, and `analysis.md`.
 
