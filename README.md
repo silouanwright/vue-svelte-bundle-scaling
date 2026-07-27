@@ -141,24 +141,6 @@ Playwright opens both complete fixtures and performs the same interactions so
 that unlike behavior cannot be rewarded with a smaller result. The browser and
 test code are development-only dependencies and never enter a measured bundle.
 
-## Repository map
-
-| Path | Purpose |
-| --- | --- |
-| [`METHODOLOGY.md`](METHODOLOGY.md) | Benchmark questions, controls, compression model, equivalence rules, and limitations |
-| [`analysis.md`](analysis.md) | Evidence-backed interpretation of all five lanes |
-| [`results.json`](results.json) / [`results.md`](results.md) | Controlled 0–640-definition matrix |
-| [`original-specimen.json`](original-specimen.json) / [`original-specimen.md`](original-specimen.md) | Current compilation of the exact 2021 specimen |
-| [`route-split.json`](route-split.json) / [`route-split.md`](route-split.md) | Generated route-split scaling curve |
-| [`matched-app.json`](matched-app.json) / [`matched-app.md`](matched-app.md) | Commit-pinned external matched application |
-| [`hand-authored.json`](hand-authored.json) / [`hand-authored.md`](hand-authored.md) | Independently authored 8-route application |
-| [`route-split-trimmed.json`](route-split-trimmed.json) / [`route-split-trimmed.md`](route-split-trimmed.md) | Route-split sensitivity with unused framework features disabled |
-| [`hand-authored-trimmed.json`](hand-authored-trimmed.json) / [`hand-authored-trimmed.md`](hand-authored-trimmed.md) | Hand-authored sensitivity with unused framework features disabled |
-| [`fixtures/hand-authored/SPEC.md`](fixtures/hand-authored/SPEC.md) | Framework-neutral behavior contract fixed before measurement |
-| [`tests/hand-authored-parity.spec.mjs`](tests/hand-authored-parity.spec.mjs) | Identical Playwright assertions against Vue and Svelte |
-| [`results-lock.json`](results-lock.json) | Cross-platform normalized SHA-256 hashes for generated JSON |
-| [`docs/research/source-ledger.md`](docs/research/source-ledger.md) | Primary-source and provenance ledger |
-
 ## License
 
 The benchmark harness and original fixtures in this repository are available
