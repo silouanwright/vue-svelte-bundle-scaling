@@ -429,8 +429,8 @@ function realApplicationsChart(weatherResults, openslidesResults) {
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
-  <text x="42" y="38" class="title">From a small app to a medium-size app</text>
-  <text x="42" y="61" class="subtitle">Cumulative Brotli transfer · measured production responses</text>
+  <text x="42" y="38" class="title">From a small app to a medium-sized app (kB)</text>
+  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · measured production responses</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="${colors.vue}" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="${colors.vue}" />
   <text x="718" y="35" class="legend">Vue</text>
@@ -441,14 +441,14 @@ function realApplicationsChart(weatherResults, openslidesResults) {
   <line x1="${chart.left}" y1="${chart.top}" x2="${chart.left}" y2="${chart.bottom}" class="axis" />
   <line x1="${chart.left}" y1="${chart.bottom}" x2="${chart.right}" y2="${chart.bottom}" class="axis" />
   ${plots}
-  <text x="${stageX[0] - 10}" y="${y(stages[0].vue) - 14}" text-anchor="end" class="value">${(stages[0].vue / 1000).toFixed(3)}</text>
-  <text x="${stageX[0] + 10}" y="${y(stages[0].svelte) + 20}" class="value">${(stages[0].svelte / 1000).toFixed(3)}</text>
-  <text x="${stageX[1] - 10}" y="${y(stages[1].vue) - 10}" text-anchor="end" class="value">${(stages[1].vue / 1000).toFixed(3)}</text>
-  <text x="${stageX[1] + 10}" y="${y(stages[1].svelte) - 10}" class="value">${(stages[1].svelte / 1000).toFixed(3)}</text>
-  <text x="${stageX[2] - 10}" y="${y(stages[2].vue) + 5}" text-anchor="end" class="value">${(stages[2].vue / 1000).toFixed(3)}</text>
-  <text x="${stageX[2] - 10}" y="${y(stages[2].svelte) - 10}" text-anchor="end" class="value">${(stages[2].svelte / 1000).toFixed(3)}</text>
+  <text x="${stageX[0] - 10}" y="${y(stages[0].svelte) - 14}" text-anchor="end" class="value">${Math.floor(stages[0].svelte / 1000)} kB</text>
+  <text x="${stageX[0] + 10}" y="${y(stages[0].vue) + 10}" class="value">${Math.floor(stages[0].vue / 1000)} kB</text>
+  <text x="${stageX[1] - 10}" y="${y(stages[1].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[1].svelte / 1000)} kB</text>
+  <text x="${stageX[1] + 10}" y="${y(stages[1].vue) + 22}" class="value">${Math.floor(stages[1].vue / 1000)} kB</text>
+  <text x="${stageX[2] - 10}" y="${y(stages[2].svelte) - 12}" text-anchor="end" class="value">${Math.floor(stages[2].svelte / 1000)} kB</text>
+  <text x="${stageX[2] + 10}" y="${y(stages[2].vue) + 22}" class="value">${Math.floor(stages[2].vue / 1000)} kB</text>
   ${stageLabels}
-  <text x="440" y="492" text-anchor="middle" class="detail">Three measured production states · values in kB</text>
+  <text x="440" y="492" text-anchor="middle" class="detail">Three measured production states</text>
 </svg>
 `.replace(/^[ \t]+$/gm, "");
 }

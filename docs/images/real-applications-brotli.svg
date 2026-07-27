@@ -14,8 +14,8 @@
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="880" height="500" fill="#ffffff" />
-  <text x="42" y="38" class="title">From a small app to a medium-size app</text>
-  <text x="42" y="61" class="subtitle">Cumulative Brotli transfer · measured production responses</text>
+  <text x="42" y="38" class="title">From a small app to a medium-sized app (kB)</text>
+  <text x="42" y="61" class="subtitle">Vue versus Svelte · cumulative Brotli transfer · measured production responses</text>
   <line x1="672" y1="30" x2="708" y2="30" stroke="#238a62" stroke-width="4" />
   <circle cx="690" cy="30" r="5" fill="#238a62" />
   <text x="718" y="35" class="legend">Vue</text>
@@ -44,12 +44,12 @@
   <circle cx="156" cy="393.64" r="6" fill="#238a62" /><circle cx="454" cy="266.43" r="6" fill="#238a62" /><circle cx="752" cy="230.14" r="6" fill="#238a62" />
   <path d="M 156 394.03 Q 454 187.44, 752 107.74" fill="none" stroke="#d93600" stroke-width="4" stroke-linecap="round" />
   <rect x="151" y="389.03" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 156 394.03)" /><rect x="449" y="214.16" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 454 219.16)" /><rect x="747" y="102.74" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 752 107.74)" />
-  <text x="146" y="379.64" text-anchor="end" class="value">31.423</text>
-  <text x="166" y="414.03" class="value">30.555</text>
-  <text x="444" y="256.43" text-anchor="end" class="value">309.676</text>
-  <text x="464" y="209.16" class="value">413.089</text>
-  <text x="742" y="235.14" text-anchor="end" class="value">389.076</text>
-  <text x="742" y="97.74" text-anchor="end" class="value">656.812</text>
+  <text x="146" y="380.03" text-anchor="end" class="value">30 kB</text>
+  <text x="166" y="403.64" class="value">31 kB</text>
+  <text x="444" y="207.16" text-anchor="end" class="value">413 kB</text>
+  <text x="464" y="288.43" class="value">309 kB</text>
+  <text x="742" y="95.74" text-anchor="end" class="value">656 kB</text>
+  <text x="762" y="252.14" class="value">389 kB</text>
 
   <text x="156" y="430" text-anchor="middle" class="label">Small app</text>
   <text x="156" y="449" text-anchor="middle" class="detail">Weather Front</text>
@@ -60,5 +60,5 @@
   <text x="752" y="430" text-anchor="middle" class="label">Medium-size app</text>
   <text x="752" y="449" text-anchor="middle" class="detail">OpenSlides · two routes</text>
   <text x="752" y="467" text-anchor="middle" class="detail">Dashboard + editor</text>
-  <text x="440" y="492" text-anchor="middle" class="detail">Three measured production states · values in kB</text>
+  <text x="440" y="492" text-anchor="middle" class="detail">Three measured production states</text>
 </svg>
