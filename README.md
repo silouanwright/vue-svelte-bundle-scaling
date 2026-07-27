@@ -48,10 +48,15 @@ substantially less component code. Given enough components and application
 code, that lower marginal cost could repay the larger baseline. He concluded
 that Svelte provided a compelling advantage for isolated components, but that
 its generated-code cost could become a disadvantage for medium-to-large
-applications.
-
-This is also clearly documented in the Vue FAQ:
+applications. This is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://web.archive.org/web/20260727134318/https://vuejs.org/about/faq#is-vue-lightweight).
+
+Evan’s specimen was TodoMVC, a tiny application rather than a large product.
+Even at that scale, Vue was already generating less component-specific code
+than Svelte. That does not mean the complete Vue bundle was smaller—Svelte’s
+much smaller runtime still kept its total ahead. It means Vue’s amortization
+had already begun: every additional component could continue paying down its
+larger shared baseline.
 
 ## Is this still true in 2026?
 
@@ -96,14 +101,7 @@ the compiler-dominated Svelte 4
 design](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive#what-changed-and-why).
 Vue and Vite have also changed substantially.
 
-### Amortization begins before the crossover
-
-The original TodoMVC specimen is a very small application. It already shows
-Vue’s amortization mechanism beginning: the component-only output is 1,306 B
-with Brotli for Vue and 1,500 B for Svelte. But after including each
-framework’s runtime, the complete small Svelte bundle remains roughly 9–10 kB
-smaller. Vue is adding less component code, but it has not yet repaid its
-larger baseline.
+### What the larger fixtures represent
 
 The larger scaling workloads do not loop over one TodoMVC component at
 runtime. They generate hundreds of distinct component modules to simulate the
