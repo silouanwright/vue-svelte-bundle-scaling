@@ -45,14 +45,16 @@ In paraphrase, Svelte advocates argue the following:
 
 ## Vue amortization
 
+In this context, amortization means paying a larger shared framework cost once,
+then offsetting it by generating less code for each additional component.
+
 In 2021, Vue creator Evan You responded to these claims with
 [benchmarks](https://github.com/yyx990803/vue-svelte-size-analysis)
 showing that while Svelte had a dramatically smaller framework baseline, Vue
-was designed around amortization: Vue paid more upfront but generated
-substantially less code as more components were added. He concluded that Svelte
-provided a compelling advantage for isolated components, but that its
-generated-code cost could become a disadvantage for medium-to-large
-applications. This is also clearly documented in the Vue FAQ:
+followed this model. He concluded that Svelte provided a compelling advantage
+for isolated components, but that its generated-code cost could become a
+disadvantage for medium-to-large applications. This is also clearly documented
+in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
 
 The example application was TodoMVC—a tiny application. Even at that scale, the
