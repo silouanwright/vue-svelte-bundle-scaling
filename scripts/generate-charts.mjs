@@ -475,6 +475,17 @@ function realApplicationsChart(
     .join("");
   const formatSize = (value) =>
     `${Math.floor(value / 1000).toLocaleString("en-US")} kB`;
+  const formatRange = (stage) => {
+    const lower = Math.round(
+      Math.min(stage.vue, stage.svelte) / 1000,
+    ).toLocaleString("en-US");
+    const upper = Math.round(
+      Math.max(stage.vue, stage.svelte) / 1000,
+    ).toLocaleString("en-US");
+    return `${lower}–${upper} kB`;
+  };
+  const rangeY = (stage) =>
+    Math.min(y(stage.vue), y(stage.svelte)) - 14;
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
   <title id="title">${title}</title>
@@ -511,10 +522,8 @@ function realApplicationsChart(
   <text x="${crossoverMidpoint}" y="${chart.top + 19}" text-anchor="middle" class="crossover">Possible crossover interval</text>
   <text x="${crossoverMidpoint}" y="${chart.top + 37}" text-anchor="middle" class="detail">Exact point varies by application</text>
   ${plots}
-  <text x="${stageX[0] - 10}" y="${y(stages[0].svelte) - 14}" text-anchor="end" class="value">${formatSize(stages[0].svelte)}</text>
-  <text x="${stageX[0] + 10}" y="${y(stages[0].vue) + 14}" class="value">${formatSize(stages[0].vue)}</text>
-  <text x="${stageX[1] - 10}" y="${y(stages[1].svelte) - 12}" text-anchor="end" class="value">${formatSize(stages[1].svelte)}</text>
-  <text x="${stageX[1] - 10}" y="${y(stages[1].vue) + 18}" text-anchor="end" class="value">${formatSize(stages[1].vue)}</text>
+  <text x="${stageX[0]}" y="${rangeY(stages[0])}" text-anchor="middle" class="value">${formatRange(stages[0])}</text>
+  <text x="${stageX[1]}" y="${rangeY(stages[1])}" text-anchor="middle" class="value">${formatRange(stages[1])}</text>
   <text x="${stageX[2] - 10}" y="${y(stages[2].svelte) - 12}" text-anchor="end" class="value">${formatSize(stages[2].svelte)}</text>
   <text x="${stageX[2] + 10}" y="${y(stages[2].vue) + 22}" class="value">${formatSize(stages[2].vue)}</text>
   <text x="${stageX[3] - 10}" y="${y(stages[3].svelte) - 12}" text-anchor="end" class="value">${formatSize(stages[3].svelte)}</text>
