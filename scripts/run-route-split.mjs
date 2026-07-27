@@ -629,11 +629,11 @@ async function main() {
   };
   const outputStem = trimmed ? "route-split-trimmed" : "route-split";
   await writeFile(
-    join(benchmarkRoot, `${outputStem}.json`),
+    join(benchmarkRoot, "results", `${outputStem}.json`),
     `${JSON.stringify({ metadata, results }, null, 2)}\n`,
   );
   await writeFile(
-    join(benchmarkRoot, `${outputStem}.md`),
+    join(benchmarkRoot, "results", `${outputStem}.md`),
     report(results, metadata),
   );
   await rm(workRoot, { recursive: true, force: true });

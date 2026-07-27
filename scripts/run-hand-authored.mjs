@@ -345,8 +345,11 @@ const metadata = {
 };
 const outputStem = trimmed ? "hand-authored-trimmed" : "hand-authored";
 await writeFile(
-  join(root, `${outputStem}.json`),
+  join(root, "results", `${outputStem}.json`),
   `${JSON.stringify({ metadata, results }, null, 2)}\n`,
 );
-await writeFile(join(root, `${outputStem}.md`), report(results, metadata));
+await writeFile(
+  join(root, "results", `${outputStem}.md`),
+  report(results, metadata),
+);
 await rm(workRoot, { recursive: true, force: true });

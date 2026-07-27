@@ -190,7 +190,7 @@ async function main() {
   };
 
   await writeFile(
-    join(benchmarkRoot, "matched-app.json"),
+    join(benchmarkRoot, "results", "matched-app.json"),
     `${JSON.stringify({ metadata, results }, null, 2)}\n`,
   );
 
@@ -235,7 +235,7 @@ async function main() {
     "",
   );
   await writeFile(
-    join(benchmarkRoot, "matched-app.md"),
+    join(benchmarkRoot, "results", "matched-app.md"),
     `${lines.join("\n").trimEnd()}\n`,
   );
 

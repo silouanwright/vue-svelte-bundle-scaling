@@ -5,7 +5,7 @@
     "original-specimen.json": {
       "sha256": "5ebc5e7a3f1dffed0b902157896e82777c6049358b9230f07b88a02e4e4d1931"
     },
-    "results.json": {
+    "component-scaling.json": {
       "sha256": "d619ed8c422770ed853dc3ec630b578d83fa0c808e92adf941fcbbec3a28b88b"
     },
     "route-split.json": {

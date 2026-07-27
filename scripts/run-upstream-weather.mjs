@@ -234,7 +234,7 @@ async function main() {
     };
 
     await writeFile(
-      join(benchmarkRoot, "weather-upstream.json"),
+      join(benchmarkRoot, "results", "weather-upstream.json"),
       `${JSON.stringify({ metadata, results }, null, 2)}\n`,
     );
 
@@ -277,7 +277,7 @@ async function main() {
       "",
     );
     await writeFile(
-      join(benchmarkRoot, "weather-upstream.md"),
+      join(benchmarkRoot, "results", "weather-upstream.md"),
       `${lines.join("\n").trimEnd()}\n`,
     );
   } finally {

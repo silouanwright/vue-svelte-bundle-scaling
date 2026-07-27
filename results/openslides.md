@@ -10,8 +10,8 @@ Generated: 2026-07-27T21:47:50.983Z
 - Compression: Each emitted response compressed independently with gzip level 9 and Brotli quality 11
 - Route splitting: Dashboard and editor are lazy-loaded route chunks in both implementations
 
-- Shared behavior contract: [`tests/openslides-parity.spec.mjs`](tests/openslides-parity.spec.mjs)
-- Parity ledger: [`fixtures/openslides/PARITY.md`](fixtures/openslides/PARITY.md)
+- Shared behavior contract: [`tests/openslides-parity.spec.mjs`](../tests/openslides-parity.spec.mjs)
+- Parity ledger: [`fixtures/openslides/PARITY.md`](../fixtures/openslides/PARITY.md)
 
 | Entry JavaScript + CSS | Vue | Svelte | Vue − Svelte |
 | --- | ---: | ---: | ---: |

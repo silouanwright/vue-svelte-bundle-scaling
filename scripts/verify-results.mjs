@@ -5,10 +5,11 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const lockPath = path.join(root, "results-lock.json");
+const resultsRoot = path.join(root, "results");
+const lockPath = path.join(resultsRoot, "results-lock.json");
 const resultFiles = [
   "original-specimen.json",
-  "results.json",
+  "component-scaling.json",
   "route-split.json",
   "matched-app.json",
   "hand-authored.json",
@@ -211,7 +212,7 @@ const packageJson = JSON.parse(fs.readFileSync(path.join(root, "package.json"), 
 const artifacts = {};
 
 for (const file of resultFiles) {
-  const filePath = path.join(root, file);
+  const filePath = path.join(resultsRoot, file);
   assert(fs.existsSync(filePath), `missing ${file}`);
   const data = JSON.parse(fs.readFileSync(filePath, "utf8"));
   validateResults(file, data, packageJson);

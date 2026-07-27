@@ -16,7 +16,7 @@ profile; the default-compatible result remains published alongside it.
 Both hand-authored implementations pass the same browser behavior contract.
 The result lock covers all seven JSON artifacts.
 Publication-facing claims and limitations are in `README.md`,
-`METHODOLOGY.md`, and `analysis.md`.
+`METHODOLOGY.md`, and `docs/analysis.md`.
 
 The README's “Why this benchmark exists” section now uses distributed linked
 paraphrases to establish the public claim under test. It moves from Rich

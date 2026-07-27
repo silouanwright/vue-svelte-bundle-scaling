@@ -269,7 +269,7 @@ async function main() {
   };
 
   await writeFile(
-    join(root, "openslides.json"),
+    join(root, "results", "openslides.json"),
     `${JSON.stringify({ metadata, results }, null, 2)}\n`,
   );
 
@@ -286,8 +286,8 @@ async function main() {
     `- Compression: ${metadata.compression}`,
     `- Route splitting: ${metadata.splitting}`,
     "",
-    "- Shared behavior contract: [`tests/openslides-parity.spec.mjs`](tests/openslides-parity.spec.mjs)",
-    "- Parity ledger: [`fixtures/openslides/PARITY.md`](fixtures/openslides/PARITY.md)",
+    "- Shared behavior contract: [`tests/openslides-parity.spec.mjs`](../tests/openslides-parity.spec.mjs)",
+    "- Parity ledger: [`fixtures/openslides/PARITY.md`](../fixtures/openslides/PARITY.md)",
     "",
     "| Entry JavaScript + CSS | Vue | Svelte | Vue − Svelte |",
     "| --- | ---: | ---: | ---: |",
@@ -344,7 +344,10 @@ async function main() {
     "but are not treated as an application-transfer result.",
     "",
   );
-  await writeFile(join(root, "openslides.md"), lines.join("\n"));
+  await writeFile(
+    join(root, "results", "openslides.md"),
+    lines.join("\n"),
+  );
 }
 
 await main();

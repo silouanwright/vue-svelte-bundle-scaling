@@ -30,7 +30,7 @@ When adding a benchmark lane:
 - record licenses and all source transformations;
 - report raw, gzip, and Brotli sizes;
 - compress separate JavaScript responses independently;
-- commit machine-readable results and a readable report;
+- commit machine-readable results and a readable report under `results/`;
 - state what the workload cannot represent.
 
 Do not submit a new universal crossover claim from one synthetic workload.

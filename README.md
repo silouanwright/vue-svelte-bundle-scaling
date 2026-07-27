@@ -196,7 +196,7 @@ serious Vue implementation can be substantially smaller than the Svelte
 application it replaces.
 
 The complete requested-file inventory and reproduction command are in
-[`openslides.md`](openslides.md).
+[`results/openslides.md`](results/openslides.md).
 
 ## Small-app evidence: Weather Front
 
@@ -252,13 +252,14 @@ terminal therefore corroborates Svelte’s small-app advantage; it does not show
 Svelte remaining smaller after accumulating 100 kB of framework-generated
 application code or establish a universal crossover near 100 kB.
 
-The complete measurement is recorded in [`terminal-control.json`](terminal-control.json).
+The complete measurement is recorded in
+[`results/terminal-control.json`](results/terminal-control.json).
 The detailed reproduction, source audit, and diagnostic split are in the
 [`independent comparison audit`](docs/ai-research/20260727-realworld-comparison-audit/findings.md).
 
 The complete measurements are in
-[`weather-upstream.md`](weather-upstream.md) and
-[`weather-staged.md`](weather-staged.md). The source application is
+[`results/weather-upstream.md`](results/weather-upstream.md) and
+[`results/weather-staged.md`](results/weather-staged.md). The source application is
 [`lissy93/framework-benchmarks`](https://github.com/lissy93/framework-benchmarks).
 
 ## Controlled application-scaling simulation
@@ -290,9 +291,13 @@ API is disabled and Svelte’s version disclosure is disabled. With both
 frameworks on their official plugin defaults, Vue still becomes smaller at 64
 routes—by 4.498 kB instead of 7.279 kB.
 
+All committed reports and JSON artifacts are indexed in
+[`results/`](results/README.md).
+
 The historical reproduction lives in
-[`original-specimen.md`](original-specimen.md). The extended interpretation and
-limitations live in [`analysis.md`](analysis.md). The exact workloads, controls,
+[`results/original-specimen.md`](results/original-specimen.md). The extended
+interpretation and limitations live in
+[`docs/analysis.md`](docs/analysis.md). The exact workloads, controls,
 and transfer model live in [`METHODOLOGY.md`](METHODOLOGY.md).
 
 ## Run the benchmarks

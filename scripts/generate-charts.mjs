@@ -534,7 +534,10 @@ function realApplicationsChart(
 }
 
 const routeSplit = JSON.parse(
-  fs.readFileSync(path.join(root, "route-split-trimmed.json"), "utf8"),
+  fs.readFileSync(
+    path.join(root, "results", "route-split-trimmed.json"),
+    "utf8",
+  ),
 );
 const componentCounts = routeSplit.metadata.componentCounts;
 const vueSourceLines = componentCounts.map(
@@ -610,7 +613,10 @@ fs.writeFileSync(
 );
 
 const handAuthored = JSON.parse(
-  fs.readFileSync(path.join(root, "hand-authored.json"), "utf8"),
+  fs.readFileSync(
+    path.join(root, "results", "hand-authored.json"),
+    "utf8",
+  ),
 );
 const definitionCounts = handAuthored.metadata.routeCounts.map(
   (routes) =>
@@ -647,13 +653,19 @@ fs.writeFileSync(
 );
 
 const openslides = JSON.parse(
-  fs.readFileSync(path.join(root, "openslides.json"), "utf8"),
+  fs.readFileSync(path.join(root, "results", "openslides.json"), "utf8"),
 );
 const weatherStaged = JSON.parse(
-  fs.readFileSync(path.join(root, "weather-staged.json"), "utf8"),
+  fs.readFileSync(
+    path.join(root, "results", "weather-staged.json"),
+    "utf8",
+  ),
 );
 const terminalControl = JSON.parse(
-  fs.readFileSync(path.join(root, "terminal-control.json"), "utf8"),
+  fs.readFileSync(
+    path.join(root, "results", "terminal-control.json"),
+    "utf8",
+  ),
 );
 fs.writeFileSync(
   path.join(outputDir, "real-applications-brotli.svg"),

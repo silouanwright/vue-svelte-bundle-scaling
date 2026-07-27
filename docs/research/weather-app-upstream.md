@@ -96,8 +96,8 @@ npm run benchmark:weather-upstream
 ```
 
 The command fetches the pinned upstream commit, builds both applications, loads
-each production app with Chromium, and writes `weather-upstream.json` and
-`weather-upstream.md`.
+each production app with Chromium, and writes
+`results/weather-upstream.json` and `results/weather-upstream.md`.
 
 ## Attribution
 

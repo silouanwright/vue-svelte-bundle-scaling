@@ -261,7 +261,7 @@ async function main() {
   };
 
   await writeFile(
-    join(benchmarkRoot, "original-specimen.json"),
+    join(benchmarkRoot, "results", "original-specimen.json"),
     `${JSON.stringify({ metadata, componentResults, appResults }, null, 2)}\n`,
   );
 
@@ -337,7 +337,7 @@ async function main() {
     "",
   );
   await writeFile(
-    join(benchmarkRoot, "original-specimen.md"),
+    join(benchmarkRoot, "results", "original-specimen.md"),
     `${lines.join("\n").trimEnd()}\n`,
   );
 

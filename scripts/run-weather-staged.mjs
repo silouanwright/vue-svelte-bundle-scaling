@@ -107,7 +107,7 @@ async function main() {
     };
 
     await writeFile(
-      join(root, "weather-staged.json"),
+      join(root, "results", "weather-staged.json"),
       `${JSON.stringify({ metadata, results }, null, 2)}\n`,
     );
 
@@ -148,7 +148,10 @@ async function main() {
       "the shared behavior test.",
       "",
     );
-    await writeFile(join(root, "weather-staged.md"), lines.join("\n"));
+    await writeFile(
+      join(root, "results", "weather-staged.md"),
+      lines.join("\n"),
+    );
   } finally {
     await rm(workRoot, { recursive: true, force: true });
   }

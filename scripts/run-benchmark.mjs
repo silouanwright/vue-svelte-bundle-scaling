@@ -768,11 +768,11 @@ async function main() {
   };
 
   await writeFile(
-    join(benchmarkRoot, "results.json"),
+    join(benchmarkRoot, "results", "component-scaling.json"),
     `${JSON.stringify({ metadata, results }, null, 2)}\n`,
   );
   await writeFile(
-    join(benchmarkRoot, "results.md"),
+    join(benchmarkRoot, "results", "component-scaling.md"),
     generateReport(results, metadata),
   );
 
@@ -783,10 +783,13 @@ async function main() {
 
 if (process.argv.includes("--report-only")) {
   const saved = JSON.parse(
-    await readFile(join(benchmarkRoot, "results.json"), "utf8"),
+    await readFile(
+      join(benchmarkRoot, "results", "component-scaling.json"),
+      "utf8",
+    ),
   );
   await writeFile(
-    join(benchmarkRoot, "results.md"),
+    join(benchmarkRoot, "results", "component-scaling.md"),
     generateReport(saved.results, saved.metadata),
   );
 } else {

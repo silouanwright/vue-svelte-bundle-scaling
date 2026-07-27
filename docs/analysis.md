@@ -135,7 +135,7 @@ Linear interpolation between the sampled default-profile builds places the
 crossover near 237 compact component definitions for gzip and 338 for Brotli
 in this workload.
 
-![In the route-split application simulation, Svelte uses fewer source lines while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
+![In the route-split application simulation, Svelte uses fewer source lines while Vue eventually transfers less JavaScript](images/route-split-brotli.svg)
 
 The opening chart uses the Composition-only production profile: Vue’s unused
 Options API is disabled, and Svelte’s version disclosure is disabled. It
