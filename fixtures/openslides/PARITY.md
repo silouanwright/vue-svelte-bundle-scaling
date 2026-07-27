@@ -44,4 +44,6 @@ shared Playwright contract now runs nine behavior workflows against each
 framework—18 passing cases total. Native operating-system chrome and the Rust
 process are not part of a web-production bundle measurement; the frontend
 event, metadata, fullscreen-fallback, and quit-save boundaries are exercised
-through the same Tauri-compatible browser backend.
+through the same Tauri-compatible browser backend. Dashboard and editor are
+lazy-loaded route chunks in both production builds; the same contract crosses
+that boundary in both implementations.

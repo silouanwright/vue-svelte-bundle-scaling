@@ -339,10 +339,10 @@ function openslidesEntryChart(results) {
     y: 98,
     width: 690,
     height: 340,
-    title: "Production entry JavaScript + CSS",
-    note: "Same application behavior · each emitted response compressed independently",
-    maximum: 320_000,
-    ticks: [0, 80_000, 160_000, 240_000, 320_000],
+    title: "Lazy-loaded application shell",
+    note: "Before either dashboard or editor route is requested",
+    maximum: 100_000,
+    ticks: [0, 25_000, 50_000, 75_000, 100_000],
     barWidth: 64,
     categories: [
       {
@@ -359,8 +359,8 @@ function openslidesEntryChart(results) {
   });
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
-  <title id="title">OpenSlides Vue and Svelte production entry transfer</title>
-  <desc id="description">The behavior-matched Vue port transfers less entry JavaScript and CSS than the pinned Svelte 5 application under both gzip and Brotli compression.</desc>
+  <title id="title">OpenSlides lazy-loaded application shell transfer</title>
+  <desc id="description">Before the dashboard or editor route is requested, the Svelte 5 application shell transfers less JavaScript and CSS than the behavior-matched Vue 3 application shell.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -375,13 +375,205 @@ function openslidesEntryChart(results) {
     .legend { font-size: 14px; font-weight: 650; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
-  <text x="42" y="42" class="title">OpenSlides application entry transfer</text>
-  <text x="42" y="66" class="subtitle">Medium-sized real application · Vue 3.5 and Svelte 5</text>
+  <text x="42" y="42" class="title">OpenSlides starts smaller in Svelte</text>
+  <text x="42" y="66" class="subtitle">Route-split shell only · Vue 3.5 and Svelte 5</text>
   <rect x="650" y="27" width="15" height="15" rx="2" fill="${colors.vue}" />
   <text x="674" y="40" class="legend">Vue 3.5</text>
   <rect x="760" y="27" width="15" height="15" rx="2" fill="${colors.svelte}" />
   <text x="784" y="40" class="legend">Svelte 5</text>
   ${panel}
+</svg>
+`.replace(/^[ \t]+$/gm, "");
+}
+
+function realApplicationsChart(weatherResults, openslidesResults) {
+  const weather = Object.fromEntries(
+    weatherResults.map((result) => [result.framework, result.brotli]),
+  );
+  const openslides = Object.fromEntries(
+    openslidesResults.map((result) => [
+      result.framework,
+      result.journey.editor.brotli,
+    ]),
+  );
+  const chart = {
+    left: 104,
+    right: 822,
+    top: 88,
+    bottom: 406,
+    maximum: 700_000,
+  };
+  const pointX = { weather: 224, openslides: 700 };
+  const y = (value) =>
+    Number(
+      (
+        chart.bottom -
+        (value / chart.maximum) * (chart.bottom - chart.top)
+      ).toFixed(2),
+    );
+  const ticks = [0, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000];
+  const grid = ticks
+    .map(
+      (value) => `
+  <line x1="${chart.left}" y1="${y(value)}" x2="${chart.right}" y2="${y(value)}" class="grid" />
+  <text x="${chart.left - 14}" y="${y(value) + 5}" text-anchor="end" class="tick">${value / 1000} kB</text>`,
+    )
+    .join("");
+  const series = ["vue", "svelte"]
+    .map((framework) => {
+      const color = colors[framework];
+      return `
+  <line x1="${pointX.weather}" y1="${y(weather[framework])}" x2="${pointX.openslides}" y2="${y(openslides[framework])}" stroke="${color}" stroke-width="4" stroke-linecap="round" />
+  <circle cx="${pointX.weather}" cy="${y(weather[framework])}" r="6" fill="${color}" />
+  <circle cx="${pointX.openslides}" cy="${y(openslides[framework])}" r="6" fill="${color}" />`;
+    })
+    .join("");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
+  <title id="title">The bundle-size lead reverses between two measured real applications</title>
+  <desc id="description">With Brotli compression, Svelte transfers 30.555 kilobytes and Vue transfers 31.423 kilobytes for the small Weather Front application. After loading the dashboard and editor in the route-split medium-sized OpenSlides application, Vue transfers 389.076 kilobytes and Svelte transfers 656.812 kilobytes. Lines connect the two measured applications and do not estimate a universal crossover threshold.</desc>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .title { font-size: 23px; font-weight: 700; }
+    .subtitle { font-size: 13px; fill: #4a5560; }
+    .axis { stroke: #44515e; stroke-width: 1.5; }
+    .grid { stroke: #dce2e7; stroke-width: 1; }
+    .tick { font-size: 12px; }
+    .label { font-size: 14px; font-weight: 650; }
+    .detail { font-size: 12px; fill: #4a5560; }
+    .value { font-size: 12px; font-weight: 700; }
+    .legend { font-size: 14px; font-weight: 650; }
+    .annotation { font-size: 13px; font-weight: 700; fill: #4a5560; }
+  </style>
+  <rect width="${width}" height="${height}" fill="#ffffff" />
+  <text x="42" y="38" class="title">Two real applications, two different winners</text>
+  <text x="42" y="61" class="subtitle">Brotli-compressed JavaScript + CSS · measured production output</text>
+  <line x1="672" y1="30" x2="708" y2="30" stroke="${colors.vue}" stroke-width="4" />
+  <text x="718" y="35" class="legend">Vue</text>
+  <line x1="770" y1="30" x2="806" y2="30" stroke="${colors.svelte}" stroke-width="4" />
+  <text x="816" y="35" class="legend">Svelte</text>
+  ${grid}
+  <line x1="${chart.left}" y1="${chart.top}" x2="${chart.left}" y2="${chart.bottom}" class="axis" />
+  <line x1="${chart.left}" y1="${chart.bottom}" x2="${chart.right}" y2="${chart.bottom}" class="axis" />
+  ${series}
+  <text x="${pointX.weather - 12}" y="${y(weather.vue) - 14}" text-anchor="end" class="value">Vue ${(weather.vue / 1000).toFixed(3)} kB</text>
+  <text x="${pointX.weather + 12}" y="${y(weather.svelte) + 22}" class="value">Svelte ${(weather.svelte / 1000).toFixed(3)} kB</text>
+  <text x="${pointX.openslides - 12}" y="${y(openslides.vue) + 5}" text-anchor="end" class="value">Vue ${(openslides.vue / 1000).toFixed(3)} kB</text>
+  <text x="${pointX.openslides - 12}" y="${y(openslides.svelte) - 12}" text-anchor="end" class="value">Svelte ${(openslides.svelte / 1000).toFixed(3)} kB</text>
+  <text x="${pointX.weather}" y="434" text-anchor="middle" class="label">Weather Front</text>
+  <text x="${pointX.weather}" y="453" text-anchor="middle" class="detail">small real application</text>
+  <text x="${pointX.openslides}" y="434" text-anchor="middle" class="label">OpenSlides</text>
+  <text x="${pointX.openslides}" y="453" text-anchor="middle" class="detail">dashboard → editor journey</text>
+  <text x="440" y="482" text-anchor="middle" class="detail">Lines connect measured observations; they do not predict a universal threshold.</text>
+</svg>
+`.replace(/^[ \t]+$/gm, "");
+}
+
+function openslidesRouteSplitChart(results) {
+  const result = (framework) =>
+    results.find((item) => item.framework === framework);
+  const vue = result("vue");
+  const svelte = result("svelte");
+  const stages = [
+    {
+      label: "Shell",
+      detail: "before a route",
+      vue: vue.initial.brotli,
+      svelte: svelte.initial.brotli,
+    },
+    {
+      label: "Dashboard",
+      detail: "first route",
+      vue: vue.journey.dashboard.brotli,
+      svelte: svelte.journey.dashboard.brotli,
+    },
+    {
+      label: "Editor",
+      detail: "cumulative journey",
+      vue: vue.journey.editor.brotli,
+      svelte: svelte.journey.editor.brotli,
+    },
+  ];
+  const chart = {
+    left: 92,
+    right: 830,
+    top: 88,
+    bottom: 408,
+    maximum: 700_000,
+  };
+  const stageX = [170, 452, 742];
+  const y = (value) =>
+    Number(
+      (
+        chart.bottom -
+        (value / chart.maximum) * (chart.bottom - chart.top)
+      ).toFixed(2),
+    );
+  const ticks = [0, 100_000, 200_000, 300_000, 400_000, 500_000, 600_000];
+  const grid = ticks
+    .map(
+      (value) => `
+  <line x1="${chart.left}" y1="${y(value)}" x2="${chart.right}" y2="${y(value)}" class="grid" />
+  <text x="${chart.left - 12}" y="${y(value) + 5}" text-anchor="end" class="tick">${value / 1000} kB</text>`,
+    )
+    .join("");
+  const plots = ["vue", "svelte"]
+    .map((framework) => {
+      const points = stages
+        .map((stage, index) => `${stageX[index]},${y(stage[framework])}`)
+        .join(" ");
+      const circles = stages
+        .map(
+          (stage, index) =>
+            `<circle cx="${stageX[index]}" cy="${y(stage[framework])}" r="6" fill="${colors[framework]}" />`,
+        )
+        .join("");
+      return `<polyline points="${points}" fill="none" stroke="${colors[framework]}" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" />${circles}`;
+    })
+    .join("");
+  const labels = stages
+    .map(
+      (stage, index) => `
+  <text x="${stageX[index]}" y="437" text-anchor="middle" class="label">${stage.label}</text>
+  <text x="${stageX[index]}" y="456" text-anchor="middle" class="detail">${stage.detail}</text>`,
+    )
+    .join("");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
+  <title id="title">OpenSlides cumulative route-split production transfer</title>
+  <desc id="description">Svelte starts with the smaller route-split application shell. Vue becomes smaller after the dashboard route loads and extends its lead after the editor route loads.</desc>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .title { font-size: 23px; font-weight: 700; }
+    .subtitle { font-size: 13px; fill: #4a5560; }
+    .axis { stroke: #44515e; stroke-width: 1.5; }
+    .grid { stroke: #dce2e7; stroke-width: 1; }
+    .tick { font-size: 12px; }
+    .label { font-size: 14px; font-weight: 650; }
+    .detail { font-size: 12px; fill: #4a5560; }
+    .value { font-size: 12px; font-weight: 700; }
+    .legend { font-size: 14px; font-weight: 650; }
+    .annotation { font-size: 13px; font-weight: 700; fill: #4a5560; }
+  </style>
+  <rect width="${width}" height="${height}" fill="#ffffff" />
+  <text x="42" y="38" class="title">OpenSlides with matched route splitting</text>
+  <text x="42" y="61" class="subtitle">Cumulative Brotli transfer · each production response counted once</text>
+  <line x1="672" y1="30" x2="708" y2="30" stroke="${colors.vue}" stroke-width="4" />
+  <text x="718" y="35" class="legend">Vue</text>
+  <line x1="770" y1="30" x2="806" y2="30" stroke="${colors.svelte}" stroke-width="4" />
+  <text x="816" y="35" class="legend">Svelte</text>
+  ${grid}
+  <line x1="${chart.left}" y1="${chart.top}" x2="${chart.left}" y2="${chart.bottom}" class="axis" />
+  <line x1="${chart.left}" y1="${chart.bottom}" x2="${chart.right}" y2="${chart.bottom}" class="axis" />
+  ${plots}
+  <text x="${stageX[0] - 12}" y="${y(stages[0].vue) - 10}" text-anchor="end" class="value">${(stages[0].vue / 1000).toFixed(3)}</text>
+  <text x="${stageX[0] + 12}" y="${y(stages[0].svelte) + 18}" class="value">${(stages[0].svelte / 1000).toFixed(3)}</text>
+  <text x="${stageX[1] - 12}" y="${y(stages[1].vue) - 10}" text-anchor="end" class="value">${(stages[1].vue / 1000).toFixed(3)}</text>
+  <text x="${stageX[1] + 12}" y="${y(stages[1].svelte) - 10}" class="value">${(stages[1].svelte / 1000).toFixed(3)}</text>
+  <text x="${stageX[2] - 12}" y="${y(stages[2].vue) + 5}" text-anchor="end" class="value">${(stages[2].vue / 1000).toFixed(3)}</text>
+  <text x="${stageX[2] - 12}" y="${y(stages[2].svelte) - 10}" text-anchor="end" class="value">${(stages[2].svelte / 1000).toFixed(3)}</text>
+  ${labels}
+  <text x="440" y="482" text-anchor="middle" class="detail">Values in kB · includes production assets requested at each stage</text>
 </svg>
 `.replace(/^[ \t]+$/gm, "");
 }
@@ -506,5 +698,17 @@ fs.writeFileSync(
   path.join(outputDir, "openslides-entry.svg"),
   openslidesEntryChart(openslides.results),
 );
+fs.writeFileSync(
+  path.join(outputDir, "openslides-route-split.svg"),
+  openslidesRouteSplitChart(openslides.results),
+);
 
-console.log("Generated 4 deterministic SVG charts");
+const weatherUpstream = JSON.parse(
+  fs.readFileSync(path.join(root, "weather-upstream.json"), "utf8"),
+);
+fs.writeFileSync(
+  path.join(outputDir, "real-applications-brotli.svg"),
+  realApplicationsChart(weatherUpstream.results, openslides.results),
+);
+
+console.log("Generated 6 deterministic SVG charts");

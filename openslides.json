@@ -1,10 +1,11 @@
 {
   "metadata": {
-    "generatedAt": "2026-07-27T21:25:49.678Z",
+    "generatedAt": "2026-07-27T21:47:50.983Z",
     "sourceRepository": "https://github.com/codewiththiha/OpenSlides",
     "sourceCommit": "a8138eb26c93df378119147c036c34fe7d83b6a7",
     "measurement": "Production JS/CSS/Wasm requested by a cold headless browser from dashboard through opening the seeded editor; Vite entry-manifest totals are also recorded",
     "compression": "Each emitted response compressed independently with gzip level 9 and Brotli quality 11",
+    "splitting": "Dashboard and editor are lazy-loaded route chunks in both implementations",
     "status": "Behaviorally matched for the documented benchmark scope; the shared Playwright contract passes against both production implementations"
   },
   "results": [
@@ -12,32 +13,38 @@
       "framework": "vue",
       "source": {
         "files": 96,
-        "lines": 8773,
+        "lines": 8771,
         "components": 27,
         "componentLines": 3866
       },
       "initial": {
         "files": [
           {
-            "file": "assets/index-CY9ZB5J6.css",
-            "raw": 67252,
-            "gzip": 12047,
-            "brotli": 10428
+            "file": "assets/index-Ck-uv3hY.js",
+            "raw": 212715,
+            "gzip": 71100,
+            "brotli": 62470
           },
           {
-            "file": "assets/index-Cg7pq6yL.js",
-            "raw": 568406,
-            "gzip": 180816,
-            "brotli": 152968
+            "file": "assets/index-DrCwQrri.css",
+            "raw": 63754,
+            "gzip": 11562,
+            "brotli": 9982
           }
         ],
-        "raw": 635658,
-        "gzip": 192863,
-        "brotli": 163396
+        "raw": 276469,
+        "gzip": 82662,
+        "brotli": 72452
       },
       "journey": {
         "dashboard": {
           "files": [
+            {
+              "file": "assets/Dashboard-Bz7KGCCH.js",
+              "raw": 43820,
+              "gzip": 13969,
+              "brotli": 12485
+            },
             {
               "file": "assets/dark-plus-DF6W79BC.js",
               "raw": 9094,
@@ -45,28 +52,34 @@
               "brotli": 1771
             },
             {
-              "file": "assets/index-CY9ZB5J6.css",
-              "raw": 67252,
-              "gzip": 12047,
-              "brotli": 10428
+              "file": "assets/index-Ck-uv3hY.js",
+              "raw": 212715,
+              "gzip": 71100,
+              "brotli": 62470
             },
             {
-              "file": "assets/index-Cg7pq6yL.js",
-              "raw": 568406,
-              "gzip": 180816,
-              "brotli": 152968
+              "file": "assets/index-DrCwQrri.css",
+              "raw": 63754,
+              "gzip": 11562,
+              "brotli": 9982
             },
             {
-              "file": "assets/javascript-Cww4PYBw.js",
-              "raw": 174878,
-              "gzip": 16178,
-              "brotli": 11984
+              "file": "assets/javascript-BqpjwmXR.js",
+              "raw": 174887,
+              "gzip": 16189,
+              "brotli": 11990
             },
             {
-              "file": "assets/typescript-DO8TO2Vs.js",
-              "raw": 181130,
-              "gzip": 15738,
-              "brotli": 11521
+              "file": "assets/typescript-BlPlX3gN.js",
+              "raw": 181139,
+              "gzip": 15748,
+              "brotli": 11543
+            },
+            {
+              "file": "assets/use-shiki-html-S0uIRzCC.js",
+              "raw": 189349,
+              "gzip": 58178,
+              "brotli": 50074
             },
             {
               "file": "assets/wasm-D9sVOLb4.js",
@@ -75,17 +88,29 @@
               "brotli": 149361
             }
           ],
-          "raw": 1623085,
-          "gzip": 456999,
-          "brotli": 338033
+          "raw": 1497083,
+          "gzip": 418966,
+          "brotli": 309676
         },
         "editor": {
           "files": [
             {
-              "file": "assets/dark-plus-76GoDLCw.js",
-              "raw": 10115,
-              "gzip": 2131,
-              "brotli": 1821
+              "file": "assets/Dashboard-Bz7KGCCH.js",
+              "raw": 43820,
+              "gzip": 13969,
+              "brotli": 12485
+            },
+            {
+              "file": "assets/Editor-DMeOCNbD.js",
+              "raw": 125829,
+              "gzip": 40827,
+              "brotli": 36255
+            },
+            {
+              "file": "assets/Editor-UoRneZG2.css",
+              "raw": 4590,
+              "gzip": 993,
+              "brotli": 830
             },
             {
               "file": "assets/dark-plus-DF6W79BC.js",
@@ -94,22 +119,22 @@
               "brotli": 1771
             },
             {
-              "file": "assets/index-CY9ZB5J6.css",
-              "raw": 67252,
-              "gzip": 12047,
-              "brotli": 10428
+              "file": "assets/index-Ck-uv3hY.js",
+              "raw": 212715,
+              "gzip": 71100,
+              "brotli": 62470
             },
             {
-              "file": "assets/index-Cg7pq6yL.js",
-              "raw": 568406,
-              "gzip": 180816,
-              "brotli": 152968
+              "file": "assets/index-DrCwQrri.css",
+              "raw": 63754,
+              "gzip": 11562,
+              "brotli": 9982
             },
             {
-              "file": "assets/javascript-Cww4PYBw.js",
-              "raw": 174878,
-              "gzip": 16178,
-              "brotli": 11984
+              "file": "assets/javascript-BqpjwmXR.js",
+              "raw": 174887,
+              "gzip": 16189,
+              "brotli": 11990
             },
             {
               "file": "assets/shiki.worker-DErH-CKA.js",
@@ -118,22 +143,16 @@
               "brotli": 42315
             },
             {
-              "file": "assets/typescript-D4ngywLb.js",
-              "raw": 190759,
-              "gzip": 16215,
-              "brotli": 11645
+              "file": "assets/typescript-BlPlX3gN.js",
+              "raw": 181139,
+              "gzip": 15748,
+              "brotli": 11543
             },
             {
-              "file": "assets/typescript-DO8TO2Vs.js",
-              "raw": 181130,
-              "gzip": 15738,
-              "brotli": 11521
-            },
-            {
-              "file": "assets/wasm-D1shJi9v.js",
-              "raw": 622353,
-              "gzip": 230158,
-              "brotli": 149433
+              "file": "assets/use-shiki-html-S0uIRzCC.js",
+              "raw": 189349,
+              "gzip": 58178,
+              "brotli": 50074
             },
             {
               "file": "assets/wasm-D9sVOLb4.js",
@@ -142,33 +161,45 @@
               "brotli": 149361
             }
           ],
-          "raw": 2628455,
-          "gzip": 754968,
-          "brotli": 543247
+          "raw": 1809645,
+          "gzip": 510251,
+          "brotli": 389076
         }
       },
       "complete": {
-        "fileCount": 605,
-        "raw": 20224837,
-        "gzip": 3766101,
-        "brotli": 3042181
+        "fileCount": 609,
+        "raw": 20229439,
+        "gzip": 3770076,
+        "brotli": 3051118
       }
     },
     {
       "framework": "svelte",
       "source": {
         "files": 233,
-        "lines": 18759,
+        "lines": 18762,
         "components": 99,
         "componentLines": 8639
       },
       "initial": {
         "files": [
           {
-            "file": "assets/index-D1aO-FPP.js",
-            "raw": 942719,
-            "gzip": 289726,
-            "brotli": 236300
+            "file": "assets/backend-config-loader-CRFUfC1K.js",
+            "raw": 404,
+            "gzip": 270,
+            "brotli": 227
+          },
+          {
+            "file": "assets/backend-config.svelte-BEESiCrW.js",
+            "raw": 83599,
+            "gzip": 30211,
+            "brotli": 27254
+          },
+          {
+            "file": "assets/index-BbLVDLyJ.js",
+            "raw": 35997,
+            "gzip": 11372,
+            "brotli": 9950
           },
           {
             "file": "assets/index-pbgH7b4O.css",
@@ -177,13 +208,37 @@
             "brotli": 11824
           }
         ],
-        "raw": 1030039,
-        "gzip": 303906,
-        "brotli": 248124
+        "raw": 207320,
+        "gzip": 56033,
+        "brotli": 49255
       },
       "journey": {
         "dashboard": {
           "files": [
+            {
+              "file": "assets/Dashboard-Bs9EDyhe.js",
+              "raw": 238508,
+              "gzip": 75329,
+              "brotli": 65335
+            },
+            {
+              "file": "assets/app-menu.svelte-aUcqD2Q8.js",
+              "raw": 314613,
+              "gzip": 95769,
+              "brotli": 81176
+            },
+            {
+              "file": "assets/backend-config-loader-CRFUfC1K.js",
+              "raw": 404,
+              "gzip": 270,
+              "brotli": 227
+            },
+            {
+              "file": "assets/backend-config.svelte-BEESiCrW.js",
+              "raw": 83599,
+              "gzip": 30211,
+              "brotli": 27254
+            },
             {
               "file": "assets/dark-plus-76GoDLCw.js",
               "raw": 10115,
@@ -191,10 +246,10 @@
               "brotli": 1821
             },
             {
-              "file": "assets/index-D1aO-FPP.js",
-              "raw": 942719,
-              "gzip": 289726,
-              "brotli": 236300
+              "file": "assets/index-BbLVDLyJ.js",
+              "raw": 35997,
+              "gzip": 11372,
+              "brotli": 9950
             },
             {
               "file": "assets/index-pbgH7b4O.css",
@@ -227,12 +282,42 @@
               "brotli": 149433
             }
           ],
-          "raw": 2220356,
-          "gzip": 618423,
-          "brotli": 465447
+          "raw": 1950758,
+          "gzip": 541648,
+          "brotli": 413089
         },
         "editor": {
           "files": [
+            {
+              "file": "assets/Dashboard-Bs9EDyhe.js",
+              "raw": 238508,
+              "gzip": 75329,
+              "brotli": 65335
+            },
+            {
+              "file": "assets/Editor-BRHfctjR.js",
+              "raw": 277834,
+              "gzip": 83534,
+              "brotli": 69074
+            },
+            {
+              "file": "assets/app-menu.svelte-aUcqD2Q8.js",
+              "raw": 314613,
+              "gzip": 95769,
+              "brotli": 81176
+            },
+            {
+              "file": "assets/backend-config-loader-CRFUfC1K.js",
+              "raw": 404,
+              "gzip": 270,
+              "brotli": 227
+            },
+            {
+              "file": "assets/backend-config.svelte-BEESiCrW.js",
+              "raw": 83599,
+              "gzip": 30211,
+              "brotli": 27254
+            },
             {
               "file": "assets/dark-plus-76GoDLCw.js",
               "raw": 10115,
@@ -246,10 +331,10 @@
               "brotli": 1771
             },
             {
-              "file": "assets/index-D1aO-FPP.js",
-              "raw": 942719,
-              "gzip": 289726,
-              "brotli": 236300
+              "file": "assets/index-BbLVDLyJ.js",
+              "raw": 35997,
+              "gzip": 11372,
+              "brotli": 9950
             },
             {
               "file": "assets/index-pbgH7b4O.css",
@@ -264,10 +349,10 @@
               "brotli": 12109
             },
             {
-              "file": "assets/javascript-D8lWV2TO.js",
-              "raw": 174878,
-              "gzip": 16178,
-              "brotli": 11986
+              "file": "assets/javascript-CSO7020Y.js",
+              "raw": 174889,
+              "gzip": 16188,
+              "brotli": 11996
             },
             {
               "file": "assets/shiki.worker-DErH-CKA.js",
@@ -282,10 +367,10 @@
               "brotli": 11645
             },
             {
-              "file": "assets/typescript-EIkgnoyA.js",
-              "raw": 181130,
-              "gzip": 15737,
-              "brotli": 11514
+              "file": "assets/typescript-DXYW0wMF.js",
+              "raw": 181141,
+              "gzip": 15748,
+              "brotli": 11521
             },
             {
               "file": "assets/wasm-D1shJi9v.js",
@@ -300,16 +385,16 @@
               "brotli": 149361
             }
           ],
-          "raw": 3207783,
-          "gzip": 882558,
-          "brotli": 640079
+          "raw": 3216041,
+          "gzip": 889338,
+          "brotli": 656812
         }
       },
       "complete": {
-        "fileCount": 605,
-        "raw": 20619218,
-        "gzip": 3877145,
-        "brotli": 3126938
+        "fileCount": 610,
+        "raw": 20627701,
+        "gzip": 3884153,
+        "brotli": 3143729
       }
     }
   ]

@@ -262,6 +262,8 @@ async function main() {
       "Production JS/CSS/Wasm requested by a cold headless browser from dashboard through opening the seeded editor; Vite entry-manifest totals are also recorded",
     compression:
       "Each emitted response compressed independently with gzip level 9 and Brotli quality 11",
+    splitting:
+      "Dashboard and editor are lazy-loaded route chunks in both implementations",
     status:
       "Behaviorally matched for the documented benchmark scope; the shared Playwright contract passes against both production implementations",
   };
@@ -282,6 +284,7 @@ async function main() {
     `- Pinned commit: \`${metadata.sourceCommit}\``,
     `- Measurement: ${metadata.measurement}`,
     `- Compression: ${metadata.compression}`,
+    `- Route splitting: ${metadata.splitting}`,
     "",
     "- Shared behavior contract: [`tests/openslides-parity.spec.mjs`](tests/openslides-parity.spec.mjs)",
     "- Parity ledger: [`fixtures/openslides/PARITY.md`](fixtures/openslides/PARITY.md)",
@@ -322,11 +325,8 @@ async function main() {
   lines.push(
     "",
     "The cold journey includes the Shiki worker, Wasm engine, selected languages,",
-    "and selected theme actually requested by each production build. The two",
-    "implementations share the same worker source. OpenSlides’ current Svelte",
-    "architecture also requests a second main-thread Shiki asset set after the",
-    "editor opens; that is a real application cost, but it is not attributed",
-    "solely to the Svelte compiler.",
+    "and selected theme actually requested by each production build. Both",
+    "implementations request two Shiki asset sets after the editor opens.",
     "",
     "| Source inventory | Vue | Svelte |",
     "| --- | ---: | ---: |",

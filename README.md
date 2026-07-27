@@ -4,15 +4,16 @@
 
 - Svelte is the likely bundle-size winner for Hello World demos, isolated
   widgets, and small initial routes.
-- Vue can become smaller as an application grows. In the medium-sized
-  OpenSlides case study, Vue’s entry JavaScript and CSS are 84.728 kB smaller
-  with Brotli.
+- Vue can become smaller as an application grows. Svelte is 0.868 kB smaller
+  in the small Weather Front application. After loading the dashboard and
+  editor in route-split OpenSlides, Vue is 267.736 kB smaller.
 
-![The behavior-matched Vue OpenSlides port transfers less entry JavaScript and CSS than the Svelte 5 application with both gzip and Brotli](docs/images/openslides-entry.svg)
+![Svelte is slightly smaller for the small Weather Front application, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
 
-*This is a measured production build of a real application, not a projection.
-The shared Playwright contract runs the same behaviors against both
-implementations before either bundle is measured.*
+*These are measured production results from two real applications. The lines
+connect those observations so the reversal is easy to see; they are not a
+universal growth curve or a claim that every application crosses at the same
+point.*
 
 ## Why this benchmark exists
 
@@ -64,70 +65,16 @@ measured complete application containing 19 components.
 The architectural tradeoff is also clearly documented in the Vue FAQ:
 [https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
 
-## A small real application supplies a reality check
+## Is Vue amortization still visible in 2026?
 
-Alicia Sykes built the same weather application in Vue, Svelte, and eleven
-other frontend stacks specifically to compare them. The implementations share
-the same interface, assets, requirements, and Playwright behavior tests.
+Yes. OpenSlides adds what Evan You’s projection did not measure directly: a
+medium-sized application in which Vue becomes substantially smaller after
+real routes load. Weather Front establishes the other end honestly: Svelte
+still wins in a small application.
 
-Weather Front is a small but credible application: one principal screen, eight
-Vue component definitions, roughly 750–900 lines of application source
-depending on the implementation, asynchronous data, search, persistence, and
-loading and error states. It is substantially more representative than Hello
-World, but it is not a medium-sized product application.
+## OpenSlides: the primary 2026 case study
 
-[![Weather Front, the application independently implemented across frontend frameworks](https://raw.githubusercontent.com/lissy93/framework-benchmarks/53862d6eac22af7aca571ca11af25559059e2f14/assets/screenshot.png)](https://github.com/lissy93/framework-benchmarks)
-
-*Weather Front by [Alicia Sykes](https://aliciasykes.com), from the
-MIT-licensed
-[`lissy93/framework-benchmarks`](https://github.com/lissy93/framework-benchmarks)
-project. Explore the [Vue
-source](https://github.com/lissy93/framework-benchmarks/tree/53862d6eac22af7aca571ca11af25559059e2f14/apps/vue),
-the [Svelte
-source](https://github.com/lissy93/framework-benchmarks/tree/53862d6eac22af7aca571ca11af25559059e2f14/apps/svelte),
-and the [published comparison](https://framework-benchmarks.as93.net/).*
-
-The upstream report inventories emitted files and reports Vue as smaller. That
-inventory includes an unrequested duplicate Svelte CSS artifact while omitting
-Vue’s separately served shared CSS. I therefore repeated the comparison by
-measuring only JavaScript and CSS responses requested during a cold production
-load:
-
-| Weather Front requested transfer | Vue | Svelte | Smaller result |
-| --- | ---: | ---: | --- |
-| gzip | 35.281 kB | 34.693 kB | Svelte by 0.588 kB |
-| Brotli | 31.423 kB | 30.555 kB | Svelte by 0.868 kB |
-
-This is not a crossover. It is the honest small-application starting point:
-Svelte remains smaller, but its transfer advantage is already below one
-kilobyte in this independently authored app. The upstream project compares
-Vue/Vite with Svelte 4/SvelteKit, so the result is preserved separately from
-this repository’s normalized Vue 3/Svelte 5 lanes. The complete per-response
-measurement and reproduction command are in
-[`weather-upstream.md`](weather-upstream.md).
-
-I then rebuilt the same core product surface with current, matched boundaries:
-Vue 3.5 and Svelte 5 use plain Vite, import byte-identical business logic and
-CSS, expose the same component boundaries, and pass the same Playwright
-behavior contract.
-
-| Normalized core Weather application | Vue | Svelte | Smaller result |
-| --- | ---: | ---: | --- |
-| gzip | 26.353 kB | 18.005 kB | Svelte by 8.348 kB |
-| Brotli | 24.003 kB | 16.138 kB | Svelte by 7.865 kB |
-
-The normalized result is less favorable to Vue than the upstream near-tie.
-That matters: the near-tie was partly a consequence of comparing a plain Vue
-SPA with a SvelteKit application, not evidence that this small product had
-nearly repaid Vue’s runtime. The complete current-toolchain result and
-reproduction command are in [`weather-staged.md`](weather-staged.md); the
-shared contract is in
-[`tests/weather-staged-parity.spec.mjs`](tests/weather-staged-parity.spec.mjs).
-
-## A medium-sized real application makes the crossover concrete
-
-The generated scaling fixtures answer a narrow architectural question, but a
-real application is harder to dismiss. I therefore ported the frontend of
+I ported the frontend of
 [`codewiththiha/OpenSlides`](https://github.com/codewiththiha/OpenSlides), an
 MIT-licensed desktop application for building animated code presentations,
 from Svelte 5 to Vue 3. The source is pinned at commit
@@ -139,37 +86,61 @@ Svelte source. It includes project and slide management, drag-and-drop stacks,
 search, syntax highlighting, Magic Move transitions, highlight steps,
 presentation mode, autoplay, settings, and a Tauri persistence boundary.
 
-The Vue port uses the same Tauri command contract, Shiki release, byte-identical
-Shiki worker, business types, themes, styles, and production settings. A shared
-Playwright suite runs the same dashboard, editor, persistence, grouping,
-search, settings, presentation, and autoplay behaviors against both versions.
-The complete scope is recorded in the
+The Vue port uses the same Tauri command contract, Shiki release,
+byte-identical Shiki worker, business types, themes, styles, and production
+settings. Both implementations lazy-load the dashboard and editor as separate
+route chunks. A shared Playwright suite runs the same dashboard, editor,
+persistence, grouping, search, settings, presentation, and autoplay behaviors
+against both versions. The complete scope is recorded in the
 [`parity ledger`](fixtures/openslides/PARITY.md), and the contract itself is
 [`tests/openslides-parity.spec.mjs`](tests/openslides-parity.spec.mjs).
 
-| OpenSlides entry JavaScript + CSS | Vue 3.5 | Svelte 5 | Smaller result |
+### Svelte wins the application shell
+
+Before either route loads, Svelte retains the advantage promised by its
+smaller baseline:
+
+![The route-split Svelte OpenSlides shell transfers less entry JavaScript and CSS than the Vue shell](docs/images/openslides-entry.svg)
+
+| OpenSlides route-split shell | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| gzip | 192.863 kB | 303.906 kB | Vue by 111.043 kB |
-| Brotli | 163.396 kB | 248.124 kB | Vue by 84.728 kB |
+| gzip | 82.662 kB | 56.033 kB | Svelte by 26.629 kB |
+| Brotli | 72.452 kB | 49.255 kB | Svelte by 23.197 kB |
 
-This is the direct rebuttal to the universal bundle-size claim. Svelte’s
-smaller framework baseline does not guarantee a smaller substantial
-application. In this real application, the Vue entry is decisively smaller
-under both compression formats.
+This is the correct initial-route result. Route splitting prevents either
+implementation from charging the user for the editor before it is requested,
+and Svelte sends the smaller shell.
 
-I also measured the static assets requested by a cold production browser,
-rather than stopping at the Vite manifest:
+### Vue overtakes Svelte on the first real route
+
+The result reverses when a cold production browser requests the dashboard.
+Vue remains smaller after the editor route is added to the cumulative journey:
+
+![Svelte starts with the smaller OpenSlides shell, while Vue becomes smaller after loading the dashboard and extends its lead after loading the editor](docs/images/openslides-route-split.svg)
 
 | OpenSlides cold production journey | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| Dashboard, Brotli | 338.033 kB | 465.447 kB | Vue by 127.414 kB |
-| Dashboard through editor, Brotli | 543.247 kB | 640.079 kB | Vue by 96.832 kB |
+| Dashboard, gzip | 418.966 kB | 541.648 kB | Vue by 122.682 kB |
+| Dashboard, Brotli | 309.676 kB | 413.089 kB | Vue by 103.413 kB |
+| Dashboard through editor, gzip | 510.251 kB | 889.338 kB | Vue by 379.087 kB |
+| Dashboard through editor, Brotli | 389.076 kB | 656.812 kB | Vue by 267.736 kB |
 
-The cold editor journey includes Shiki worker, language, theme, and Wasm
-assets requested by the two applications. Both implementations request two
-Shiki asset sets during this journey. Those assets are real application costs,
-but the entry JavaScript-and-CSS table remains the cleaner
-framework-and-application comparison.
+The routing objection therefore changes the shape of the result, but it does
+not rescue the universal bundle-size claim. Svelte wins before application
+functionality loads. Vue overtakes it when the first substantial route is
+requested.
+
+The cold journey includes every production JavaScript, CSS, worker, language,
+theme, and Shiki Wasm asset actually requested at each stage. Both
+implementations request two Shiki asset sets after the editor opens. These are
+real application costs, but they are not pure measurements of framework
+runtime bytes.
+
+That distinction matters. OpenSlides proves that a medium-sized Vue
+application can be smaller than its behavior-matched Svelte counterpart. It
+also shows that the result survives matched route splitting. It does not
+establish a universal route number, component count, or source-line threshold
+at which every application will cross.
 
 The two implementations are behavior-matched, not line-for-line translations.
 Nine shared Playwright workflows—18 passing cases across the two
@@ -185,24 +156,47 @@ application it replaces.
 The complete requested-file inventory and reproduction command are in
 [`openslides.md`](openslides.md).
 
-## Is this still true in 2026?
+## Other real-application evidence: Weather Front
 
-Yes. The OpenSlides case study provides a measured medium-sized application,
-and the route-split simulation independently demonstrates the underlying
-scaling curve with controlled generated workloads.
+Alicia Sykes independently built the same weather application in Vue, Svelte,
+and eleven other frontend stacks. The implementations share the same
+interface, assets, requirements, and Playwright behavior tests.
 
-## Route-split application simulation
+Weather Front is a small but credible application: one principal screen,
+asynchronous data, search, persistence, and loading and error states. It is
+well beyond Hello World, but it is not a medium-sized product application.
+
+I measured only the JavaScript and CSS responses requested during a cold
+production load:
+
+| Weather Front requested transfer | Vue | Svelte | Smaller result |
+| --- | ---: | ---: | --- |
+| gzip | 35.281 kB | 34.693 kB | Svelte by 0.588 kB |
+| Brotli | 31.423 kB | 30.555 kB | Svelte by 0.868 kB |
+
+Svelte still wins, but the difference is already below one kilobyte. This is
+the useful small-application counterweight to OpenSlides. The upstream project
+compares Vue/Vite with Svelte 4/SvelteKit, so I also maintain a normalized
+Vue 3.5/Svelte 5 lane. Svelte wins that controlled version by 7.865 kB with
+Brotli. The two measurements demonstrate why exact numbers depend on the
+application and toolchain even when the broader size curve remains useful.
+
+The complete measurements are in
+[`weather-upstream.md`](weather-upstream.md) and
+[`weather-staged.md`](weather-staged.md). The source application is
+[`lissy93/framework-benchmarks`](https://github.com/lissy93/framework-benchmarks).
+
+## Controlled application-scaling simulation
 
 The route-split application simulation is a generated, browser-runnable
-benchmark. It is the central application in this study. Its shell lazily loads
-routes, each containing one counter, disclosure, tabs panel, task tracker,
-search panel, settings form, pagination control, and notification panel.
+stress test. It is not presented as a real 64-route product. Its purpose is to
+hold the feature families constant while repeatedly adding independently
+loaded application code.
 
-The clearest comparison is the same simulation at two sizes. With one route
-and eight component definitions, Svelte is smaller. After the
-simulation expands to 64 routes and 512 component definitions, Vue is
-smaller. Both measurements include the framework runtime and every route
-response loaded during a complete traversal.
+With one route and eight component definitions, Svelte is smaller. After the
+simulation expands to 64 generated route chunks and 512 component definitions,
+Vue is smaller. Both measurements include the framework runtime and every
+route response loaded during a complete traversal.
 
 | Complete application transfer | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
@@ -212,7 +206,7 @@ response loaded during a complete traversal.
 ![Svelte produces the smaller route-split application simulation at eight component definitions, while Vue produces the smaller simulation at 512 component definitions](docs/images/small-large-complete-bundles.svg)
 
 *Each panel uses its own y-axis. These are two measured builds, not a claim that
-every application crosses at the same point. The
+real applications contain 64 routes or cross at the same point. The
 [complete scaling chart](docs/images/route-split-brotli.svg) shows the
 intermediate builds and estimated crossover.*
 

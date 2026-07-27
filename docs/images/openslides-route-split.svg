@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="500" viewBox="0 0 880 500" role="img" aria-labelledby="title description">
+  <title id="title">OpenSlides cumulative route-split production transfer</title>
+  <desc id="description">Svelte starts with the smaller route-split application shell. Vue becomes smaller after the dashboard route loads and extends its lead after the editor route loads.</desc>
+  <style>
+    text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
+    .title { font-size: 23px; font-weight: 700; }
+    .subtitle { font-size: 13px; fill: #4a5560; }
+    .axis { stroke: #44515e; stroke-width: 1.5; }
+    .grid { stroke: #dce2e7; stroke-width: 1; }
+    .tick { font-size: 12px; }
+    .label { font-size: 14px; font-weight: 650; }
+    .detail { font-size: 12px; fill: #4a5560; }
+    .value { font-size: 12px; font-weight: 700; }
+    .legend { font-size: 14px; font-weight: 650; }
+    .annotation { font-size: 13px; font-weight: 700; fill: #4a5560; }
+  </style>
+  <rect width="880" height="500" fill="#ffffff" />
+  <text x="42" y="38" class="title">OpenSlides with matched route splitting</text>
+  <text x="42" y="61" class="subtitle">Cumulative Brotli transfer · each production response counted once</text>
+  <line x1="672" y1="30" x2="708" y2="30" stroke="#238a62" stroke-width="4" />
+  <text x="718" y="35" class="legend">Vue</text>
+  <line x1="770" y1="30" x2="806" y2="30" stroke="#d93600" stroke-width="4" />
+  <text x="816" y="35" class="legend">Svelte</text>
+
+  <line x1="92" y1="408" x2="830" y2="408" class="grid" />
+  <text x="80" y="413" text-anchor="end" class="tick">0 kB</text>
+  <line x1="92" y1="362.29" x2="830" y2="362.29" class="grid" />
+  <text x="80" y="367.29" text-anchor="end" class="tick">100 kB</text>
+  <line x1="92" y1="316.57" x2="830" y2="316.57" class="grid" />
+  <text x="80" y="321.57" text-anchor="end" class="tick">200 kB</text>
+  <line x1="92" y1="270.86" x2="830" y2="270.86" class="grid" />
+  <text x="80" y="275.86" text-anchor="end" class="tick">300 kB</text>
+  <line x1="92" y1="225.14" x2="830" y2="225.14" class="grid" />
+  <text x="80" y="230.14" text-anchor="end" class="tick">400 kB</text>
+  <line x1="92" y1="179.43" x2="830" y2="179.43" class="grid" />
+  <text x="80" y="184.43" text-anchor="end" class="tick">500 kB</text>
+  <line x1="92" y1="133.71" x2="830" y2="133.71" class="grid" />
+  <text x="80" y="138.71" text-anchor="end" class="tick">600 kB</text>
+  <line x1="92" y1="88" x2="92" y2="408" class="axis" />
+  <line x1="92" y1="408" x2="830" y2="408" class="axis" />
+  <polyline points="170,374.88 452,266.43 742,230.14" fill="none" stroke="#238a62" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="170" cy="374.88" r="6" fill="#238a62" /><circle cx="452" cy="266.43" r="6" fill="#238a62" /><circle cx="742" cy="230.14" r="6" fill="#238a62" /><polyline points="170,385.48 452,219.16 742,107.74" fill="none" stroke="#d93600" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" /><circle cx="170" cy="385.48" r="6" fill="#d93600" /><circle cx="452" cy="219.16" r="6" fill="#d93600" /><circle cx="742" cy="107.74" r="6" fill="#d93600" />
+  <text x="158" y="364.88" text-anchor="end" class="value">72.452</text>
+  <text x="182" y="403.48" class="value">49.255</text>
+  <text x="440" y="256.43" text-anchor="end" class="value">309.676</text>
+  <text x="464" y="209.16" class="value">413.089</text>
+  <text x="730" y="235.14" text-anchor="end" class="value">389.076</text>
+  <text x="730" y="97.74" text-anchor="end" class="value">656.812</text>
+
+  <text x="170" y="437" text-anchor="middle" class="label">Shell</text>
+  <text x="170" y="456" text-anchor="middle" class="detail">before a route</text>
+  <text x="452" y="437" text-anchor="middle" class="label">Dashboard</text>
+  <text x="452" y="456" text-anchor="middle" class="detail">first route</text>
+  <text x="742" y="437" text-anchor="middle" class="label">Editor</text>
+  <text x="742" y="456" text-anchor="middle" class="detail">cumulative journey</text>
+  <text x="440" y="482" text-anchor="middle" class="detail">Values in kB · includes production assets requested at each stage</text>
+</svg>

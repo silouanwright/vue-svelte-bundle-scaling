@@ -1,6 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Dashboard from "@/features/dashboard/Dashboard.vue";
-import Editor from "@/features/editor/Editor.vue";
 
 export const router = createRouter({
   history: createWebHashHistory(),
@@ -8,12 +6,12 @@ export const router = createRouter({
     {
       path: "/",
       name: "dashboard",
-      component: Dashboard,
+      component: () => import("@/features/dashboard/Dashboard.vue"),
     },
     {
       path: "/editor/:projectId",
       name: "editor",
-      component: Editor,
+      component: () => import("@/features/editor/Editor.vue"),
     },
     { path: "/:pathMatch(.*)*", redirect: "/" },
   ],
