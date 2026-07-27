@@ -1,8 +1,5 @@
 # Vue–Svelte Bundle Scaling, Revisited
 
-An updated 2026 test of when Vue’s larger shared runtime is repaid by its
-smaller generated component output.
-
 ## TL;DR
 
 Svelte is the likely bundle-size winner for Hello World demos, isolated
@@ -12,96 +9,37 @@ settles the question: Vue’s shared runtime is amortizable and can become the
 smaller cumulative framework layer. Which framework actually ends up smaller
 depends on the application’s components, chunk graph, and user journeys.
 
-## Vue eventually becomes smaller in this benchmark
-
-The x-axis below is simply authored source size. Vue and Svelte are each
-positioned by their own measured nonblank lines, so the Svelte curve sits
-farther left because it expresses the fixture with less source. Vue starts with
-a larger transferred bundle, but its curve grows more slowly and eventually
-crosses below Svelte.
-
 ![Svelte uses fewer source lines in the matched fixture, while Vue eventually transfers less JavaScript](docs/images/route-split-brotli.svg)
-
-*Figure 1. Each line connects four separately measured production builds at
-64, 128, 256, and 512 matched feature definitions. From one measured workload
-to the next, Vue adds less transferred JavaScript per added behavior, so the
-gap closes and then reverses at the largest build. At the first displayed
-workload, Svelte uses 940 lines and Vue uses 1,159 lines for the same generated
-behavior. Piecewise interpolation gives an imperfect crossover estimate of
-approximately 2,120 nonblank lines and 45.1 kB of transferred JavaScript in
-this fixture. At the largest matched workload, Vue uses 9,111 lines and
-transfers 117,145 B; Svelte uses 7,380 lines and transfers 121,690 B. The
-measured growth pattern establishes the amortization result; only the exact
-crossing point between samples is estimated.*
-
-### What that scale means
-
-Svelte often expresses equivalent component behavior in fewer source lines,
-and this fixture bears that out: it uses about 19% fewer nonblank source lines
-at each substantial matched sample. That is a real ergonomic result, not
-something the bundle chart should hide. It also does not determine emitted
-JavaScript size: terse source can compile into more framework-specific output
-per added feature.
-
-This ordinary source-size axis answers an intuitive question: as the amount of
-authored framework code grows, how does transferred JavaScript grow with it?
-At any one vertical slice, the Vue and Svelte fixtures do not implement
-exactly the same amount of behavior—Svelte fits more of the generated workload
-into the same line count. The matched-workload results remain available below
-and in the detailed analysis. The empty-shell and smallest samples are also
-retained in the result tables; the explanatory chart begins at 64 compact
-definitions so their nearly overlapping 20- and 23-line starting points do not
-hide the source-size difference.
-
-Lines of code are still only a human-scale proxy. Formatting, reuse,
-application logic, component complexity, and chunk boundaries all affect the
-result. The route-split fixture adds compact, structurally different component
-definitions in groups of eight; the Brotli crossover corresponds to roughly
-339 such definitions. That is not a prediction that a typical application
-crosses at 339 components, 6,000 Vue lines, 4,900 Svelte lines, or any other
-universal threshold.
-
-Design systems do contribute to the shipped component graph, but only when
-their components are actually imported. Installing a library that offers 200
-components does not mean the application ships all 200, and a shared component
-reused in many places is still one unique definition.
-
-The underlying relationship is:
-
-```text
-crossover ≈ Vue’s initial size disadvantage
-            ÷ Vue’s average transfer-size saving per added feature
-```
-
-A product with fewer but more substantial components could repay Vue’s
-baseline sooner. An application built from highly reused or unusually
-compressible components could repay it later or never. The present result
-therefore proves that Svelte’s starting advantage can disappear after
-production compression. It does not prove that most medium-sized applications
-cross at the source size or component count measured here.
 
 ## Why this benchmark exists
 
 Svelte’s bundle-size advantage is not a claim invented for this rebuttal.
-In paraphrase, Svelte advocates argue that [“Svelte avoids the upfront cost of
-a large framework runtime by compiling components into tiny standalone
-modules,”](https://web.archive.org/web/20260727134238/https://svelte.dev/blog/frameworks-without-the-framework)
-that [“moving more framework work into the compiler is what makes Svelte
-applications small and
-fast,”](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive)
-and that [“the framework largely disappears before the browser loads the page,
-so users receive mostly application
-code.”](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte)
-From there, the comparison with Vue becomes explicit: [“Svelte produces a
-smaller JavaScript payload than Vue because Vue sends more framework logic to
-the
-browser.”](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte#how-svelte-compares-with-other-frameworks)
-Broader comparisons go further, claiming that [“equivalent Svelte bundles are
-roughly half the size of Vue bundles, and the absolute gap remains as
-applications
-grow,”](https://web.archive.org/web/20260727134421/https://www.pkgpulse.com/guides/vue-3-vs-svelte-5-2026#bundle-size)
-and even that [“a small Vue build can be about ten times larger than its Svelte
-equivalent.”](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size)
+In paraphrase, Svelte advocates argue:
+
+- “Svelte avoids the upfront cost of a large framework runtime by compiling
+  components into tiny standalone modules.” ([Svelte:
+  *Frameworks without the
+  framework*](https://web.archive.org/web/20260727134238/https://svelte.dev/blog/frameworks-without-the-framework))
+- “Moving more framework work into the compiler is what makes Svelte
+  applications small and fast.” ([Svelte:
+  *Svelte 5 is
+  alive*](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive))
+- “The framework largely disappears before the browser loads the page, so
+  users receive mostly application code.” ([Vercel:
+  *What is
+  Svelte?*](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte))
+- “Svelte produces a smaller JavaScript payload than Vue because Vue sends more
+  framework logic to the browser.” ([Vercel:
+  *How Svelte compares with other
+  frameworks*](https://web.archive.org/web/20260727134258/https://vercel.com/i/what-is-svelte#how-svelte-compares-with-other-frameworks))
+- “Equivalent Svelte bundles are roughly half the size of Vue bundles, and the
+  absolute gap remains as applications grow.” ([PkgPulse:
+  *Vue 3 vs. Svelte
+  5*](https://web.archive.org/web/20260727134421/https://www.pkgpulse.com/guides/vue-3-vs-svelte-5-2026#bundle-size))
+- “A small Vue build can be about ten times larger than its Svelte equivalent.”
+  ([ButterCMS:
+  *Svelte vs.
+  Vue*](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size))
 
 Those are substantive, testable claims. Framework choice involves much more
 than bundle size or benchmark milliseconds, and this repository does not claim
@@ -188,11 +126,12 @@ browsers actually receive production JavaScript.
 | Independently maintained matched app | Keyed `js-framework-benchmark` implementations | Svelte was 9,919 B smaller with Brotli. |
 | Small product-shaped app | Same 8-route, 33-component behavior contract | Svelte was 7,604 B smaller for a complete cold traversal and 8,400 B smaller initially. The complete gap narrowed as routes were added. |
 
-The route-split scaling row is the crossover shown in Figure 1. The final two
-rows are the control against overstating it: Svelte remains decisively smaller
-in the complete small applications measured here. In the 33-component
-product-shaped application, every lazy feature file was smaller with Vue after
-Brotli, but those savings had not yet repaid Vue’s larger starting point.
+The route-split scaling row is the crossover shown in the opening chart. The
+final two rows are the control against overstating it: Svelte remains
+decisively smaller in the complete small applications measured here. In the
+33-component product-shaped application, every lazy feature file was smaller
+with Vue after Brotli, but those savings had not yet repaid Vue’s larger
+starting point.
 
 ## What these benchmarks establish
 
