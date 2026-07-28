@@ -26,11 +26,6 @@ In paraphrase, Svelte advocates argue the following:
 - “Moving more framework work into the compiler is what makes Svelte
   applications small and fast.” — The Svelte team, Svelte, ([*Svelte 5 is
   alive*](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive))
-- “In practice, you're unlikely to hit that inflection point on any given page
-  of your app, as long as you're using code-splitting.” — Rich Harris, Svelte
-  creator, now at Vercel,
-  ([*Yes but does it
-  scale?*](https://github.com/sveltejs/svelte/issues/2546))
 - “The framework largely disappears before the browser loads the page, so
   users receive mostly application code.” — Anshuman Bhardwaj, Vercel,
   ([*What is
@@ -46,6 +41,11 @@ In paraphrase, Svelte advocates argue the following:
 - “A small Vue build can be about ten times larger than its Svelte equivalent.”
   — Arek Nawo, ButterCMS, ([*Svelte vs.
   Vue*](https://web.archive.org/web/20260727134449/https://buttercms.com/blog/svelte-vs-vue-which-one-to-choose/#bundle-size))
+- “In practice, you're unlikely to hit that inflection point on any given page
+  of your app, as long as you're using code-splitting.” — Rich Harris, Svelte
+  creator, now at Vercel,
+  ([*Yes but does it
+  scale?*](https://github.com/sveltejs/svelte/issues/2546))
 
 ## Vue’s bundle-size crossover
 
