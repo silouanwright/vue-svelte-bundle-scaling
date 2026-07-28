@@ -71,9 +71,11 @@ The architectural tradeoff is also clearly documented in the Vue FAQ:
 > outdated.](https://github.com/sveltejs/svelte/issues/2546#issuecomment-2030790447)”
 > — Rich Harris
 
-Using an existing Svelte 5 application and a corresponding Vue application,
-the benchmark finds Vue smaller in both code-split usage patterns: after
-visiting all benchmarked routes and after loading only the default route.
+Given an existing Svelte 5 application following Svelte’s documented best
+practices, and a corresponding Vue 3 application, both using code splitting,
+the benchmark not only finds Vue smaller when visiting all code-split routes,
+but smaller even when visiting the very first route (meaning code splitting
+did not prevent the crossover).
 
 ## Updated packages for the 2026 benchmark
 
