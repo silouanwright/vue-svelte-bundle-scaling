@@ -229,3 +229,7 @@ be made, especially when many developers and tech leads will—and already
 have—picked Svelte strictly off of promises of smaller bundle sizes and better
 performance for serious applications, which will almost certainly be
 medium-to-large applications.
+
+This acknowledgment, combined with the performance of Vue’s Vapor Mode,
+should help people who would otherwise pick Vue were it not for performance
+concerns.
