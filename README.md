@@ -77,33 +77,6 @@ the benchmark not only finds Vue smaller when visiting all code-split routes,
 but smaller even when visiting the very first route (meaning code splitting
 did not prevent the crossover).
 
-## Updated packages for the 2026 benchmark
-
-- Vue 3.5.40
-- Svelte 5.56.8
-- Vite 8.1.5
-- `@vitejs/plugin-vue` 6.0.8
-- `@sveltejs/vite-plugin-svelte` 7.2.0
-- Node.js 22.19.0
-
-The newly authored Svelte fixtures use idiomatic Svelte 5 and follow
-[Svelte’s documented best
-practices](https://svelte.dev/docs/svelte/best-practices). The historical
-replication separately preserves Evan You’s original sources.
-
-## New statistics for the 2026 benchmark
-
-- Component-only output and complete production bundles
-- Raw, gzip, and Brotli sizes
-- CSR, hydration, and SSR output
-- Initial-route, lazy-route, and complete-traversal transfer
-- Marginal bytes per component and estimated crossover ranges
-- Generated scaling workloads and independently authored application controls
-- Default and app-informed trimmed production profiles
-
-Reproduction commands begin at
-[`Run the benchmarks`](#run-the-benchmarks).
-
 ## Vue wins in medium-to-large applications
 
 OpenSlides is a working, MIT-licensed desktop application for building
@@ -116,19 +89,22 @@ nine Playwright workflows.
 
 | OpenSlides production transfer | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| Dashboard, gzip | 418.966 kB | 541.648 kB | Vue by 122.682 kB |
-| Dashboard, Brotli | 309.676 kB | 413.089 kB | Vue by 103.413 kB |
-| Dashboard through editor, gzip | 510.251 kB | 889.338 kB | Vue by 379.087 kB |
-| Dashboard through editor, Brotli | 389.076 kB | 656.812 kB | Vue by 267.736 kB |
+| Default dashboard | 309.676 kB | 413.089 kB | Vue by 103.413 kB |
+| Dashboard + editor | 389.076 kB | 656.812 kB | Vue by 267.736 kB |
 
 Vue is already 103.413 kB smaller when the dashboard becomes usable and
 267.736 kB smaller after the editor loads.
+
+<details>
+<summary>Does Svelte’s additional Shiki payload explain the result?</summary>
 
 The final Svelte journey requests a second Shiki engine, language, and theme
 set totaling 174.992 kB after Brotli. That implementation detail increases the
 final gap. Removing it as a sensitivity check still leaves Vue 92.744 kB
 smaller, while the dashboard result is unaffected and already favors Vue by
 103.413 kB.
+
+</details>
 
 ### Compression does not create Vue’s lead
 
@@ -167,6 +143,33 @@ small-app measurements, and every machine-readable artifact are indexed in
 [`results/`](results/README.md). Interpretation and limitations live in
 [`docs/analysis.md`](docs/analysis.md); the transfer model is documented in
 [`METHODOLOGY.md`](METHODOLOGY.md).
+
+## Updated packages for the 2026 benchmark
+
+- Vue 3.5.40
+- Svelte 5.56.8
+- Vite 8.1.5
+- `@vitejs/plugin-vue` 6.0.8
+- `@sveltejs/vite-plugin-svelte` 7.2.0
+- Node.js 22.19.0
+
+The newly authored Svelte fixtures use idiomatic Svelte 5 and follow
+[Svelte’s documented best
+practices](https://svelte.dev/docs/svelte/best-practices). The historical
+replication separately preserves Evan You’s original sources.
+
+## New statistics for the 2026 benchmark
+
+- Component-only output and complete production bundles
+- Raw, gzip, and Brotli sizes
+- CSR, hydration, and SSR output
+- Initial-route, lazy-route, and complete-traversal transfer
+- Marginal bytes per component and estimated crossover ranges
+- Generated scaling workloads and independently authored application controls
+- Default and app-informed trimmed production profiles
+
+Reproduction commands begin at
+[`Run the benchmarks`](#run-the-benchmarks).
 
 ## Run the benchmarks
 

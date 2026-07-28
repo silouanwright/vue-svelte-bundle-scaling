@@ -16,5 +16,5 @@ human-readable reports. Running a benchmark updates its JSON and Markdown pair.
 | Hand-authored application, trimmed | [`hand-authored-trimmed.md`](hand-authored-trimmed.md) | [`hand-authored-trimmed.json`](hand-authored-trimmed.json) |
 | Upstream Weather Front | [`weather-upstream.md`](weather-upstream.md) | [`weather-upstream.json`](weather-upstream.json) |
 | Controlled Weather Front | [`weather-staged.md`](weather-staged.md) | [`weather-staged.json`](weather-staged.json) |
-| Independent terminal control | — | [`terminal-control.json`](terminal-control.json) |
+| Independent terminal control | [`terminal-control.md`](terminal-control.md) | [`terminal-control.json`](terminal-control.json) |
 | OpenSlides | [`openslides.md`](openslides.md) | [`openslides.json`](openslides.json) |

@@ -222,7 +222,11 @@ visible behavior before its emitted JavaScript and CSS responses are measured.
 The Terminal control preserves the independently authored Vue and Svelte
 implementations from
 [`naufalafif/realworld-js-framework-comparison`](https://github.com/naufalafif/realworld-js-framework-comparison/tree/2c338de860222deba6b842260cfbec6609c272bd).
-Its source commit, resolved dependencies, and production asset measurements are
+`scripts/run-terminal-control.mjs` checks out that exact source commit, installs
+its locked dependency graph, builds both plain Vite applications, and measures
+their emitted JavaScript and CSS. The Vue application uses Composition API
+only, so its unused Options API and production diagnostics are disabled. The
+source commit, resolved dependencies, and production asset measurements are
 recorded in `results/terminal-control.json`.
 
 These controls establish that Svelte retains its baseline advantage in two
@@ -299,11 +303,11 @@ controls reproduce every real chunk graph.
 ## Reproducibility and integrity
 
 `npm run benchmark:all` regenerates the controlled lanes, trimmed profiles,
-Weather Front measurements, and OpenSlides results. The independently authored
-Terminal control is commit-pinned and indexed separately.
+Weather Front measurements, the independently authored Terminal control, and
+OpenSlides results.
 Temporary build roots are cleared before use and removed after successful runs.
-Upstream inputs are commit-pinned, and their downloaded bytes are recorded with
-SHA-256 digests in the generated JSON.
+Upstream inputs are commit-pinned. Lanes that download individual source files
+also record their SHA-256 digests in the generated JSON.
 
 `npm run verify`:
 
