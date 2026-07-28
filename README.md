@@ -28,11 +28,10 @@ In paraphrase, Svelte advocates argue the following:
 - “Moving more framework work into the compiler is what makes Svelte
   applications small and fast.” — The Svelte team, Svelte, ([*Svelte 5 is
   alive*](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive))
-- “The crossover exists in theory, but code splitting makes it unlikely that
-  any one application page will reach it.” — Rich Harris, Svelte creator, now
-  at Vercel,
-  ([*Yes but does it
-  scale?*](https://github.com/sveltejs/svelte/issues/2546))
+- “[In practice, you're unlikely to hit that inflection point on any given page
+  of your app, as long as you're using
+  code-splitting.](https://github.com/sveltejs/svelte/issues/2546)” — Rich
+  Harris, Svelte creator, now at Vercel
 - “The framework largely disappears before the browser loads the page, so
   users receive mostly application code.” — Anshuman Bhardwaj, Vercel,
   ([*What is
@@ -73,47 +72,9 @@ The architectural tradeoff is also clearly documented in the Vue FAQ:
 > outdated.](https://github.com/sveltejs/svelte/issues/2546#issuecomment-2030790447)”
 > — Rich Harris
 
-Weather Front and the independent terminal app establish the small end
-honestly: Svelte wins both. OpenSlides supplies what Evan You hypothesized from
-TodoMVC: an actual, working medium-sized application that concretely shows Vue
-becoming substantially smaller.
-
-The lead chart therefore uses measured production builds from working
-applications, not projected copies of one TodoMVC component.
-
-The purpose is not to establish one universal component count or bundle size
-at which the frameworks trade places. Application structure, dependencies,
-route boundaries, and compression make such a threshold impossible to predict
-in the abstract. The benchmark tests the general claim that Svelte’s smaller
-framework baseline produces the smaller application. OpenSlides closes that
-question: a working medium-sized application can be substantially smaller in
-Vue.
-
-That is the rule of thumb illustrated here. Svelte starts smaller. Vue grows
-more slowly. The exact crossover varies, but Svelte’s smaller starting point
-does not guarantee the smaller substantial application.
-
-### Code splitting does not prevent the crossover
-
-Rich Harris made the strongest version of the code-splitting defense:
-
-> “[In practice, you're unlikely to hit that inflection point on any given
-> page of your app, as long as you're using
-> code-splitting.](https://github.com/sveltejs/svelte/issues/2546)”
-
-OpenSlides refutes that prediction directly. Both implementations code-split
-the dashboard and editor:
-
-- The entry favors Svelte, but loading only the default dashboard makes Vue
-  103.413 kB smaller before the editor is requested.
-- If the user also opens the editor, Vue totals 389.076 kB and Svelte totals
-  656.812 kB.
-
-Code splitting neither prevents a substantial route from crossing nor removes
-the cumulative cost when users visit multiple routes.
-
-“Use code splitting” is therefore not an answer to the crossover. It is a
-delivery strategy already present in the application that demonstrates it.
+Using an existing Svelte 5 application and a corresponding Vue application,
+the benchmark finds Vue smaller in both code-split usage patterns: after
+visiting all benchmarked routes and after loading only the default route.
 
 ## Updated packages for the 2026 benchmark
 
