@@ -537,7 +537,7 @@ function realApplicationsChart(
     <g transform="translate(7 9) scale(0.09375)" class="callout-icon">
       <path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z" />
     </g>
-    <text x="38" y="23" class="callout-title">This is a rule of thumb, not a fixed threshold!</text>
+    <text x="38" y="23" class="callout-title">This is an estimate, not a rule!</text>
     <text x="38" y="44" class="callout-text">Every point is measured; the curves illustrate</text>
     <text x="38" y="61" class="callout-text">the general principle. Application structure,</text>
     <text x="38" y="78" class="callout-text">routing, and compression vary.</text>

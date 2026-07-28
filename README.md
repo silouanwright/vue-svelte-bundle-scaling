@@ -2,9 +2,9 @@
 
 ## TL;DR
 
-- Svelte has the smaller bundle size for Hello World demos, isolated widgets,
+- Svelte is the smaller bundle size for Hello World demos, isolated widgets,
   and small-to-medium applications.
-- Vue has the smaller bundle size for medium-to-large applications.
+- Vue is the smaller bundle size for medium-to-large applications.
 
 ![Svelte is smaller for the Weather Front and terminal applications, while Vue is substantially smaller for the medium-sized OpenSlides application](docs/images/real-applications-brotli.svg)
 
