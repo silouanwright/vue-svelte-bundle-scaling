@@ -27,8 +27,13 @@ Generated: 2026-07-27T21:47:50.983Z
 | Dashboard → editor Brotli | 389,076 B | 656,812 B | −267,736 B |
 
 The cold journey includes the Shiki worker, Wasm engine, selected languages,
-and selected theme actually requested by each production build. Both
-implementations request two Shiki asset sets after the editor opens.
+and selected theme actually requested by each production build. After the
+editor opens, Svelte requests two Shiki engine, language, and theme sets; Vue
+requests one set plus the shared worker.
+
+The additional Svelte-only set totals 174,992 B after Brotli. Subtracting it as
+a sensitivity check leaves Svelte at 481,820 B, still 92,744 B larger than Vue.
+This subtraction is not a separate browser measurement.
 
 | Source inventory | Vue | Svelte |
 | --- | ---: | ---: |

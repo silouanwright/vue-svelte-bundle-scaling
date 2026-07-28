@@ -31,13 +31,16 @@ The committed results use:
 | `@sveltejs/vite-plugin-svelte` | 7.2.0 |
 | Playwright (parity only) | 1.62.0 |
 
-`package.json` and `package-lock.json` pin exact versions. The scripts record
-their resolved versions in every result document and the verifier rejects a
-result whose recorded framework or build version differs from `package.json`.
+`package.json` and `package-lock.json` pin exact versions for the benchmark
+harness and newly authored fixtures. Commit-pinned independent controls retain
+their own dependency graphs; their resolved versions are recorded in their
+result documents.
 
-All builds target ES2022, use Vite’s Oxc production minifier, omit source maps,
-and disable Vite’s own display-only compressed-size calculation. This harness
-reads the emitted JavaScript bytes itself.
+The controlled compiler and generated-application lanes target ES2022, use
+Vite’s Oxc production minifier, omit source maps, and disable Vite’s own
+display-only compressed-size calculation. Real-application controls use their
+documented production configurations. OpenSlides targets `esnext` and uses
+Terser in both implementations. The harness reads the emitted assets itself.
 
 The primary reports use the official plugin defaults. The route-split
 application simulation and hand-authored lane also have an app-informed
@@ -55,9 +58,9 @@ trim.
 
 ## Size definitions
 
-For each emitted `.js` or `.mjs` file:
+For each emitted file:
 
-- **raw** is the byte length of minified production JavaScript;
+- **raw** is the emitted byte length;
 - **gzip** is Node’s `gzipSync` output at level 9;
 - **Brotli** is Node’s `brotliCompressSync` output at quality 11.
 
@@ -71,8 +74,12 @@ all emitted JavaScript and compress it once. This **coalesced** number is not a
 network total. It is a diagnostic for repeated syntax that would share one
 compression dictionary if the application were a single response.
 
-No HTTP headers, HTML, CSS, source maps, images, or cached bytes are included.
-The study is intentionally restricted to emitted JavaScript.
+The compiler, generated scaling, matched benchmark, and hand-authored lanes
+measure JavaScript only. Weather Front and Terminal measure emitted JavaScript
+and CSS. OpenSlides measures every JavaScript, CSS, and Wasm response requested
+by its production dashboard and editor journeys. HTML, HTTP headers, source
+maps, images, and cached bytes are excluded. Each report labels its asset
+scope.
 
 ## Transfer scopes
 
@@ -104,7 +111,7 @@ The reports therefore keep initial transfer, individual lazy responses,
 complete cold traversal, and coalesced compression separate. “Bundle size” is
 not one number until the delivery and navigation model is specified.
 
-## Five complementary lanes
+## Complementary benchmark lanes
 
 ### 1. Original 2021 specimen
 
@@ -165,10 +172,10 @@ each into every lazy route.
 It builds 0–512 definitions in route groups of eight. Each emitted JavaScript
 file is compressed separately before the complete transfer is summed.
 
-This lane asks whether Vue’s raw-code amortization can survive a chunk graph
-that prevents one global Brotli dictionary. Because the components are still
-generated from eight templates, its crossover is evidence that the mechanism
-can occur, not a prediction for a product.
+This lane asks whether Vue’s lower generated-code growth can survive a chunk
+graph that prevents one global Brotli dictionary. Because the components are
+still generated from eight templates, its crossover is evidence that the
+mechanism can occur, not a prediction for a product.
 
 ### 4. Independently maintained matched application
 
@@ -205,6 +212,41 @@ applications. A result is not publishable if either implementation fails.
 Playwright and Chromium are parity tools only. The benchmark script invokes
 Vite directly, reads `dist`, and performs compression in Node. Browser
 binaries, test code, and test dependencies cannot enter the measured graphs.
+
+### 6. Small real-application controls
+
+The normalized Weather Front fixture implements the same six-component product
+surface in current Vue and Svelte. A shared Playwright contract verifies the
+visible behavior before its emitted JavaScript and CSS responses are measured.
+
+The Terminal control preserves the independently authored Vue and Svelte
+implementations from
+[`naufalafif/realworld-js-framework-comparison`](https://github.com/naufalafif/realworld-js-framework-comparison/tree/2c338de860222deba6b842260cfbec6609c272bd).
+Its source commit, resolved dependencies, and production asset measurements are
+recorded in `results/terminal-control.json`.
+
+These controls establish that Svelte retains its baseline advantage in two
+complete small applications. They do not locate a universal crossover.
+
+### 7. Medium-sized OpenSlides application
+
+The OpenSlides lane pins the upstream Svelte application at commit
+[`a8138eb`](https://github.com/codewiththiha/OpenSlides/tree/a8138eb26c93df378119147c036c34fe7d83b6a7)
+and compares it with a Vue port of the same product. Both implementations
+lazy-load dashboard and editor routes and pass the same nine Playwright
+workflows.
+
+The browser records every production JavaScript, CSS, and Wasm response needed
+to make the dashboard usable and then open the seeded editor. It counts each
+content-hashed response once. This measures two complete implementations rather
+than framework-runtime bytes in isolation.
+
+The implementations are behavior-matched, not source-shape-matched. They use
+different framework-specific UI adapters and organize components differently.
+The final Svelte journey also requests a second Shiki engine, language, and
+theme set. The report preserves that real browser result and separately
+documents the sensitivity check showing that Vue remains smaller if the
+additional set is subtracted.
 
 ## Fixture-authoring audit
 
@@ -256,8 +298,9 @@ controls reproduce every real chunk graph.
 
 ## Reproducibility and integrity
 
-`npm run benchmark:all` regenerates all five primary lanes plus the two trimmed
-profile JSON and Markdown reports.
+`npm run benchmark:all` regenerates the controlled lanes, trimmed profiles,
+Weather Front measurements, and OpenSlides results. The independently authored
+Terminal control is commit-pinned and indexed separately.
 Temporary build roots are cleared before use and removed after successful runs.
 Upstream inputs are commit-pinned, and their downloaded bytes are recorded with
 SHA-256 digests in the generated JSON.
@@ -268,8 +311,8 @@ SHA-256 digests in the generated JSON.
 - recomputes totals from the emitted-file records;
 - validates initial/static-import totals in the hand-authored lane;
 - validates coalesced/raw invariants;
-- checks recorded build versions against `package.json`;
-- computes canonical SHA-256 hashes for all seven JSON documents.
+- checks harness-owned build versions against `package.json`;
+- computes canonical SHA-256 hashes for all committed result documents.
 
 Canonicalization sorts object keys and omits only environmental metadata:
 generation timestamp, reported Node version, and operating-system platform.
@@ -294,8 +337,14 @@ verification.
 - Component count is not a stable measure of application complexity.
 - Initial transfer and complete cold traversal answer different product
   questions.
+- Behavior parity does not make two framework implementations source-shape or
+  dependency-graph equivalents.
+- Framework-specific libraries and optional assets can be larger than the
+  framework runtime itself.
 - A framework upgrade can change every result.
 - Server bundle size is operationally different from browser transfer.
 
-The repository therefore supports architectural observations and reproducible
-examples, not a universal winner.
+The repository establishes that Svelte’s smaller framework baseline does not
+guarantee a smaller substantial application. It supports a practical
+crossover rule of thumb and reproducible examples, not one universal numerical
+threshold.

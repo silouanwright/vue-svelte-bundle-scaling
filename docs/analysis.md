@@ -9,7 +9,7 @@ under examination. With Vue 3.5, Svelte 5, and Vite 8, both parts of that
 tradeoff remain visible—but the current bundle-size story is not captured by
 the old 13- or 19-component crossover estimates.
 
-The evidence in this repository supports five conclusions:
+The evidence in this repository supports six conclusions:
 
 1. Vue still emits less isolated code for the original component specimen.
 2. Svelte remains substantially smaller in the small complete applications
@@ -17,9 +17,11 @@ The evidence in this repository supports five conclusions:
 3. Vue’s raw client-code growth can be lower and can repay its larger runtime.
 4. Whole-bundle compression can delay or reverse that raw crossover when
    hundreds of components repeat similar compiler output.
-5. In the route-split application simulation, Vue’s amortization becomes a gzip
+5. In the route-split application simulation, Vue’s lower growth becomes a gzip
    and Brotli advantage when diverse code is divided among independently
    compressed lazy routes.
+6. In the working medium-sized OpenSlides application, Vue becomes
+   substantially smaller after the dashboard and editor routes load.
 
 That final result is an existence proof, not a new universal threshold. The
 application, compiler, component structures, chunk boundaries, minifier, and
@@ -59,7 +61,7 @@ The historical study’s “SSR” browser calculation corresponds most closely 
 this repository’s hydration-capable client, not its separate bundled
 server-rendering program. Those artifacts should not be conflated.
 
-## 2. Raw amortization is real, but compressed near-clones favor Svelte
+## 2. The raw crossover is real, but compressed near-clones favor Svelte
 
 The controlled benchmark builds complete applications containing up to 640
 distinct modules. It does not estimate a bundle by multiplying one component.
@@ -158,7 +160,7 @@ ordinary source-size chart makes the scale easier to imagine; the matched
 benchmark establishes the controlled framework comparison.
 
 Those numbers belong to this generated workload. The important result is
-mechanical: Vue’s amortization was not limited to uncompressed output. It
+mechanical: Vue’s lower growth was not limited to uncompressed output. It
 survived network compression once route boundaries prevented all repeated
 compiler patterns from sharing a single global dictionary.
 
@@ -243,7 +245,7 @@ version disclosure.
 The result is asymmetric because the optional surfaces are asymmetric. Vue’s
 compatibility-oriented default carries substantially more removable code than
 Svelte’s version marker. This sensitivity does not manufacture the
-amortization curve—the default profile already crosses—but it demonstrates
+crossover—the default profile already crosses—but it demonstrates
 that comparing a deliberately trimmed Svelte build to Vue’s default would be
 an avoidable configuration bias.
 
@@ -252,7 +254,7 @@ an avoidable configuration bias.
 It is no longer precise to describe modern Svelte as merely “the framework
 without a runtime.” Svelte 5 uses shared runtime machinery and signals while
 continuing to compile component-specific operations. Its architecture has
-moved, in part, toward amortizing common behavior, as Svelte’s own
+moved, in part, toward sharing more common behavior, as Svelte’s own
 [release account](https://svelte.dev/blog/svelte-5-is-alive) explains.
 
 That evolution does not invalidate the 2021 question. It makes rerunning the
@@ -261,7 +263,31 @@ generated and how it scales; it does not make all framework work disappear.
 Modern Vue and Svelte both combine compiler and runtime techniques, with
 different balances.
 
-## 8. The strongest defensible formulation
+## 8. OpenSlides demonstrates the crossover in a working application
+
+OpenSlides moves the question out of generated projections. The pinned Svelte
+application and its Vue port expose the same dashboard and editor behavior and
+pass the same nine Playwright workflows.
+
+| Cold production journey | Vue Brotli | Svelte Brotli | Vue advantage |
+| --- | ---: | ---: | ---: |
+| Dashboard | 309,676 B | 413,089 B | 103,413 B |
+| Dashboard through editor | 389,076 B | 656,812 B | 267,736 B |
+
+The final Svelte journey requests a second Shiki engine, language, and theme
+set totaling 174,992 B after Brotli. That implementation choice inflates the
+final difference. Subtracting it as a sensitivity check leaves Svelte at
+481,820 B, still 92,744 B larger than Vue. The dashboard result does not
+contain that second set and already favors Vue by 103,413 B.
+
+This is a complete-implementation comparison, not a framework-runtime
+isolation experiment. The ports use different framework-specific adapters and
+organize their source differently. Its evidentiary value is correspondingly
+specific and decisive: Svelte’s smaller baseline does not guarantee the
+smaller substantial application, and Vue’s projected bundle-size crossover
+occurs in a working medium-sized product.
+
+## 9. The strongest defensible formulation
 
 A publication using these results can say:
 
@@ -276,7 +302,10 @@ A publication using these results can say:
 > as separate responses, Vue eventually became smaller in gzip and Brotli.
 > A separate, individually written 33-component application did not cross,
 > although most of its lazy route increments favored Vue and the complete gap
-> narrowed.
+> narrowed. In OpenSlides, a working medium-sized application, Vue was already
+> 103 kB smaller after the dashboard loaded and remained smaller after the
+> editor loaded, even after accounting for an additional Svelte-only Shiki
+> asset set.
 > The evidence therefore supports Svelte as the likely size winner for widgets
 > and small applications, and Vue as the likely smaller framework layer for
 > medium-to-large applications with many distinct, independently transferred
@@ -285,8 +314,8 @@ A publication using these results can say:
 
 That is a stronger argument than either “Svelte compiles away the framework”
 or a recycled historical threshold. It acknowledges Svelte’s measured
-advantage where it exists, demonstrates that Vue’s runtime is genuinely
-amortizable after transport compression, and states the product shape in which
+advantage where it exists, demonstrates that Vue’s larger runtime can be
+repaid after transport compression, and states the product shape in which
 that tradeoff is likely to pay off.
 
 ## Decision-grade testing for a real product

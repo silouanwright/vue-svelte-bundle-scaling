@@ -254,6 +254,22 @@ async function main() {
   for (const framework of frameworks) results.push(await measure(framework));
   const vue = results.find((result) => result.framework === "vue");
   const svelte = results.find((result) => result.framework === "svelte");
+  const svelteDashboardFiles = new Set(
+    svelte.journey.dashboard.files.map((file) => file.file),
+  );
+  const additionalSvelteShikiFiles = svelte.journey.editor.files.filter(
+    (file) =>
+      !svelteDashboardFiles.has(file.file) &&
+      /\/(?:dark-plus|javascript|typescript|wasm)-/.test(file.file),
+  );
+  const additionalSvelteShikiBrotli = additionalSvelteShikiFiles.reduce(
+    (total, file) => total + file.brotli,
+    0,
+  );
+  const svelteEditorWithoutAdditionalShiki =
+    svelte.journey.editor.brotli - additionalSvelteShikiBrotli;
+  const sensitivityVueAdvantage =
+    svelteEditorWithoutAdditionalShiki - vue.journey.editor.brotli;
   const metadata = {
     generatedAt: new Date().toISOString(),
     sourceRepository: "https://github.com/codewiththiha/OpenSlides",
@@ -325,8 +341,13 @@ async function main() {
   lines.push(
     "",
     "The cold journey includes the Shiki worker, Wasm engine, selected languages,",
-    "and selected theme actually requested by each production build. Both",
-    "implementations request two Shiki asset sets after the editor opens.",
+    "and selected theme actually requested by each production build. After the",
+    "editor opens, Svelte requests two Shiki engine, language, and theme sets;",
+    "Vue requests one set plus the shared worker.",
+    "",
+    `The additional Svelte-only set totals ${bytes(additionalSvelteShikiBrotli)} after Brotli. Subtracting it as`,
+    `a sensitivity check leaves Svelte at ${bytes(svelteEditorWithoutAdditionalShiki)}, still ${bytes(sensitivityVueAdvantage)} larger than Vue.`,
+    "This subtraction is not a separate browser measurement.",
     "",
     "| Source inventory | Vue | Svelte |",
     "| --- | ---: | ---: |",

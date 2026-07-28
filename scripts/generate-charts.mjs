@@ -301,7 +301,7 @@ function smallLargeComparisonChart(results) {
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="title description">
   <title id="title">Route-split application simulation at two measured sizes</title>
-  <desc id="description">Complete production bundles from the generated route-split application simulation. Svelte is smaller at eight component definitions. Vue is smaller at 512 component definitions after its larger shared runtime is amortized.</desc>
+  <desc id="description">Complete production bundles from the generated route-split application simulation. Svelte is smaller at eight component definitions. Vue is smaller at 512 component definitions after its lower generated-code growth repays the larger shared runtime.</desc>
   <style>
     text { font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #17202a; }
     .title { font-size: 23px; font-weight: 700; }
@@ -502,6 +502,10 @@ function realApplicationsChart(
     .value { font-size: 12px; font-weight: 700; }
     .legend { font-size: 14px; font-weight: 650; }
     .crossover { font-size: 12px; font-weight: 700; fill: #4a5560; }
+    .callout-box { fill: #fff8e6; stroke: #d69e2e; stroke-width: 1.5; }
+    .callout-icon { fill: #b7791f; }
+    .callout-title { fill: #644b11; font-size: 12px; font-weight: 750; }
+    .callout-text { fill: #644b11; font-size: 11px; }
   </style>
   <rect width="${width}" height="${height}" fill="#ffffff" />
   <text x="42" y="50" class="title">${title}</text>
@@ -528,6 +532,16 @@ function realApplicationsChart(
   <text x="${stageX[2] + 10}" y="${y(stages[2].vue) + 22}" class="value">${formatSize(stages[2].vue)}</text>
   <text x="${stageX[3] - 10}" y="${y(stages[3].svelte) - 12}" text-anchor="end" class="value">${formatSize(stages[3].svelte)}</text>
   <text x="${stageX[3] + 10}" y="${y(stages[3].vue) + 22}" class="value">${formatSize(stages[3].vue)}</text>
+  <g transform="translate(540 300)">
+    <rect width="280" height="90" rx="8" class="callout-box" />
+    <g transform="translate(7 9) scale(0.09375)" class="callout-icon">
+      <path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z" />
+    </g>
+    <text x="38" y="23" class="callout-title">This is a rule of thumb, not a fixed threshold!</text>
+    <text x="38" y="44" class="callout-text">Every point is measured; the curves illustrate</text>
+    <text x="38" y="61" class="callout-text">the general principle. Application structure,</text>
+    <text x="38" y="78" class="callout-text">routing, and compression vary.</text>
+  </g>
   ${stageLabels}
 </svg>
 `.replace(/^[ \t]+$/gm, "");
@@ -603,7 +617,7 @@ fs.writeFileSync(
       height: 94,
       title: "This is an estimate, not a rule!",
       lines: [
-        "This demonstrates Vue’s amortization principle;",
+        "This demonstrates Vue’s bundle-size crossover;",
         "application structure, chunking, and compression vary.",
         "The principle is proven; the exact threshold is not.",
       ],
