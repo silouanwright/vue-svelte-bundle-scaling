@@ -54,6 +54,9 @@ contributes less generated code than its Svelte counterpart, enough components
 eventually repay that initial difference. The point at which Vue becomes
 smaller is the bundle-size crossover.
 
+The architectural tradeoff is also clearly documented in the Vue FAQ:
+[https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
+
 In 2021, Vue creator Evan You responded to this underlying claim with
 [benchmarks](https://github.com/yyx990803/vue-svelte-size-analysis)
 showing that while Svelte had a dramatically smaller framework baseline, Vue
@@ -61,9 +64,6 @@ generated substantially less component-specific code for one TodoMVC
 component. He then calculated that roughly 19 TodoMVC-sized components could
 repay Vue’s larger runtime. That was a model of a larger application, not a
 measured complete application containing 19 components.
-
-The architectural tradeoff is also clearly documented in the Vue FAQ:
-[https://vuejs.org/about/faq#is-vue-lightweight](https://vuejs.org/about/faq#is-vue-lightweight).
 
 ## Is Vue’s bundle-size crossover still visible in 2026?
 
