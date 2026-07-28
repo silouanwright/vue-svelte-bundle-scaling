@@ -532,15 +532,16 @@ function realApplicationsChart(
   <text x="${stageX[2] + 10}" y="${y(stages[2].vue) + 22}" class="value">${formatSize(stages[2].vue)}</text>
   <text x="${stageX[3] - 10}" y="${y(stages[3].svelte) - 12}" text-anchor="end" class="value">${formatSize(stages[3].svelte)}</text>
   <text x="${stageX[3] + 10}" y="${y(stages[3].vue) + 22}" class="value">${formatSize(stages[3].vue)}</text>
-  <g transform="translate(540 300)">
-    <rect width="280" height="90" rx="8" class="callout-box" />
+  <g transform="translate(510 282)">
+    <rect width="310" height="106" rx="8" class="callout-box" />
     <g transform="translate(7 9) scale(0.09375)" class="callout-icon">
       <path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM120,104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm8,88a12,12,0,1,1,12-12A12,12,0,0,1,128,192Z" />
     </g>
     <text x="38" y="23" class="callout-title">This is an estimate, not a rule!</text>
-    <text x="38" y="44" class="callout-text">Every point is measured; the curves illustrate</text>
-    <text x="38" y="61" class="callout-text">the general principle. Application structure,</text>
-    <text x="38" y="78" class="callout-text">routing, and compression vary.</text>
+    <text x="38" y="44" class="callout-text">This demonstrates Vue’s bundle-size crossover.</text>
+    <text x="38" y="60" class="callout-text">Application structure, chunking, and</text>
+    <text x="38" y="76" class="callout-text">compression vary. The principle is proven;</text>
+    <text x="38" y="92" class="callout-text">the exact threshold is not.</text>
   </g>
   ${stageLabels}
 </svg>
@@ -700,7 +701,7 @@ fs.writeFileSync(
         600_000,
       ],
       title: "From a small app to a medium-sized app (kB)",
-      subtitle: "Vue vs. Svelte · Real application measurements",
+      subtitle: 'Vue vs. Svelte · Actual "real-life" applications',
       description:
         "Svelte is smaller for the controlled Weather Front and independently authored terminal applications. Vue is smaller after the medium-sized OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured Brotli transfer states for each framework.",
     },
@@ -726,7 +727,7 @@ fs.writeFileSync(
         3_000_000,
       ],
       title: "Production output before compression (kB)",
-      subtitle: "Vue vs. Svelte · Real application measurements",
+      subtitle: 'Vue vs. Svelte · Actual "real-life" applications',
       description:
         "Before transfer compression, Svelte emits less production output for the Weather Front and terminal applications. Vue emits less after the OpenSlides dashboard route loads and extends its lead after the editor route loads. One continuous curve passes through the four measured uncompressed production states for each framework.",
     },
