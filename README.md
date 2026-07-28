@@ -26,10 +26,11 @@ In paraphrase, Svelte advocates argue the following:
 - “Moving more framework work into the compiler is what makes Svelte
   applications small and fast.” — The Svelte team, Svelte, ([*Svelte 5 is
   alive*](https://web.archive.org/web/20260727134144/https://svelte.dev/blog/svelte-5-is-alive))
-- “[In practice, you're unlikely to hit that inflection point on any given page
-  of your app, as long as you're using
-  code-splitting.](https://github.com/sveltejs/svelte/issues/2546)” — Rich
-  Harris, Svelte creator, now at Vercel
+- “In practice, you're unlikely to hit that inflection point on any given page
+  of your app, as long as you're using code-splitting.” — Rich Harris, Svelte
+  creator, now at Vercel,
+  ([*Yes but does it
+  scale?*](https://github.com/sveltejs/svelte/issues/2546))
 - “The framework largely disappears before the browser loads the page, so
   users receive mostly application code.” — Anshuman Bhardwaj, Vercel,
   ([*What is
