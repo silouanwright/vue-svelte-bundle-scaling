@@ -715,7 +715,7 @@ fs.writeFileSync(
     openslides.results,
     {
       sizeKey: "raw",
-      maximum: 3_500_000,
+      maximum: 2_500_000,
       ticks: [
         0,
         500_000,
@@ -723,7 +723,6 @@ fs.writeFileSync(
         1_500_000,
         2_000_000,
         2_500_000,
-        3_000_000,
       ],
       title: "Production output before compression (kB)",
       subtitle: 'Vue vs. Svelte · Actual "real-life" applications',
