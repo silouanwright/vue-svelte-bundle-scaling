@@ -53,13 +53,13 @@
 
   <path d="M 138 391.64 C 169.33 387.16, 261.33 385.32, 326 364.78 C 390.67 344.24, 455.67 290.17, 526 268.4 C 596.33 246.63, 711.00 239.85, 748 234.14" fill="none" stroke="#238a62" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
   <circle cx="138" cy="391.64" r="6" fill="#238a62" /><circle cx="326" cy="364.78" r="6" fill="#238a62" /><circle cx="526" cy="268.4" r="6" fill="#238a62" /><circle cx="748" cy="234.14" r="6" fill="#238a62" />
-  <path d="M 138 395.04 C 169.33 390.62, 261.33 397.03, 326 368.49 C 390.67 339.95, 455.67 265.42, 526 223.78 C 596.33 182.14, 711.00 136.16, 748 118.63" fill="none" stroke="#d93600" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
-  <rect x="133" y="390.04" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 138 395.04)" /><rect x="321" y="363.49" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 326 368.49)" /><rect x="521" y="218.78" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 526 223.78)" /><rect x="743" y="113.63" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 748 118.63)" />
+  <path d="M 138 395.04 C 169.33 390.62, 261.33 393.97, 326 368.49 C 390.67 343.01, 455.67 268.16, 526 242.14 C 596.33 216.12, 711.00 217.32, 748 212.36" fill="none" stroke="#d93600" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="133" y="390.04" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 138 395.04)" /><rect x="321" y="363.49" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 326 368.49)" /><rect x="521" y="237.14" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 526 242.14)" /><rect x="743" y="207.36" width="10" height="10" rx="1" fill="#d93600" transform="rotate(45 748 212.36)" />
   <text x="138" y="377.64" text-anchor="middle" class="value">16–24 kB</text>
   <text x="326" y="350.78" text-anchor="middle" class="value">78–86 kB</text>
-  <text x="516" y="211.78" text-anchor="end" class="value">413 kB</text>
+  <text x="516" y="230.14" text-anchor="end" class="value">370 kB</text>
   <text x="536" y="290.4" class="value">309 kB</text>
-  <text x="738" y="106.63" text-anchor="end" class="value">656 kB</text>
+  <text x="738" y="200.36" text-anchor="end" class="value">439 kB</text>
   <text x="758" y="256.14" class="value">389 kB</text>
   <g transform="translate(510 282)">
     <rect width="310" height="106" rx="8" class="callout-box" />

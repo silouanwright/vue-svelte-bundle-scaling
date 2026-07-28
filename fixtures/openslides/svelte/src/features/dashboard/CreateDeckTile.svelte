@@ -51,6 +51,7 @@
     resetKey: "create-deck-preview",
     debounceMs: SHIKI_DEBOUNCE_MS,
     policyName: "previewTile",
+    execution: "main-thread",
   }));
 
   $effect(() => {

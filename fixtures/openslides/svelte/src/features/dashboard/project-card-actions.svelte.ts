@@ -1,4 +1,4 @@
-import { getContext, setContext } from "svelte";
+import { createContext } from "svelte";
 
 /**
  * Dashboard card actions, shared via context (§2.1): the Dashboard provides
@@ -23,12 +23,13 @@ type ProjectCardActions = {
   remove: (id: string, name: string) => void;
 };
 
-const KEY = Symbol("project-card-actions");
+const [getProjectCardActions, setProjectCardActions] =
+  createContext<ProjectCardActions>();
 
 export function provideProjectCardActions(actions: ProjectCardActions): void {
-  setContext(KEY, actions);
+  setProjectCardActions(actions);
 }
 
 export function consumeProjectCardActions(): ProjectCardActions {
-  return getContext<ProjectCardActions>(KEY);
+  return getProjectCardActions();
 }

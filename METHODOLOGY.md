@@ -247,10 +247,14 @@ than framework-runtime bytes in isolation.
 
 The implementations are behavior-matched, not source-shape-matched. They use
 different framework-specific UI adapters and organize components differently.
-The final Svelte journey also requests a second Shiki engine, language, and
-theme set. The report preserves that real browser result and separately
-documents the sensitivity check showing that Vue remains smaller if the
-additional set is subtracted.
+
+The original Svelte source used worker-side Shiki for dashboard previews and
+main-thread Shiki for the editor transition, causing the browser to request
+two engine, language, and theme sets during the measured journey. The Vue port
+requested one set. The Svelte audit introduced an explicit execution policy so
+the dashboard and initial editor state reuse one main-thread set. The smaller,
+corrected Svelte measurement is canonical; the original duplicated result is
+documented in the README as an application gotcha.
 
 ## Fixture-authoring audit
 
@@ -268,6 +272,14 @@ The audit also made the following matched corrections:
 - an unmatched no-op Vue `watch` was removed;
 - one replace-only collection uses shallow state in both implementations:
   `shallowRef` in Vue and `$state.raw` in Svelte.
+
+The OpenSlides Svelte source was separately checked with `svelte-check`,
+ESLint, Knip, and Svelte’s official autofixer across all 99 component files.
+The actionable findings replaced two effect-synchronized prop mirrors with
+writable `$derived` state, migrated two context modules to `createContext`,
+and removed the duplicate Shiki transfer described above. The state and
+context changes were transfer-size neutral; the Shiki correction materially
+reduced the canonical Svelte result.
 
 The Svelte class change added 114 B of Brotli to the complete hand-authored
 application rather than reducing it. It remains because the canonical fixture

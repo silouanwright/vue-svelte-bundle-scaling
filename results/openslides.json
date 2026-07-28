@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generatedAt": "2026-07-27T21:47:50.983Z",
+    "generatedAt": "2026-07-28T02:00:07.033Z",
     "sourceRepository": "https://github.com/codewiththiha/OpenSlides",
     "sourceCommit": "a8138eb26c93df378119147c036c34fe7d83b6a7",
     "measurement": "Production JS/CSS/Wasm requested by a cold headless browser from dashboard through opening the seeded editor; Vite entry-manifest totals are also recorded",
@@ -177,29 +177,29 @@
       "framework": "svelte",
       "source": {
         "files": 233,
-        "lines": 18762,
+        "lines": 18772,
         "components": 99,
-        "componentLines": 8639
+        "componentLines": 8629
       },
       "initial": {
         "files": [
           {
-            "file": "assets/backend-config-loader-CRFUfC1K.js",
+            "file": "assets/backend-config-loader-IwMRjRHV.js",
             "raw": 404,
-            "gzip": 270,
-            "brotli": 227
+            "gzip": 271,
+            "brotli": 222
           },
           {
-            "file": "assets/backend-config.svelte-BEESiCrW.js",
-            "raw": 83599,
-            "gzip": 30211,
-            "brotli": 27254
+            "file": "assets/backend-config.svelte-8N4Hqrom.js",
+            "raw": 83741,
+            "gzip": 30253,
+            "brotli": 27259
           },
           {
-            "file": "assets/index-BbLVDLyJ.js",
+            "file": "assets/index-grn5FxYj.js",
             "raw": 35997,
-            "gzip": 11372,
-            "brotli": 9950
+            "gzip": 11373,
+            "brotli": 9989
           },
           {
             "file": "assets/index-pbgH7b4O.css",
@@ -208,121 +208,36 @@
             "brotli": 11824
           }
         ],
-        "raw": 207320,
-        "gzip": 56033,
-        "brotli": 49255
+        "raw": 207462,
+        "gzip": 56077,
+        "brotli": 49294
       },
       "journey": {
         "dashboard": {
           "files": [
             {
-              "file": "assets/Dashboard-Bs9EDyhe.js",
-              "raw": 238508,
-              "gzip": 75329,
-              "brotli": 65335
+              "file": "assets/Dashboard-CyNY2W6g.js",
+              "raw": 238514,
+              "gzip": 75344,
+              "brotli": 65404
             },
             {
-              "file": "assets/app-menu.svelte-aUcqD2Q8.js",
-              "raw": 314613,
-              "gzip": 95769,
-              "brotli": 81176
+              "file": "assets/app-menu.svelte-Bp_gKbRQ.js",
+              "raw": 314724,
+              "gzip": 95795,
+              "brotli": 81183
             },
             {
-              "file": "assets/backend-config-loader-CRFUfC1K.js",
+              "file": "assets/backend-config-loader-IwMRjRHV.js",
               "raw": 404,
-              "gzip": 270,
-              "brotli": 227
+              "gzip": 271,
+              "brotli": 222
             },
             {
-              "file": "assets/backend-config.svelte-BEESiCrW.js",
-              "raw": 83599,
-              "gzip": 30211,
-              "brotli": 27254
-            },
-            {
-              "file": "assets/dark-plus-76GoDLCw.js",
-              "raw": 10115,
-              "gzip": 2131,
-              "brotli": 1821
-            },
-            {
-              "file": "assets/index-BbLVDLyJ.js",
-              "raw": 35997,
-              "gzip": 11372,
-              "brotli": 9950
-            },
-            {
-              "file": "assets/index-pbgH7b4O.css",
-              "raw": 87320,
-              "gzip": 14180,
-              "brotli": 11824
-            },
-            {
-              "file": "assets/javascript-6Ja6lPCI.js",
-              "raw": 184947,
-              "gzip": 16548,
-              "brotli": 12109
-            },
-            {
-              "file": "assets/shiki.worker-DErH-CKA.js",
-              "raw": 182143,
-              "gzip": 49465,
-              "brotli": 42315
-            },
-            {
-              "file": "assets/typescript-D4ngywLb.js",
-              "raw": 190759,
-              "gzip": 16215,
-              "brotli": 11645
-            },
-            {
-              "file": "assets/wasm-D1shJi9v.js",
-              "raw": 622353,
-              "gzip": 230158,
-              "brotli": 149433
-            }
-          ],
-          "raw": 1950758,
-          "gzip": 541648,
-          "brotli": 413089
-        },
-        "editor": {
-          "files": [
-            {
-              "file": "assets/Dashboard-Bs9EDyhe.js",
-              "raw": 238508,
-              "gzip": 75329,
-              "brotli": 65335
-            },
-            {
-              "file": "assets/Editor-BRHfctjR.js",
-              "raw": 277834,
-              "gzip": 83534,
-              "brotli": 69074
-            },
-            {
-              "file": "assets/app-menu.svelte-aUcqD2Q8.js",
-              "raw": 314613,
-              "gzip": 95769,
-              "brotli": 81176
-            },
-            {
-              "file": "assets/backend-config-loader-CRFUfC1K.js",
-              "raw": 404,
-              "gzip": 270,
-              "brotli": 227
-            },
-            {
-              "file": "assets/backend-config.svelte-BEESiCrW.js",
-              "raw": 83599,
-              "gzip": 30211,
-              "brotli": 27254
-            },
-            {
-              "file": "assets/dark-plus-76GoDLCw.js",
-              "raw": 10115,
-              "gzip": 2131,
-              "brotli": 1821
+              "file": "assets/backend-config.svelte-8N4Hqrom.js",
+              "raw": 83741,
+              "gzip": 30253,
+              "brotli": 27259
             },
             {
               "file": "assets/dark-plus-DF6W79BC.js",
@@ -331,10 +246,10 @@
               "brotli": 1771
             },
             {
-              "file": "assets/index-BbLVDLyJ.js",
+              "file": "assets/index-grn5FxYj.js",
               "raw": 35997,
-              "gzip": 11372,
-              "brotli": 9950
+              "gzip": 11373,
+              "brotli": 9989
             },
             {
               "file": "assets/index-pbgH7b4O.css",
@@ -343,40 +258,16 @@
               "brotli": 11824
             },
             {
-              "file": "assets/javascript-6Ja6lPCI.js",
-              "raw": 184947,
-              "gzip": 16548,
-              "brotli": 12109
-            },
-            {
-              "file": "assets/javascript-CSO7020Y.js",
+              "file": "assets/javascript-yuqiRlJT.js",
               "raw": 174889,
               "gzip": 16188,
-              "brotli": 11996
+              "brotli": 11991
             },
             {
-              "file": "assets/shiki.worker-DErH-CKA.js",
-              "raw": 182143,
-              "gzip": 49465,
-              "brotli": 42315
-            },
-            {
-              "file": "assets/typescript-D4ngywLb.js",
-              "raw": 190759,
-              "gzip": 16215,
-              "brotli": 11645
-            },
-            {
-              "file": "assets/typescript-DXYW0wMF.js",
+              "file": "assets/typescript-CF3iPQlh.js",
               "raw": 181141,
-              "gzip": 15748,
-              "brotli": 11521
-            },
-            {
-              "file": "assets/wasm-D1shJi9v.js",
-              "raw": 622353,
-              "gzip": 230158,
-              "brotli": 149433
+              "gzip": 15749,
+              "brotli": 11527
             },
             {
               "file": "assets/wasm-D9sVOLb4.js",
@@ -385,16 +276,89 @@
               "brotli": 149361
             }
           ],
-          "raw": 3216041,
-          "gzip": 889338,
-          "brotli": 656812
+          "raw": 1748149,
+          "gzip": 491373,
+          "brotli": 370531
+        },
+        "editor": {
+          "files": [
+            {
+              "file": "assets/Dashboard-CyNY2W6g.js",
+              "raw": 238514,
+              "gzip": 75344,
+              "brotli": 65404
+            },
+            {
+              "file": "assets/Editor-B5KloIQZ.js",
+              "raw": 277728,
+              "gzip": 83504,
+              "brotli": 69041
+            },
+            {
+              "file": "assets/app-menu.svelte-Bp_gKbRQ.js",
+              "raw": 314724,
+              "gzip": 95795,
+              "brotli": 81183
+            },
+            {
+              "file": "assets/backend-config-loader-IwMRjRHV.js",
+              "raw": 404,
+              "gzip": 271,
+              "brotli": 222
+            },
+            {
+              "file": "assets/backend-config.svelte-8N4Hqrom.js",
+              "raw": 83741,
+              "gzip": 30253,
+              "brotli": 27259
+            },
+            {
+              "file": "assets/dark-plus-DF6W79BC.js",
+              "raw": 9094,
+              "gzip": 2086,
+              "brotli": 1771
+            },
+            {
+              "file": "assets/index-grn5FxYj.js",
+              "raw": 35997,
+              "gzip": 11373,
+              "brotli": 9989
+            },
+            {
+              "file": "assets/index-pbgH7b4O.css",
+              "raw": 87320,
+              "gzip": 14180,
+              "brotli": 11824
+            },
+            {
+              "file": "assets/javascript-yuqiRlJT.js",
+              "raw": 174889,
+              "gzip": 16188,
+              "brotli": 11991
+            },
+            {
+              "file": "assets/typescript-CF3iPQlh.js",
+              "raw": 181141,
+              "gzip": 15749,
+              "brotli": 11527
+            },
+            {
+              "file": "assets/wasm-D9sVOLb4.js",
+              "raw": 622325,
+              "gzip": 230134,
+              "brotli": 149361
+            }
+          ],
+          "raw": 2025877,
+          "gzip": 574877,
+          "brotli": 439572
         }
       },
       "complete": {
         "fileCount": 610,
-        "raw": 20627701,
-        "gzip": 3884153,
-        "brotli": 3143729
+        "raw": 20627854,
+        "gzip": 3884168,
+        "brotli": 3143963
       }
     }
   ]

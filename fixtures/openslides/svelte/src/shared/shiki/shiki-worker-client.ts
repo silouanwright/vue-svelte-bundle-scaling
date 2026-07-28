@@ -98,15 +98,26 @@ export async function requestHtml(
   priority: "high" | "low" = "high",
 ): Promise<WorkerResponse> {
   if (typeof Worker === "undefined" || isTestEnv()) {
-    if (signal?.aborted) throw new DOMException("Aborted", "AbortError");
-    const h = await getHighlighter(theme, language);
-    return {
-      id: -1,
-      // Strip to the inner <code> contents, same as the worker path.
-      html: extractShikiCodeHtml(
-        h.codeToHtml(code, { lang: language as BundledLanguage, theme }),
-      ),
-    };
+    return requestHtmlOnMainThread(code, language, theme, signal);
   }
   return send({ code, lang: language, theme, priority }, signal);
+}
+
+export async function requestHtmlOnMainThread(
+  code: string,
+  language: string,
+  theme: string,
+  signal?: AbortSignal,
+  _priority?: "high" | "low",
+): Promise<WorkerResponse> {
+  if (signal?.aborted) throw new DOMException("Aborted", "AbortError");
+  const h = await getHighlighter(theme, language);
+  if (signal?.aborted) throw new DOMException("Aborted", "AbortError");
+  return {
+    id: -1,
+    // Strip to the inner <code> contents, same as the worker path.
+    html: extractShikiCodeHtml(
+      h.codeToHtml(code, { lang: language as BundledLanguage, theme }),
+    ),
+  };
 }

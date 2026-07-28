@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { untrack } from "svelte";
   import Slider from "./Slider.svelte";
 
   /**
@@ -41,14 +40,9 @@
     "aria-label"?: string;
   } = $props();
 
-  // Initial value only — the effect above re-syncs `local` with every
-  // external value change. untrack() marks the capture as deliberate.
-  let local = $state<number[]>(untrack(() => value));
-
-  // Sync from parent when the external value changes (project switch, DB update)
-  $effect(() => {
-    local = value;
-  });
+  // Writable derived state follows external updates while allowing the bound
+  // slider to override it during the current interaction.
+  let local = $derived(value);
 
   function handleValueChange(v: number[]) {
     onValueChange?.(v);

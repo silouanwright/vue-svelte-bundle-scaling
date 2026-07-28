@@ -1,6 +1,6 @@
 # OpenSlides real-application benchmark
 
-Generated: 2026-07-27T21:47:50.983Z
+Generated: 2026-07-28T02:00:07.033Z
 
 > Behaviorally matched for the documented benchmark scope; the shared Playwright contract passes against both production implementations
 
@@ -15,31 +15,27 @@ Generated: 2026-07-27T21:47:50.983Z
 
 | Entry JavaScript + CSS | Vue | Svelte | Vue − Svelte |
 | --- | ---: | ---: | ---: |
-| Raw | 276,469 B | 207,320 B | 69,149 B |
-| gzip | 82,662 B | 56,033 B | 26,629 B |
-| Brotli | 72,452 B | 49,255 B | 23,197 B |
+| Raw | 276,469 B | 207,462 B | 69,007 B |
+| gzip | 82,662 B | 56,077 B | 26,585 B |
+| Brotli | 72,452 B | 49,294 B | 23,158 B |
 
 | Cold production journey | Vue | Svelte | Vue − Svelte |
 | --- | ---: | ---: | ---: |
-| Dashboard gzip | 418,966 B | 541,648 B | −122,682 B |
-| Dashboard Brotli | 309,676 B | 413,089 B | −103,413 B |
-| Dashboard → editor gzip | 510,251 B | 889,338 B | −379,087 B |
-| Dashboard → editor Brotli | 389,076 B | 656,812 B | −267,736 B |
+| Dashboard gzip | 418,966 B | 491,373 B | −72,407 B |
+| Dashboard Brotli | 309,676 B | 370,531 B | −60,855 B |
+| Dashboard → editor gzip | 510,251 B | 574,877 B | −64,626 B |
+| Dashboard → editor Brotli | 389,076 B | 439,572 B | −50,496 B |
 
 The cold journey includes the Shiki worker, Wasm engine, selected languages,
-and selected theme actually requested by each production build. After the
-editor opens, Svelte requests two Shiki engine, language, and theme sets; Vue
-requests one set plus the shared worker.
-
-The additional Svelte-only set totals 174,992 B after Brotli. Subtracting it as
-a sensitivity check leaves Svelte at 481,820 B, still 92,744 B larger than Vue.
-This subtraction is not a separate browser measurement.
+and selected theme actually requested by each production build. Both
+canonical applications transfer one engine, language, and theme set during
+the measured journey. Vue also requests its editor worker script.
 
 | Source inventory | Vue | Svelte |
 | --- | ---: | ---: |
 | Components | 27 | 99 |
-| Component lines | 3,866 | 8,639 |
-| Total TS/JS/CSS/component lines | 8,771 | 18,762 |
+| Component lines | 3,866 | 8,629 |
+| Total TS/JS/CSS/component lines | 8,771 | 18,772 |
 
 The implementations are behavior-matched rather than source-shape-matched.
 Vue uses fewer, larger component files; Svelte uses more, smaller component

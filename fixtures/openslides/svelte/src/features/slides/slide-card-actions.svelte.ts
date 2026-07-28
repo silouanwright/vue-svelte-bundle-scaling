@@ -1,4 +1,4 @@
-import { getContext, setContext } from "svelte";
+import { createContext } from "svelte";
 import type { Slide } from "$lib/types";
 
 /**
@@ -24,12 +24,13 @@ export type SlideCardActions = {
   openContextMenu: (event: MouseEvent, slide: Slide, title: string) => void;
 };
 
-const KEY = Symbol("slide-card-actions");
+const [getSlideCardActions, setSlideCardActions] =
+  createContext<SlideCardActions>();
 
 export function provideSlideCardActions(actions: SlideCardActions): void {
-  setContext(KEY, actions);
+  setSlideCardActions(actions);
 }
 
 export function consumeSlideCardActions(): SlideCardActions {
-  return getContext<SlideCardActions>(KEY);
+  return getSlideCardActions();
 }

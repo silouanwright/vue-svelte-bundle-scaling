@@ -1,4 +1,7 @@
-import { requestHtml } from "$lib/shiki/shiki-worker-client";
+import {
+  requestHtml,
+  requestHtmlOnMainThread,
+} from "$lib/shiki/shiki-worker-client";
 import { isTestEnv } from "$lib/lib/env";
 import { SHIKI_DEBOUNCE_MS } from "$lib/constants";
 import {
@@ -16,6 +19,7 @@ interface ShikiDisplayHtmlArgs {
   debounceMs?: number;
   priority?: "high" | "low";
   enabled?: boolean;
+  execution?: "worker" | "main-thread";
   policyName?: ShikiDisplayPolicyName;
   policy?: Partial<ShikiDisplayPolicy>;
 }
@@ -82,7 +86,9 @@ export function shikiDisplayHtml(args: () => ShikiDisplayHtmlArgs) {
     const actualDebounce = isTestEnv() ? 0 : debounceMs;
     const controller = new AbortController();
     const timer = window.setTimeout(() => {
-      requestHtml(code, a.language, a.theme, controller.signal, priority)
+      const renderHtml =
+        a.execution === "main-thread" ? requestHtmlOnMainThread : requestHtml;
+      renderHtml(code, a.language, a.theme, controller.signal, priority)
         .then((response) => {
           if (
             controller.signal.aborted ||

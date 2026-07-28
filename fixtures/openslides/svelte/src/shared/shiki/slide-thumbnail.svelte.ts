@@ -102,6 +102,7 @@ export function createSlideThumbnail(args: () => SlideThumbnailArgs) {
     resetKey: key,
     debounceMs: args().debounceMs ?? REQUEST_DEBOUNCE_MS,
     priority: args().priority ?? "low",
+    execution: "main-thread",
     enabled: shouldRequest,
     policyName: "thumbnail",
   }));

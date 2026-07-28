@@ -89,22 +89,11 @@ nine Playwright workflows.
 
 | OpenSlides production transfer | Vue 3.5 | Svelte 5 | Smaller result |
 | --- | ---: | ---: | --- |
-| Default dashboard | 309.676 kB | 413.089 kB | Vue by 103.413 kB |
-| Dashboard + editor | 389.076 kB | 656.812 kB | Vue by 267.736 kB |
+| Default dashboard | 309.676 kB | 370.531 kB | Vue by 60.855 kB |
+| Dashboard + editor | 389.076 kB | 439.572 kB | Vue by 50.496 kB |
 
-Vue is already 103.413 kB smaller when the dashboard becomes usable and
-267.736 kB smaller after the editor loads.
-
-<details>
-<summary>Does Svelte’s additional Shiki payload explain the result?</summary>
-
-The final Svelte journey requests a second Shiki engine, language, and theme
-set totaling 174.992 kB after Brotli. That implementation detail increases the
-final gap. Removing it as a sensitivity check still leaves Vue 92.744 kB
-smaller, while the dashboard result is unaffected and already favors Vue by
-103.413 kB.
-
-</details>
+Vue is already 60.855 kB smaller when the dashboard becomes usable and
+50.496 kB smaller after the editor loads.
 
 ### Compression does not create Vue’s lead
 
@@ -112,7 +101,7 @@ The difference also exists before transfer compression:
 
 ![Svelte emits less uncompressed production output for Weather Front and Terminal, while Vue emits substantially less for OpenSlides](docs/images/real-applications-raw.svg)
 
-*At the final state, Vue emits 1.810 MB and Svelte emits 3.216 MB before
+*At the final state, Vue emits 1.810 MB and Svelte emits 2.026 MB before
 compression. The result comes from the production output, not from Brotli
 compressing Vue more efficiently.*
 
@@ -137,6 +126,31 @@ Weather Front uses matched Vue and Svelte implementations of the same product
 surface. Terminal reproduces an
 [independent comparison](https://github.com/naufalafif/realworld-js-framework-comparison/tree/2c338de860222deba6b842260cfbec6609c272bd).
 Together they establish the left side of the chart: Svelte starts smaller.
+
+## A Svelte bundle-size gotcha found during the audit
+
+OpenSlides is a substantial existing Svelte application, not a fixture written
+to make Svelte look bad. Yet its original implementation used a Shiki worker
+for dashboard previews and a separate main-thread Shiki instance in the
+editor. The browser consequently transferred Shiki twice during the measured
+journey. The same duplication did not occur in the Vue port.
+
+Nothing in ordinary source review or behavior testing made this cost obvious.
+It appeared only when I audited the production requests. The duplicate
+worker/main-thread path added roughly 217 kB after Brotli—enough to overwhelm
+the bundle-size advantage that often motivates choosing Svelte.
+
+I gave Svelte the stronger result by adding an explicit execution policy that
+reuses its main-thread Shiki payload for the dashboard and initial editor
+state. Its transfer fell from 413.089 kB to 370.531 kB on the dashboard and
+from 656.812 kB to 439.572 kB after opening the editor. Those corrected figures
+are the canonical results in this repository, and Vue remains smaller in both
+states.
+
+This is an application footgun, not behavior inherent to Svelte. It
+nevertheless demonstrates the defensive resource planning that worker and
+main-thread boundaries can require before a Svelte application delivers its
+expected bundle-size advantage.
 
 Synthetic scaling tests, the historical TodoMVC reproduction, complete
 small-app measurements, and every machine-readable artifact are indexed in

@@ -3,7 +3,6 @@
 </script>
 
 <script lang="ts">
-  import { untrack } from "svelte";
   import { fade } from "svelte/transition";
   import Label from "./Label.svelte";
   import DebouncedSlider from "./DebouncedSlider.svelte";
@@ -38,7 +37,7 @@
   const sliderId = `slider-field-${nextSliderId++}`;
   const labelId = `${sliderId}-label`;
 
-  let liveValue = $state(untrack(() => value));
+  let liveValue = $derived(value);
   let isInteracting = $state(false);
 
   const reduceMotion = $derived(
@@ -46,10 +45,6 @@
       "matchMedia" in window &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
-
-  $effect(() => {
-    liveValue = value;
-  });
 
   const displayValue = $derived(format ? format(liveValue) : String(liveValue));
   const text = $derived(`${label} (${displayValue})`);
