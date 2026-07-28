@@ -230,6 +230,6 @@ have—picked Svelte strictly off of promises of smaller bundle sizes and better
 performance for serious applications, which will almost certainly be
 medium-to-large applications.
 
-This acknowledgment, combined with the performance of Vue’s Vapor Mode,
-should help people who would otherwise pick Vue were it not for performance
-concerns.
+For medium-to-large applications, Vue generally produces the smaller bundle.
+Vapor Mode, once stable, will also bring Vue much closer to Svelte in raw
+rendering speed.
