@@ -108,8 +108,9 @@ Reproduction commands begin at
 
 OpenSlides is a working, MIT-licensed desktop application for building
 animated code presentations. I ported its frontend from Svelte 5 to Vue 3 to
-demonstrate Evan You’s projected crossover in a substantial application. The
-upstream source is pinned at commit
+demonstrate Evan You’s (the creator of Vue) projected inflection point from his
+hypothetical benchmark in a real-life application. The upstream source is
+pinned at commit
 [`a8138eb`](https://github.com/codewiththiha/OpenSlides/tree/a8138eb26c93df378119147c036c34fe7d83b6a7).
 
 Both versions lazy-load the same dashboard and editor routes and pass the same
