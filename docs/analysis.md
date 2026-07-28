@@ -271,14 +271,15 @@ pass the same nine Playwright workflows.
 
 | Cold production journey | Vue Brotli | Svelte Brotli | Vue advantage |
 | --- | ---: | ---: | ---: |
-| Dashboard | 309,676 B | 413,089 B | 103,413 B |
-| Dashboard through editor | 389,076 B | 656,812 B | 267,736 B |
+| Dashboard | 309,676 B | 370,531 B | 60,855 B |
+| Dashboard through editor | 389,076 B | 439,572 B | 50,496 B |
 
-The final Svelte journey requests a second Shiki engine, language, and theme
-set totaling 174,992 B after Brotli. That implementation choice inflates the
-final difference. Subtracting it as a sensitivity check leaves Svelte at
-481,820 B, still 92,744 B larger than Vue. The dashboard result does not
-contain that second set and already favors Vue by 103,413 B.
+The production-request audit found that the upstream Svelte implementation
+transferred Shiki through separate worker and main-thread paths. Its original
+measurements were 413,089 B on the dashboard and 656,812 B through the editor.
+An explicit execution policy eliminated that duplication. The table reports
+the smaller, corrected Svelte result rather than a sensitivity subtraction.
+Vue remains smaller in both states.
 
 This is a complete-implementation comparison, not a framework-runtime
 isolation experiment. The ports use different framework-specific adapters and
@@ -302,10 +303,10 @@ A publication using these results can say:
 > as separate responses, Vue eventually became smaller in gzip and Brotli.
 > A separate, individually written 33-component application did not cross,
 > although most of its lazy route increments favored Vue and the complete gap
-> narrowed. In OpenSlides, a working medium-sized application, Vue was already
-> 103 kB smaller after the dashboard loaded and remained smaller after the
-> editor loaded, even after accounting for an additional Svelte-only Shiki
-> asset set.
+> narrowed. In OpenSlides, a working medium-sized application, Vue was 61 kB
+> smaller after the dashboard loaded and remained 50 kB smaller after the
+> editor loaded. Those figures use the corrected Svelte implementation after
+> eliminating its duplicate Shiki transfer.
 > The evidence therefore supports Svelte as the likely size winner for widgets
 > and small applications, and Vue as the likely smaller framework layer for
 > medium-to-large applications with many distinct, independently transferred
