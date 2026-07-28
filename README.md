@@ -225,5 +225,7 @@ specimens retain their respective licenses and are not committed here.
 
 I’m very appreciative of Rich Harris for creating Svelte, and I hope this
 doesn’t come across as rude. I just think a good argument for Vue deserves to
-be made, especially when many developers and tech leads will pick Svelte
-strictly off of promises of smaller bundle sizes and better performance.
+be made, especially when many developers and tech leads will—and already
+have—picked Svelte strictly off of promises of smaller bundle sizes and better
+performance for serious applications, which will almost certainly be
+medium-to-large applications.
