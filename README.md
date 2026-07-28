@@ -152,23 +152,6 @@ nevertheless demonstrates the defensive resource planning that worker and
 main-thread boundaries can require before a Svelte application delivers its
 expected bundle-size advantage.
 
-## Conclusion
-
-I am very appreciative of Rich Harris for creating Svelte, and I hope this
-work does not come across as rude or personal. Svelte is an important
-framework, and its ideas have made the frontend ecosystem better.
-
-But a strong argument for Vue deserves to be made. Many developers and
-technical leads will choose Svelte strictly on the promise of smaller bundles
-and better performance. This repository measures bundle size rather than
-runtime performance, but those two promises are often presented together. The
-bundle-size promise is true for some applications. It is not a general rule.
-
-The working applications measured here show both sides of the tradeoff: Svelte
-starts smaller, while Vue becomes smaller as an application grows. For
-medium-to-large applications, bundle size is therefore a reason to consider
-Vue, not a reason to dismiss it.
-
 Synthetic scaling tests, the historical TodoMVC reproduction, complete
 small-app measurements, and every machine-readable artifact are indexed in
 [`results/`](results/README.md). Interpretation and limitations live in
@@ -237,3 +220,10 @@ under the [MIT License](LICENSE). The committed OpenSlides specimen and Vue
 port retain the upstream project’s
 [MIT license](fixtures/openslides/svelte/LICENSE). Other fetched upstream
 specimens retain their respective licenses and are not committed here.
+
+## Conclusion
+
+I’m very appreciative of Rich Harris for creating Svelte, and I hope this
+doesn’t come across as rude. I just think a good argument for Vue deserves to
+be made, especially when many developers and tech leads will pick Svelte
+strictly off of promises of smaller bundle sizes and better performance.

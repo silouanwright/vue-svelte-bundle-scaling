@@ -690,7 +690,7 @@ fs.writeFileSync(
     openslides.results,
     {
       sizeKey: "brotli",
-      maximum: 700_000,
+      maximum: 500_000,
       ticks: [
         0,
         100_000,
@@ -698,7 +698,6 @@ fs.writeFileSync(
         300_000,
         400_000,
         500_000,
-        600_000,
       ],
       title: "From a small app to a medium-sized app (kB)",
       subtitle: 'Vue vs. Svelte · Actual "real-life" applications',
